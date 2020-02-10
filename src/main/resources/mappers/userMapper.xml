@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ams.user.mapper.userMapper">
+   <insert id="signup">
+    INSERT INTO USERS(USERID, USERPW, USERNAME, USEREMAIL)
+       					VALUES(#{userId}, #{userPw}, #{userName}, #{userEmail})
+   </insert>
+   <insert id="getAuthority">
+   	INSERT INTO AUTHORITIES(USERID)
+   							VALUES(#{userId})
+   </insert>
+   <select id="idChk" resultType="int">
+   	SELECT COUNT(*) FROM USERS WHERE USERID = #{userId}
+   </select>
+   <select id="findUser" resultType="String">
+      SELECT USERNAME FROM USERS WHERE USERID=#{userId}
+   </select>
+</mapper>
+  

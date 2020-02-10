@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+	">
+	<sec:http pattern="/resources/**" security="none" />
+	<sec:http>
+		<sec:form-login
+			login-page="/login"
+			username-parameter="userId"
+			password-parameter="userPw"
+			default-target-url="/" />
+		<sec:intercept-url pattern="/user/idChk" access="permitAll" />
+		<sec:intercept-url pattern="/user/signup" access="permitAll"/>
+		<sec:intercept-url pattern="/oauth/**" access="permitAll"/>
+		<sec:intercept-url pattern="/klogin" access="permitAll"/>
+		<sec:intercept-url pattern="/login" access="permitAll"/>
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<sec:logout logout-success-url="/" invalidate-session="true"/>
+	</sec:http>
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service
+				data-source-ref="dataSource"
+				role-prefix=""
+				users-by-username-query="select userid, userpw, enabled from USERS where userid = ?"
+				authorities-by-username-query="SELECT userid, authority FROM AUTHORITIES WHERE userid=?" />
+			<sec:password-encoder ref="passwordEncoder" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+</beans>
