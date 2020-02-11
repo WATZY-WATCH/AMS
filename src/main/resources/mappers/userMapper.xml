@@ -15,8 +15,25 @@
    <select id="idChk" resultType="int">
    	SELECT COUNT(*) FROM USERS WHERE USERID = #{userId}
    </select>
+   
+   <select id="nameChk" resultType="int">
+   	SELECT COUNT(*) FROM USERS WHERE USERNAME = #{userName}
+   </select>
+   
+   <select id="emailChk" resultType="int">
+   	SELECT COUNT(*) FROM USERS WHERE USEREMAIL = #{userEmail}
+   </select>
+   
+   <select id="getUserInfo" resultType="ams.user.domain.UserVO">
+   	SELECT * FROM USERS WHERE USERID = #{userId}
+   </select>
+   
    <select id="findUser" resultType="String">
       SELECT USERNAME FROM USERS WHERE USERID=#{userId}
    </select>
+   
+   <update id="modifyUser" parameterType="ams.user.domain.UserVO">
+      UPDATE USERS SET USERNAME = #{userName}, USEREMAIL=#{userEmail} WHERE USERID=#{userId}
+   </update>
 </mapper>
   

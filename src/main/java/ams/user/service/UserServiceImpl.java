@@ -23,6 +23,28 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int nameChk(String userName) throws Exception {
+		int res = dao.nameChk(userName);
+		return res;
+	}
+	
+	@Override
+	public int emailChk(String userEmail) throws Exception {
+		int res = dao.emailChk(userEmail);
+		return res;
+	}
+	
+	@Override
+	public int modifyUser(UserVO vo) throws Exception {
+		return dao.modifyUser(vo);
+	}
+	
+	@Override
+	public UserVO getUserInfo(String userId) throws Exception {
+		return dao.getUserInfo(userId);
+	}
+	
+	@Override
 	public String findUser(String userId) throws Exception {
 		return dao.findUser(userId);
 	}

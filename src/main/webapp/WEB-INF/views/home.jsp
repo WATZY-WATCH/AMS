@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Hello world2!  
 </h1>
 
 <p id="userName"> ${userName } 님 환영합니다! </p>
@@ -17,5 +17,6 @@
 	<sec:csrfInput />
 	<button>로그아웃 </button>
 </form>
+<a href="/user/user_modify">정보수정</a>
 </body>
 </html>
