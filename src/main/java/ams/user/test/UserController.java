@@ -1,11 +1,14 @@
 package ams.user.test;
 
+import java.security.Principal;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +48,42 @@ public class UserController {
 		logger.info("post idChk");
 		String userId = vo.getUserId();
 		int res = service.idChk(userId);
+		return res;
+	}
+	
+	@RequestMapping(value="/user_modify", method=RequestMethod.GET)
+	public String getUser_modify(Principal principal, Model model) throws Exception {
+		logger.info("get user_modify");
+		UserVO userInfo=service.getUserInfo(principal.getName());
+		model.addAttribute("setName", userInfo.getUserName());
+		model.addAttribute("setEmail", userInfo.getUserEmail());
+		model.addAttribute("userId",principal.getName());
+		return "user_modify";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/user_modify", method=RequestMethod.POST)
+	public int postUser_modify(@RequestBody UserVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("post user_modify");
+		logger.info(vo.getUserName());
+		return service.modifyUser(vo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/nameChk", method=RequestMethod.POST)
+	public int postNameChk(@RequestBody UserVO vo) throws Exception {
+		logger.info("post nameChk");
+		String userName = vo.getUserName();
+		int res = service.nameChk(userName);
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/emailChk", method=RequestMethod.POST)
+	public int postEmailChk(@RequestBody UserVO vo) throws Exception {
+		logger.info("post emailChk");
+		String userEmail = vo.getUserEmail();
+		int res = service.emailChk(userEmail);
 		return res;
 	}
 }

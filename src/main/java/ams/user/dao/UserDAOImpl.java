@@ -24,6 +24,29 @@ public class UserDAOImpl implements UserDAO {
 		int res = sql.selectOne(ns+".idChk", userId);
 		return res;
 	}
+	
+	@Override
+	public int nameChk(String userName) throws Exception {
+		int res = sql.selectOne(ns+".nameChk", userName);
+		return res;
+	}
+	
+	@Override
+	public int emailChk(String userEmail) throws Exception {
+		int res = sql.selectOne(ns+".emailChk", userEmail);
+		return res;
+	}
+	
+	@Override
+	public int modifyUser(UserVO vo) throws Exception {
+		return sql.update(ns+".modifyUser", vo);
+	}
+	
+	@Override
+	public UserVO getUserInfo(String userId) throws Exception {
+		return sql.selectOne(ns+".getUserInfo",userId);
+	}
+	
 	@Override
 	public String findUser(String userId) throws Exception{
 		return sql.selectOne(ns+".findUser",userId);
