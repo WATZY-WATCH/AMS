@@ -3,6 +3,7 @@ package ams.user.test;
 import java.security.Principal;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,9 +82,39 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/emailChk", method=RequestMethod.POST)
 	public int postEmailChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post emailChk");
+		logger.info("post emailChk.....");
 		String userEmail = vo.getUserEmail();
 		int res = service.emailChk(userEmail);
 		return res;
 	}
+	
+	@RequestMapping(value="/signout", method=RequestMethod.GET)
+	public String getSignOut(Principal principal, Model model) throws Exception {
+		logger.info("get signout.....");
+		model.addAttribute("userId",principal.getName());
+		return "signout";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/pwChk", method=RequestMethod.POST)
+	public boolean postSignOut(@RequestBody UserVO vo) throws Exception {
+		logger.info("post pwChk......");
+		String userPw = vo.getUserPw();
+		String pwd = pwdEncoder.encode(userPw);
+		vo.setUserPw(pwd);
+		String hashPw=service.getUserInfo(vo.getUserId()).getUserPw();
+		return pwdEncoder.matches(userPw, hashPw);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/signout", method=RequestMethod.POST)
+	public int postSignout(@RequestBody UserVO vo,HttpSession session) throws Exception {
+		logger.info("post signout......");
+		int ret= service.signout(vo.getUserId());
+		if(ret>0) {
+			session.invalidate();
+		}
+		return ret;
+	}
+	
 }

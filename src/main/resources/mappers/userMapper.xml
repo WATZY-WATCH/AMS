@@ -24,6 +24,14 @@
    	SELECT COUNT(*) FROM USERS WHERE USEREMAIL = #{userEmail}
    </select>
    
+   <select id="pwChk" resultType="int">
+   	SELECT COUNT(*) FROM USERS WHERE USERPW = #{userPw} AND USERID = #{userId}
+   </select>
+   
+   <delete id="signout" parameterType="ams.user.domain.UserVO">
+   	DELETE FROM USERS WHERE USERID = #{userId};
+   </delete>
+   
    <select id="getUserInfo" resultType="ams.user.domain.UserVO">
    	SELECT * FROM USERS WHERE USERID = #{userId}
    </select>
