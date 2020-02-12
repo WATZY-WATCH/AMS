@@ -38,6 +38,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public int pwChk(UserVO vo) throws Exception {
+		
+		return sql.selectOne(ns+".pwChk", vo);
+	}
+	
+	@Override
+	public int signout(String userId) throws Exception {
+		return sql.delete(ns+".signout", userId);
+	}
+	
+	@Override
 	public int modifyUser(UserVO vo) throws Exception {
 		return sql.update(ns+".modifyUser", vo);
 	}

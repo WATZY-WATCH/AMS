@@ -35,6 +35,16 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int pwChk(UserVO vo) throws Exception {
+		return dao.pwChk(vo);
+	}
+	
+	@Override
+	public int signout(String userId) throws Exception {
+		return dao.signout(userId);
+	}
+	
+	@Override
 	public int modifyUser(UserVO vo) throws Exception {
 		return dao.modifyUser(vo);
 	}
