@@ -59,6 +59,7 @@ public class UserController {
 		model.addAttribute("setName", userInfo.getUserName());
 		model.addAttribute("setEmail", userInfo.getUserEmail());
 		model.addAttribute("userId",principal.getName());
+		logger.info("user :"+userInfo.getUserName());
 		return "user_modify";
 	}
 	

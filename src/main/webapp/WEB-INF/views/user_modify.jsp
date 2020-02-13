@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<label for="userName">성명</label>
-					<input type="text" id="userName" name="userName" value=${setName} />
+					<input type="text" id="userName" name="userName" value=${setName} onkeypress="chkFalse(this)" />
 					<button type="button" id="nameChkBtn" onclick="nameChk()">중복확인 </button>
 					<p id="nameMsg" style="display:none">중복된 닉네임이 존재합니다. </p>
 				</div>
@@ -40,6 +40,8 @@
 			const header = elementHeader && elementHeader.getAttribute("content");
 			
 			var nameChked = false, emailChked = false;
+			var saveName=document.getElementById("userName").value;
+			var saveEmail=document.getElementById("userEmail").value;
 			const initName = document.getElementById("userName").value;
 			const initEmail = document.getElementById("userEmail").value;
 			
@@ -62,6 +64,7 @@
 							msg.style.fontSize = "14px";
 							msg.style.color = "green";
 							nameChked = true;
+							saveName= document.getElementById("userName").value;
 						} else {
 							msg.innerHTML = "중복된 닉네임이 존재합니다.";
 							msg.style.display = "inline";
@@ -91,6 +94,7 @@
 							msg.style.fontSize = "14px";
 							msg.style.color = "green";
 							emailChked = true;
+							saveEmail= document.getElementById("userEmail").value;
 						} else {
 							msg.innerHTML = "중복된 이메일이 존재합니다.";
 							msg.style.display = "inline";
@@ -108,7 +112,6 @@
 				const userEmail = document.getElementById("userEmail").value;
 				const data = {userId:userId, userName: userName, userEmail: userEmail};
 				const xhr = new XMLHttpRequest();
-				
 				xhr.open("POST", "./user_modify", true);
 				xhr.setRequestHeader(header, token);
 				xhr.setRequestHeader("Content-Type", "application/json");
@@ -120,6 +123,10 @@
 					alert("닉네임 중복확인을 해주세요.");
 				} else if(initEmail !== userEmail && !emailChked) {
 					alert("이메일 중복확인을 해주세요.");
+				} else if(saveName!=userName){
+					alert("닉네임이 바뀌었습니다. 중복확인을 다시 해주세요.");
+				} else if(saveEmail!=userEmail){
+					alert("이메일이 바뀌었습니다. 중복확인을 다시 해주세요.");
 				} else {
 					let confirmed = confirm("정보를 변경하시겠습니까?");
 					if(confirmed) {
@@ -137,9 +144,9 @@
 						}
 					}
 				}
-				
-				
-				
+			}
+			function chkFalse(v) {
+				console.log(v);
 			}
 		</script>
 </body>
