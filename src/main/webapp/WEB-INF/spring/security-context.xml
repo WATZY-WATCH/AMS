@@ -29,8 +29,8 @@
 			<sec:jdbc-user-service
 				data-source-ref="dataSource"
 				role-prefix=""
-				users-by-username-query="select userid, userpw, enabled from USERS where userid = ?"
-				authorities-by-username-query="SELECT userid, authority FROM AUTHORITIES WHERE userid=?" />
+				users-by-username-query="select user_id, user_pw, enabled from USERS where user_id = ?"
+				authorities-by-username-query="SELECT user_id, authority FROM AUTHORITIES WHERE user_id=?" />
 			<sec:password-encoder ref="passwordEncoder" />
 		</sec:authentication-provider>
 	</sec:authentication-manager>
