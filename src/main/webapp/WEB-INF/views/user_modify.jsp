@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<label for="userName">성명</label>
-					<input type="text" id="userName" name="userName" value=${setName} onkeypress="chkFalse(this)" />
+					<input type="text" id="userName" name="userName" value=${setName} />
 					<button type="button" id="nameChkBtn" onclick="nameChk()">중복확인 </button>
 					<p id="nameMsg" style="display:none">중복된 닉네임이 존재합니다. </p>
 				</div>
@@ -144,9 +144,6 @@
 						}
 					}
 				}
-			}
-			function chkFalse(v) {
-				console.log(v);
 			}
 		</script>
 </body>
