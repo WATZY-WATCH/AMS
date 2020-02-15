@@ -17,7 +17,7 @@
 	<sec:csrfInput />
 	<button>로그아웃 </button>
 </form>
-<a href="/user/user_modify">정보수정</a>
+<a href="/user/modify">정보수정</a>
 <a href="/user/signout">회원탈퇴</a>
 </body>
 </html>

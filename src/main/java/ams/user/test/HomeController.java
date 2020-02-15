@@ -34,7 +34,7 @@ public class HomeController {
 		logger.info("Welcome home!");
 		String userName = service.findUser(principal.getName());
 		model.addAttribute("userName", userName);
-		return "home";
+		return "user_home";
 	}
 	
 }
