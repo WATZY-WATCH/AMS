@@ -1,4 +1,4 @@
-package ams.user.test;
+package ams.user.controller;
 
 import java.security.Principal;
 

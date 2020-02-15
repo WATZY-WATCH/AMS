@@ -19,5 +19,8 @@
 </form>
 <a href="/user/modify">정보수정</a>
 <a href="/user/signout">회원탈퇴</a>
+<div>
+<a href="/group/create">그룹생성</a>
+</div>
 </body>
 </html>
