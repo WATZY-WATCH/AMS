@@ -2,10 +2,7 @@ package ams.user.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.URLEncoder;
 import java.security.SecureRandom;
-import java.util.HashMap;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -58,13 +55,25 @@ public class AuthenticationController {
 		System.out.println(code);
 		JsonNode at = KakaoAPI.getAccessToken(code, state);
 		String access_token = at.get("access_token").asText();
-		HashMap<String, Object> userInfo = KakaoAPI.getUserInfo(access_token);
+		JsonNode userInfo = KakaoAPI.getUserInfo(access_token);
+		
+		String userId = userInfo.get("id").asText();
+		
+		JsonNode properties = userInfo.get("properties");
+		JsonNode kakao_account = userInfo.get("kakao_account");
+		
+		String userNickname = properties.get("nickname").asText();
+		String userEmail = kakao_account.get("email").asText();
+		
 		System.out.println("controller access_token : " + access_token);
 		System.out.println("login Controller : " + userInfo);
-		if (userInfo.get("email") != null) {
-			session.setAttribute("userId", userInfo.get("email"));
-			session.setAttribute("nickname", userInfo.get("nickname"));
+		if (userEmail != null) {
+			session.setAttribute("userId", userId);
+			session.setAttribute("nickname", userNickname);
+			session.setAttribute("userEmail", userEmail);
 			session.setAttribute("access_Token", access_token);
+		} else {
+			
 		}
 
         return "redirect:/";
