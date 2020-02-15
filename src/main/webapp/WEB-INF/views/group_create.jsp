@@ -126,7 +126,7 @@
 		<script type="text/javascript">
 			const elementToken = document.querySelector('meta[name="_csrf"]');
 			const token = elementToken && elementToken.getAttribute("content");
-			const elementHeader = document.querySelector('meta[name="_csrf_header"]');
+			const elementHeader = document.querySelector('meta[name="_csrf_header"]');G
 			const header = elementHeader && elementHeader.getAttribute("content");
 			
 			function periodSelect(){
