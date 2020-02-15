@@ -36,6 +36,14 @@
    	SELECT * FROM USERS WHERE USER_ID = #{userId}
    </select>
    
+   <select id="getOAuthUserInfo" resultType="ams.user.domain.UserVO">
+   	SELECT * FROM OAUTH_USERS WHERE USER_ID = #{userId}
+   </select>
+   
+   <select id="getOAuthUserAuthority" resultType="String">
+   	SELECT AUTHORITY FROM OAUTH_AUTHORITIES WHERE USER_ID = #{userId}
+   </select>
+   
    <select id="findUser" resultType="String">
       SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
    </select>

@@ -59,6 +59,16 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public UserVO getOAuthUserInfo(String userId) throws Exception {
+		return sql.selectOne(ns+".getOAuthUserInfo", userId);
+	}
+	
+	@Override
+	public String getOAuthUserAuthority(String userId) throws Exception {
+		return sql.selectOne(ns+".getOAuthUserAuthority", userId);
+	}
+	
+	@Override
 	public String findUser(String userId) throws Exception{
 		return sql.selectOne(ns+".findUser",userId);
 	}

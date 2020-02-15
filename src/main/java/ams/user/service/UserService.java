@@ -11,5 +11,7 @@ public interface UserService {
 	public int signout(String userId) throws Exception;
 	public int modifyUser(UserVO vo) throws Exception;
 	public UserVO getUserInfo(String userId) throws Exception;
+	public UserVO getOAuthUserInfo(String userId) throws Exception;
+	public String getOAuthUserAuthority(String userId) throws Exception;
 	public String findUser(String userId) throws Exception;
 }
