@@ -43,5 +43,12 @@
    <update id="modifyUser" parameterType="ams.user.domain.UserVO">
       UPDATE USERS SET USER_NAME = #{userName}, USER_EMAIL=#{userEmail} WHERE USER_ID=#{userId}
    </update>
+   
+   <insert id="groupCreate">
+    INSERT INTO USERS(GROUP_CATEGORY, GROUP_NAME, GROUP_DETAIL, GROUP_MEMBER_LIMIT, GROUP_PERIOD, GROUP_AREA, GROUP_START_AGE, GROUP_END_AGE)
+       					VALUES(#{groupCategory}, #{groupName}, #{groupDetail}, #{groupMemberLimit}, #{groupPeriod},#{groupArea},#{groupStartAge},#{groupEndAge})
+   </insert>
+   
+   
 </mapper>
   
