@@ -1,4 +1,4 @@
-package ams.user.test;
+package ams.user.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -28,12 +28,12 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
 	public String viewLoginForm() {
-		return "loginForm";
+		return "user_login";
 	}
 	
 	@RequestMapping(path="/logout", method=RequestMethod.POST)
 	public String viewLogOut() {
-		return "logout";
+		return "user_logout";
 	}
 	
 	@RequestMapping(path="/klogin", method=RequestMethod.GET)

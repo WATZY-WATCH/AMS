@@ -1,4 +1,4 @@
-package ams.user.test;
+package ams.user.controller;
 
 import java.security.Principal;
 import java.text.DateFormat;
@@ -34,7 +34,7 @@ public class HomeController {
 		logger.info("Welcome home!");
 		String userName = service.findUser(principal.getName());
 		model.addAttribute("userName", userName);
-		return "home";
+		return "user_home";
 	}
 	
 }

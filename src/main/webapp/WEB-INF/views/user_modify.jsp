@@ -112,7 +112,7 @@
 				const userEmail = document.getElementById("userEmail").value;
 				const data = {userId:userId, userName: userName, userEmail: userEmail};
 				const xhr = new XMLHttpRequest();
-				xhr.open("POST", "./user_modify", true);
+				xhr.open("POST", "./modify", true);
 				xhr.setRequestHeader(header, token);
 				xhr.setRequestHeader("Content-Type", "application/json");
 				if(userName === "") {
@@ -133,7 +133,6 @@
 						xhr.send(JSON.stringify(data));
 						xhr.onload = function () {
 							if(xhr.status == 200 || xhr.status == 201) {
-								console.log(xhr.responseText);
 								if(xhr.responseText == 1) {
 									alert("성공적으로 변경되었습니다. ");
 									document.location.href="/";

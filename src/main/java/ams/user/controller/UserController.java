@@ -1,4 +1,4 @@
-package ams.user.test;
+package ams.user.controller;
 
 import java.security.Principal;
 
@@ -30,7 +30,7 @@ public class UserController {
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String getSignUp() throws Exception {
 		logger.info("get register");
-		return "signup";
+		return "user_signup";
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
@@ -52,7 +52,7 @@ public class UserController {
 		return res;
 	}
 	
-	@RequestMapping(value="/user_modify", method=RequestMethod.GET)
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String getUser_modify(Principal principal, Model model) throws Exception {
 		logger.info("get user_modify");
 		UserVO userInfo=service.getUserInfo(principal.getName());
@@ -64,7 +64,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/user_modify", method=RequestMethod.POST)
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public int postUser_modify(@RequestBody UserVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("post user_modify");
 		logger.info(vo.getUserName());
@@ -81,7 +81,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/emailChk", method=RequestMethod.POST)
+	@RequestMapping(value="/emailChK", method=RequestMethod.POST)
 	public int postEmailChk(@RequestBody UserVO vo) throws Exception {
 		logger.info("post emailChk.....");
 		String userEmail = vo.getUserEmail();
@@ -93,7 +93,7 @@ public class UserController {
 	public String getSignOut(Principal principal, Model model) throws Exception {
 		logger.info("get signout.....");
 		model.addAttribute("userId",principal.getName());
-		return "signout";
+		return "user_signout";
 	}
 	
 	@ResponseBody
