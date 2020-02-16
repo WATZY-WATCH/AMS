@@ -108,7 +108,7 @@ public class AuthenticationController {
 			List<GrantedAuthority> roles = new ArrayList<>(1);
 			String role = service.getOAuthUserAuthority(userId);
 			roles.add(new SimpleGrantedAuthority(role));
-			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
+			Authentication auth = new UsernamePasswordAuthenticationToken(userId, null, roles);
 			SecurityContextHolder.getContext().setAuthentication(auth);
 		} else {
 			

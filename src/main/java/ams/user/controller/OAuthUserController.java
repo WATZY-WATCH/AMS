@@ -101,8 +101,7 @@ public class OAuthUserController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String postLogout(Principal principal, HttpSession session) throws Exception {
 		logger.info("post kakao oauth logout......");
-		String userId = session.getAttribute("userId").toString();
-		OAuthUserVO vo = service.getOAuthUserInfo(userId);
+		OAuthUserVO vo = service.getOAuthUserInfo(principal.getName());
 		JsonNode OAuthUser = KakaoAPI.postLogout(vo.getAccessToken());
 		String retId = OAuthUser.get("id").asText();
 		if(retId != null) {
