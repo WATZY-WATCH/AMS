@@ -5,14 +5,14 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import ams.user.dao.OAuthUserDAO;
-import ams.user.domain.UserVO;
+import ams.user.domain.OAuthUserVO;
 
 @Service
 public class OAuthUserServiceImpl implements OAuthUserService {
 	@Inject OAuthUserDAO dao;
 	
 	@Override
-	public void signupOAuth(UserVO vo) throws Exception {
+	public void signupOAuth(OAuthUserVO vo) throws Exception {
 		dao.signupOAuth(vo);
 	}
 	
@@ -32,7 +32,7 @@ public class OAuthUserServiceImpl implements OAuthUserService {
 	}
 	
 	@Override
-	public UserVO getOAuthUserInfo(String userId) throws Exception {
+	public OAuthUserVO getOAuthUserInfo(String userId) throws Exception {
 		return dao.getOAuthUserInfo(userId);
 	}
 	
@@ -47,7 +47,12 @@ public class OAuthUserServiceImpl implements OAuthUserService {
 	}
 	
 	@Override
-	public int modifyOAuthUser(UserVO vo) throws Exception {
+	public int modifyOAuthUser(OAuthUserVO vo) throws Exception {
 		return dao.modifyOAuthUser(vo);
+	}
+	
+	@Override
+	public int updateOAuthToken(OAuthUserVO vo) throws Exception {
+		return dao.updateOAuthToken(vo);
 	}
 }

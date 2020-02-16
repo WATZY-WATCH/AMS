@@ -13,15 +13,16 @@
 </h1>
 
 <p id="userName"> ${userName } 님 환영합니다! </p>
-<form action="<c:url value='/logout' />" method="post">
-	<sec:csrfInput />
-	<button>로그아웃 </button>
-</form>
 <sec:authorize access="hasAuthority('USER')">
+	<form action="<c:url value='/logout' />" method="post">
+		<sec:csrfInput />
+		<button>로그아웃 </button>
+	</form>
 	<a href="/user/modify">정보수정</a>
 	<a href="/user/signout">회원탈퇴</a>
 </sec:authorize>
 <sec:authorize access="hasAuthority('OAUTH_USER')">
+	<a href="/oauth/user/logout">로그아웃 </a>
 	<a href="/oauth/user/modify">정보수정</a>
 	<a href="/oauth/user/signout">회원탈퇴</a>
 </sec:authorize>
