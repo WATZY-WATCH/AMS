@@ -45,4 +45,14 @@ public class OAuthUserDAOImpl implements OAuthUserDAO {
 	public String getOAuthUserAuthority(String userId) throws Exception {
 		return sql.selectOne(ns+".getOAuthUserAuthority", userId);
 	}
+	
+	@Override
+	public int signoutOAuth(String userId) throws Exception {
+		return sql.delete(ns+".signoutOAuth", userId);
+	}
+	
+	@Override
+	public int modifyOAuthUser(UserVO vo) throws Exception {
+		return sql.update(ns+".modifyOAuthUser", vo);
+	}
 }

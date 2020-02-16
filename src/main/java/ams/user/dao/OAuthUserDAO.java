@@ -9,4 +9,6 @@ public interface OAuthUserDAO {
 	public int OAuthEmailChk(String userEmail) throws Exception;
 	public UserVO getOAuthUserInfo(String userId) throws Exception;
 	public String getOAuthUserAuthority(String userId) throws Exception;
+	public int signoutOAuth(String userId) throws Exception;
+	public int modifyOAuthUser(UserVO vo) throws Exception;
 }

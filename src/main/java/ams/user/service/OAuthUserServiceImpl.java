@@ -37,4 +37,14 @@ public class OAuthUserServiceImpl implements OAuthUserService {
 	public String getOAuthUserAuthority(String userId) throws Exception {
 		return dao.getOAuthUserAuthority(userId);
 	}
+	
+	@Override
+	public int signoutOAuth(String userId) throws Exception {
+		return dao.signoutOAuth(userId);
+	}
+	
+	@Override
+	public int modifyOAuthUser(UserVO vo) throws Exception {
+		return dao.modifyOAuthUser(vo);
+	}
 }
