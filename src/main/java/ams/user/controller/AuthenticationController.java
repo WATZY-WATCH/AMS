@@ -46,7 +46,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="/klogin", method=RequestMethod.GET)
 	public String kakaoAccess() throws UnsupportedEncodingException {
-		final String CLIENT_ID = "718b94115712bb9ba0bde752892fae07";
+		final String CLIENT_ID = "";
 		final String REDIRECT_URI = "http://localhost:8080/oauth";
 		final String RequestUrl = "https://kauth.kakao.com/oauth/authorize?";
 		StringBuffer url = new StringBuffer();
