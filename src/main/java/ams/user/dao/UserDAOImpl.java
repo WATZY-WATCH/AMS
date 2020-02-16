@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void signup(UserVO vo) throws Exception {
 		sql.insert(ns+".signup", vo);
-		sql.insert(ns+".getAuthority", vo);
+		sql.insert(ns+".setAuthority", vo);
 	}
 	
 	@Override

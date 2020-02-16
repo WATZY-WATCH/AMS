@@ -1,14 +1,8 @@
 package ams.user.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -23,9 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @Service
 public class Kakaoapi {
@@ -62,49 +53,55 @@ public class Kakaoapi {
         return returnNode;
 	}
 	
-	 public HashMap<String, Object> getUserInfo (String access_Token) {
-	       
-	       //    �슂泥��븯�뒗 �겢�씪�씠�뼵�듃留덈떎 媛�吏� �젙蹂닿� �떎瑜� �닔 �엳湲곗뿉 HashMap���엯�쑝濡� �꽑�뼵
-	       HashMap<String, Object> userInfo = new HashMap<>();
-	       String reqURL = "https://kapi.kakao.com/v2/user/me";
-	       try {
-	           URL url = new URL(reqURL);
-	           HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	           conn.setRequestMethod("POST");
-	           
-	           //    �슂泥��뿉 �븘�슂�븳 Header�뿉 �룷�븿�맆 �궡�슜
-	           conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-	           
-	           int responseCode = conn.getResponseCode();
-	           System.out.println("responseCode : " + responseCode);
-	           
-	           BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF8"));
-	           
-	           String line = "";
-	           String result = "";
-	           
-	           while ((line = br.readLine()) != null) {
-	               result += line;
-	           }
-	           System.out.println("response body : " + result);
-	           JsonParser parser = new JsonParser();
-	           JsonElement element = parser.parse(result);
-	           
-	           JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-	           JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-	           
-	           String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	           String email = kakao_account.getAsJsonObject().get("email").getAsString();
-	           
-	           userInfo.put("nickname", nickname);
-	           userInfo.put("email", email);
-	           
-	       } catch (IOException e) {
-	           // TODO Auto-generated catch block
-	           e.printStackTrace();
-	       }
-	       
-	       return userInfo;
-	   }
-
-}
+	 public JsonNode getUserInfo(String accessToken) {
+        final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        // add header
+        post.addHeader("Authorization", "Bearer " + accessToken);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+            // JSON 형태 반환값 처리
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+ 
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // clear resources
+        }
+        return returnNode;
+    }
+	 
+	 public String postLogout(String accessToken) {
+		final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        JsonNode returnNode = null;
+        // add header
+        post.addHeader("Authorization", "Bearer " + accessToken);
+        
+        try {
+            final HttpResponse response = client.execute(post);
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+ 
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // clear resources
+        }
+        
+        return returnNode.get("id").asText();
+	 }
+ }

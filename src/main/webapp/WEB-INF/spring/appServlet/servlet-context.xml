@@ -21,7 +21,10 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="ams.user.test" />
 	<context:component-scan base-package="ams.user.service" />
+	<context:component-scan base-package="ams.user.controller" />
 	<context:component-scan base-package="ams.user.dao" />
+	<context:component-scan base-package="ams.group.service" />
+	<context:component-scan base-package="ams.group.dao" />
+	<context:component-scan base-package="ams.group.controller" />
 </beans:beans>
