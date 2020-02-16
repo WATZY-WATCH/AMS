@@ -78,7 +78,7 @@ public class AuthenticationController {
 		
 		int isSigned = service.OAuthIdChk(userId);
 		if(isSigned == 0) {
-			UserVO vo = null;
+			UserVO vo = new UserVO();
 			vo.setUserId(userId);
 			vo.setUserName(userNickname);
 			vo.setUserEmail(userEmail);
