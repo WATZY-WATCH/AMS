@@ -16,6 +16,7 @@
 			username-parameter="userId"
 			password-parameter="userPw"
 			default-target-url="/" />
+		<sec:intercept-url pattern="/oauth/user/**" access="hasAnyRole('OAUTH_USER', 'ADMIN')" />
 		<sec:intercept-url pattern="/user/idChk" access="permitAll" />
 		<sec:intercept-url pattern="/user/signup" access="permitAll"/>
 		<sec:intercept-url pattern="/oauth/**" access="permitAll"/>

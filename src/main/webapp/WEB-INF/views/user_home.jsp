@@ -17,8 +17,14 @@
 	<sec:csrfInput />
 	<button>로그아웃 </button>
 </form>
-<a href="/user/modify">정보수정</a>
-<a href="/user/signout">회원탈퇴</a>
+<sec:authorize access="hasRole('USER')">
+	<a href="/user/modify">정보수정</a>
+	<a href="/user/signout">회원탈퇴</a>
+</sec:authorize>
+<sec:authorize access="hasRole('OAUTH_USER')">
+	<a href="/user/modify">정보수정</a>
+	<a href="/user/signout">회원탈퇴</a>
+</sec:authorize>
 <div>
 <a href="/group/create">그룹생성</a>
 </div>

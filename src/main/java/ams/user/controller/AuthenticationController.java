@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,13 +25,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import ams.user.domain.UserVO;
 import ams.user.service.Kakaoapi;
-import ams.user.service.UserService;
+import ams.user.service.OAuthUserService;
 
 @Controller
 public class AuthenticationController {
 	
 	@Inject Kakaoapi KakaoAPI;
-	@Inject UserService service;
+	@Inject OAuthUserService service;
 	private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
@@ -47,7 +46,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(path="/klogin", method=RequestMethod.GET)
 	public String kakaoAccess() throws UnsupportedEncodingException {
-		final String CLIENT_ID = "";
+		final String CLIENT_ID = "718b94115712bb9ba0bde752892fae07";
 		final String REDIRECT_URI = "http://localhost:8080/oauth";
 		final String RequestUrl = "https://kauth.kakao.com/oauth/authorize?";
 		StringBuffer url = new StringBuffer();
