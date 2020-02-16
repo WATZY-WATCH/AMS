@@ -38,15 +38,6 @@ private static final Logger logger = LoggerFactory.getLogger(UserController.clas
 		return "redirect:/";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/idChk", method=RequestMethod.POST)
-	public int postIdChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post idChk");
-		String userId = vo.getUserId();
-		int res = service.OAuthIdChk(userId);
-		return res;
-	}
-	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String getUser_modify(Principal principal, Model model) throws Exception {
 		logger.info("get user_modify");

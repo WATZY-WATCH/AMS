@@ -90,7 +90,15 @@ public class AuthenticationController {
 			roles.add(new SimpleGrantedAuthority(role));
 			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			System.out.println(SecurityContextHolder.getContext().getAuthentication());
+			
+			int isSigned = service.OAuthIdChk(userId);
+			if(isSigned == 0) {
+				UserVO vo = null;
+				vo.setUserId(userId);
+				vo.setUserName(userNickname);
+				vo.setUserEmail(userEmail);
+				service.signupOAuth(vo);
+			}
 		} else {
 			
 		}
