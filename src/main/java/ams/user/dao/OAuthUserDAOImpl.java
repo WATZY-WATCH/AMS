@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import ams.user.domain.UserVO;
+import ams.user.domain.OAuthUserVO;
 
 @Repository
 public class OAuthUserDAOImpl implements OAuthUserDAO {
@@ -15,7 +15,7 @@ public class OAuthUserDAOImpl implements OAuthUserDAO {
 	private static final String ns = "ams.user.mapper.userMapper";
 	
 	@Override
-	public void signupOAuth(UserVO vo) throws Exception {
+	public void signupOAuth(OAuthUserVO vo) throws Exception {
 		sql.insert(ns+".signupOAuth", vo);
 		sql.insert(ns+".setOAuthAuthority", vo);
 	}
@@ -39,7 +39,7 @@ public class OAuthUserDAOImpl implements OAuthUserDAO {
 	}
 	
 	@Override
-	public UserVO getOAuthUserInfo(String userId) throws Exception {
+	public OAuthUserVO getOAuthUserInfo(String userId) throws Exception {
 		return sql.selectOne(ns+".getOAuthUserInfo", userId);
 	}
 	
@@ -54,7 +54,12 @@ public class OAuthUserDAOImpl implements OAuthUserDAO {
 	}
 	
 	@Override
-	public int modifyOAuthUser(UserVO vo) throws Exception {
+	public int modifyOAuthUser(OAuthUserVO vo) throws Exception {
 		return sql.update(ns+".modifyOAuthUser", vo);
+	}
+	
+	@Override
+	public int updateOAuthToken(OAuthUserVO vo) throws Exception {
+		return sql.update(ns+".updateOAuthToken", vo);
 	}
 }

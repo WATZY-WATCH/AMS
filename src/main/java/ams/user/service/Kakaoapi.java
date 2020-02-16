@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class Kakaoapi {
-	private final static String CLIENT_ID = "";
+	private final static String CLIENT_ID = "718b94115712bb9ba0bde752892fae07";
 	private final static String REDIRECT_URI = "http://localhost:8080/oauth";
 	
 	public JsonNode getAccessToken(String authorize_code, String state) throws UnsupportedEncodingException {
@@ -79,4 +79,32 @@ public class Kakaoapi {
         }
         return returnNode;
     }
+	 
+	 public JsonNode postLogout(String accessToken) {
+		 final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
+	        final HttpClient client = HttpClientBuilder.create().build();
+	        final HttpPost post = new HttpPost(RequestUrl);
+	 
+	        // add header
+	        post.addHeader("Authorization", "Bearer " + accessToken);
+	 
+	        JsonNode returnNode = null;
+	 
+	        try {
+	            final HttpResponse response = client.execute(post);
+	            final int responseCode = response.getStatusLine().getStatusCode();
+	            // JSON 형태 반환값 처리
+	            ObjectMapper mapper = new ObjectMapper();
+	            returnNode = mapper.readTree(response.getEntity().getContent());
+	            
+	            System.out.println(returnNode);
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // clear resources
+	        }
+	        return returnNode;
+	 }
  }
