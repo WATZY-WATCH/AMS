@@ -17,11 +17,11 @@
 	<sec:csrfInput />
 	<button>로그아웃 </button>
 </form>
-<sec:authorize access="hasRole('USER')">
+<sec:authorize access="hasAurhority('USER')">
 	<a href="/user/modify">정보수정</a>
 	<a href="/user/signout">회원탈퇴</a>
 </sec:authorize>
-<sec:authorize access="hasRole('OAUTH_USER')">
+<sec:authorize access="hasAuthority('OAUTH_USER')">
 	<a href="/oauth/user/modify">정보수정</a>
 	<a href="/oauth/user/signout">회원탈퇴</a>
 </sec:authorize>

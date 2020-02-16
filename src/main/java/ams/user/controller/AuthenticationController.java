@@ -90,6 +90,7 @@ public class AuthenticationController {
 			roles.add(new SimpleGrantedAuthority(role));
 			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
 			SecurityContextHolder.getContext().setAuthentication(auth);
+			System.out.println(SecurityContextHolder.getContext().getAuthentication());
 		} else {
 			
 		}
