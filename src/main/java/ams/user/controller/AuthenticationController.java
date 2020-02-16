@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,15 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import ams.user.domain.UserVO;
+import ams.user.domain.OAuthUserVO;
 import ams.user.service.Kakaoapi;
-import ams.user.service.UserService;
+import ams.user.service.OAuthUserService;
 
 @Controller
 public class AuthenticationController {
 	
 	@Inject Kakaoapi KakaoAPI;
-	@Inject UserService service;
+	@Inject OAuthUserService service;
 	private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
@@ -67,6 +66,10 @@ public class AuthenticationController {
 		System.out.println(code);
 		JsonNode at = KakaoAPI.getAccessToken(code, state);
 		String access_token = at.get("access_token").asText();
+		String refresh_token = at.get("refresh_token").asText();
+		
+		System.out.println(at);
+		
 		JsonNode userInfo = KakaoAPI.getUserInfo(access_token);
 		
 		String userId = userInfo.get("id").asText();
@@ -77,6 +80,22 @@ public class AuthenticationController {
 		String userNickname = properties.get("nickname").asText();
 		String userEmail = kakao_account.get("email").asText();
 		
+		int isSigned = service.OAuthIdChk(userId);
+		if(isSigned == 0) {
+			OAuthUserVO vo = new OAuthUserVO();
+			vo.setUserId(userId);
+			vo.setUserName(userNickname);
+			vo.setUserEmail(userEmail);
+			vo.setAccessToken(access_token);
+			if(refresh_token != null) vo.setRefreshToken(refresh_token);
+			service.signupOAuth(vo);
+		} else {
+			OAuthUserVO vo = service.getOAuthUserInfo(userId);
+			vo.setAccessToken(access_token);
+			if(refresh_token != null) vo.setRefreshToken(refresh_token);
+			service.updateOAuthToken(vo);
+		}
+		
 		System.out.println("controller access_token : " + access_token);
 		System.out.println("login Controller : " + userInfo);
 		if (userEmail != null) {
@@ -85,7 +104,7 @@ public class AuthenticationController {
 			session.setAttribute("userEmail", userEmail);
 			session.setAttribute("access_Token", access_token);
 			
-			UserVO user = service.getOAuthUserInfo(userId);
+			OAuthUserVO user = service.getOAuthUserInfo(userId);
 			List<GrantedAuthority> roles = new ArrayList<>(1);
 			String role = service.getOAuthUserAuthority(userId);
 			roles.add(new SimpleGrantedAuthority(role));

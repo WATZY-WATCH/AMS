@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void signup(UserVO vo) throws Exception {
 		sql.insert(ns+".signup", vo);
-		sql.insert(ns+".getAuthority", vo);
+		sql.insert(ns+".setAuthority", vo);
 	}
 	
 	@Override
@@ -56,16 +56,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserVO getUserInfo(String userId) throws Exception {
 		return sql.selectOne(ns+".getUserInfo",userId);
-	}
-	
-	@Override
-	public UserVO getOAuthUserInfo(String userId) throws Exception {
-		return sql.selectOne(ns+".getOAuthUserInfo", userId);
-	}
-	
-	@Override
-	public String getOAuthUserAuthority(String userId) throws Exception {
-		return sql.selectOne(ns+".getOAuthUserAuthority", userId);
 	}
 	
 	@Override

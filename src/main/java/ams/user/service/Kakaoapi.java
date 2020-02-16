@@ -80,28 +80,31 @@ public class Kakaoapi {
         return returnNode;
     }
 	 
-	 public String postLogout(String accessToken) {
-		final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
-        final HttpClient client = HttpClientBuilder.create().build();
-        final HttpPost post = new HttpPost(RequestUrl);
- 
-        JsonNode returnNode = null;
-        // add header
-        post.addHeader("Authorization", "Bearer " + accessToken);
-        
-        try {
-            final HttpResponse response = client.execute(post);
-            ObjectMapper mapper = new ObjectMapper();
-            returnNode = mapper.readTree(response.getEntity().getContent());
- 
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            // clear resources
-        }
-        
-        return returnNode.get("id").asText();
+	 public JsonNode postLogout(String accessToken) {
+		 final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
+	        final HttpClient client = HttpClientBuilder.create().build();
+	        final HttpPost post = new HttpPost(RequestUrl);
+	 
+	        // add header
+	        post.addHeader("Authorization", "Bearer " + accessToken);
+	 
+	        JsonNode returnNode = null;
+	 
+	        try {
+	            final HttpResponse response = client.execute(post);
+	            final int responseCode = response.getStatusLine().getStatusCode();
+	            // JSON 형태 반환값 처리
+	            ObjectMapper mapper = new ObjectMapper();
+	            returnNode = mapper.readTree(response.getEntity().getContent());
+	            
+	            System.out.println(returnNode);
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // clear resources
+	        }
+	        return returnNode;
 	 }
  }

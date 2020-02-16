@@ -189,7 +189,8 @@
 					xhr.send(JSON.stringify(data));
 					xhr.onload = function () {
 						if(xhr.status == 200 || xhr.status == 201) {
-							if(xhr.responseText == 1) {
+							console.log(xhr.responseText);
+							if(xhr.responseText != 0) {
 								alert("성공적으로 생성하였습니다. ");
 								document.location.href="/";
 							} else {

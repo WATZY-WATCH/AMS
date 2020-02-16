@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ams.user.domain.UserVO;
-import ams.user.service.UserService;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import ams.user.domain.OAuthUserVO;
+import ams.user.service.Kakaoapi;
+import ams.user.service.OAuthUserService;
 
 @Controller
-@RequestMapping("/user/**")
-public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+@RequestMapping("/oauth/user/**")
+public class OAuthUserController {
 	
-	@Inject UserService service;
-	@Inject BCryptPasswordEncoder pwdEncoder;
+	@Inject Kakaoapi KakaoAPI;
+	@Inject OAuthUserService service;
+	private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 	
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String getSignUp() throws Exception {
@@ -34,29 +37,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String postSignUp(UserVO vo, RedirectAttributes rttr) throws Exception {
+	public String postSignUp(OAuthUserVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("post register");
-		String inputPwd = vo.getUserPw();
-		String pwd = pwdEncoder.encode(inputPwd);
-		vo.setUserPw(pwd);
-		service.signup(vo);
+		service.signupOAuth(vo);
 		return "redirect:/";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/idChk", method=RequestMethod.POST)
-	public int postIdChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post idChk");
-		String userId = vo.getUserId();
-		int res = service.idChk(userId);
-		return res;
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String getUser_modify(Principal principal, Model model) throws Exception {
 		logger.info("get user_modify");
-		System.out.println("get user_modify");
-		UserVO userInfo=service.getUserInfo(principal.getName());
+		OAuthUserVO userInfo=service.getOAuthUserInfo(principal.getName());
 		model.addAttribute("setName", userInfo.getUserName());
 		model.addAttribute("setEmail", userInfo.getUserEmail());
 		model.addAttribute("userId",principal.getName());
@@ -66,27 +56,27 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public int postUser_modify(@RequestBody UserVO vo, RedirectAttributes rttr) throws Exception {
+	public int postUser_modify(@RequestBody OAuthUserVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("post user_modify");
 		logger.info(vo.getUserName());
-		return service.modifyUser(vo);
+		return service.modifyOAuthUser(vo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/nameChk", method=RequestMethod.POST)
-	public int postNameChk(@RequestBody UserVO vo) throws Exception {
+	public int postNameChk(@RequestBody OAuthUserVO vo) throws Exception {
 		logger.info("post nameChk");
 		String userName = vo.getUserName();
-		int res = service.nameChk(userName);
+		int res = service.OAuthNameChk(userName);
 		return res;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/emailChK", method=RequestMethod.POST)
-	public int postEmailChk(@RequestBody UserVO vo) throws Exception {
+	public int postEmailChk(@RequestBody OAuthUserVO vo) throws Exception {
 		logger.info("post emailChk.....");
 		String userEmail = vo.getUserEmail();
-		int res = service.emailChk(userEmail);
+		int res = service.OAuthEmailChk(userEmail);
 		return res;
 	}
 	
@@ -98,25 +88,26 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/pwChk", method=RequestMethod.POST)
-	public boolean postSignOut(@RequestBody UserVO vo) throws Exception {
-		logger.info("post pwChk......");
-		String userPw = vo.getUserPw();
-		String pwd = pwdEncoder.encode(userPw);
-		vo.setUserPw(pwd);
-		String hashPw=service.getUserInfo(vo.getUserId()).getUserPw();
-		return pwdEncoder.matches(userPw, hashPw);
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/signout", method=RequestMethod.POST)
-	public int postSignout(@RequestBody UserVO vo,HttpSession session) throws Exception {
+	public int postSignout(@RequestBody OAuthUserVO vo, HttpSession session) throws Exception {
 		logger.info("post signout......");
-		int ret= service.signout(vo.getUserId());
+		int ret= service.signoutOAuth(vo.getUserId());
 		if(ret>0) {
 			session.invalidate();
 		}
 		return ret;
 	}
 	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String postLogout(Principal principal, HttpSession session) throws Exception {
+		logger.info("post kakao oauth logout......");
+		String userId = session.getAttribute("userId").toString();
+		OAuthUserVO vo = service.getOAuthUserInfo(userId);
+		JsonNode OAuthUser = KakaoAPI.postLogout(vo.getAccessToken());
+		String retId = OAuthUser.get("id").asText();
+		if(retId != null) {
+			session.invalidate();
+		}
+		return "redirect:/";
+	}
 }
