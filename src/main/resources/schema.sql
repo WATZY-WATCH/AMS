@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS STUDY_GROUPS (
   group_member_limit int NOT NULL,
   group_period varchar(45) DEFAULT NULL,
   group_area varchar(45) NOT NULL,
-  group_status varchar(45) NOT NULL DEFAULT '紐⑥쭛以�',
+  group_status varchar(45) NOT NULL DEFAULT '모집중',
   group_start_age int DEFAULT NULL,
   group_end_age int DEFAULT NULL,
   reg_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
