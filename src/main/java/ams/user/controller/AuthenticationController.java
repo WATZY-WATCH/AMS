@@ -76,6 +76,15 @@ public class AuthenticationController {
 		String userNickname = properties.get("nickname").asText();
 		String userEmail = kakao_account.get("email").asText();
 		
+		int isSigned = service.OAuthIdChk(userId);
+		if(isSigned == 0) {
+			UserVO vo = null;
+			vo.setUserId(userId);
+			vo.setUserName(userNickname);
+			vo.setUserEmail(userEmail);
+			service.signupOAuth(vo);
+		}
+		
 		System.out.println("controller access_token : " + access_token);
 		System.out.println("login Controller : " + userInfo);
 		if (userEmail != null) {
@@ -90,15 +99,6 @@ public class AuthenticationController {
 			roles.add(new SimpleGrantedAuthority(role));
 			Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			
-			int isSigned = service.OAuthIdChk(userId);
-			if(isSigned == 0) {
-				UserVO vo = null;
-				vo.setUserId(userId);
-				vo.setUserName(userNickname);
-				vo.setUserEmail(userEmail);
-				service.signupOAuth(vo);
-			}
 		} else {
 			
 		}
