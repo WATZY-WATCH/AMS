@@ -3,9 +3,11 @@ package ams.user.dao;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import ams.user.domain.UserVO;
 
+@Repository
 public class OAuthUserDAOImpl implements OAuthUserDAO {
 
 	@Inject SqlSession sql;

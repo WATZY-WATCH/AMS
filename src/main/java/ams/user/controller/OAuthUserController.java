@@ -19,7 +19,7 @@ import ams.user.domain.UserVO;
 import ams.user.service.OAuthUserService;
 
 @Controller
-@RequestMapping("oauth/user/**")
+@RequestMapping("/oauth/user/**")
 public class OAuthUserController {
 private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
