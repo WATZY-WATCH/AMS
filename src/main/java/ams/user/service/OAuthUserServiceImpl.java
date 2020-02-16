@@ -2,9 +2,12 @@ package ams.user.service;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import ams.user.dao.OAuthUserDAO;
 import ams.user.domain.UserVO;
 
+@Service
 public class OAuthUserServiceImpl implements OAuthUserService {
 	@Inject OAuthUserDAO dao;
 	
