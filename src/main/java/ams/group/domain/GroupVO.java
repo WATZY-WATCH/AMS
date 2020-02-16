@@ -3,6 +3,7 @@ package ams.group.domain;
 import java.util.Date;
 
 public class GroupVO {
+	
 	private int groupId;
 	private String groupCategory;
 	private String groupName;

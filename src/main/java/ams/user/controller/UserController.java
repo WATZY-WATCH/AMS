@@ -55,6 +55,7 @@ public class UserController {
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String getUser_modify(Principal principal, Model model) throws Exception {
 		logger.info("get user_modify");
+		System.out.println("get user_modify");
 		UserVO userInfo=service.getUserInfo(principal.getName());
 		model.addAttribute("setName", userInfo.getUserName());
 		model.addAttribute("setEmail", userInfo.getUserEmail());
