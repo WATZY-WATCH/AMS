@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS STUDY_GROUPS (
   group_status varchar(45) NOT NULL DEFAULT '모집중',
   group_start_age int DEFAULT NULL,
   group_end_age int DEFAULT NULL,
+  group_viewcnt int NOT NULL DEFAULT '0', 
   reg_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   mod_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (group_id),
