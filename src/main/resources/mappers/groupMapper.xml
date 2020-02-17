@@ -12,4 +12,39 @@
     INSERT INTO GROUP_MEMBERS(GROUP_ID, USER_ID, GROUP_AUTHORITY)
        					VALUES(#{groupId}, #{userId}, #{groupAuthority})
    </insert>
+   <select id="listPage" resultType="ams.group.domain.GroupVO">
+ 	<![CDATA[
+ 	select
+ 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date
+ 	from
+ 		study_groups
+ 	where group_id > 0 and (group_status='모집중' or group_status='진행중')
+ 	order by group_id desc, reg_date desc
+ 	limit #{page},10
+ 	]]>
+ 	</select>
+ 	
+ 	<select id="listCriteria" resultType="ams.group.domain.GroupVO">
+ 	<![CDATA[
+ 	select
+ 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date
+ 	from
+ 		study_groups
+ 	where group_id>0 and (group_status='모집중' or group_status='진행중')
+ 	order by group_id desc, reg_date desc
+ 	limit #{pageStart},#{perPageNum}
+ 	]]>
+ 	</select>
+ 	
+ 	<select id="countPaging" resultType="int">
+ 	<![CDATA[
+ 	select
+ 		count(group_id)
+ 	from
+ 		study_groups
+ 	where group_id>0 and (group_status='모집중' or group_status='진행중')
+ 	]]>
+ 	</select>
+ 	
+   
 </mapper>
