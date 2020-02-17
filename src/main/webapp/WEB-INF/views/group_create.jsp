@@ -120,8 +120,6 @@
             <br>
             <button type="button" onclick="formChk()">생성하기</button> <a href="/">메인으로</a>
         </form>
-
-
 		</section>
 		<script type="text/javascript" src="/js/group_create.js"></script>
 </body>

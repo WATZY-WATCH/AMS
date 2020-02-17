@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ams.group.domain.GroupCriteria;
@@ -47,8 +49,29 @@ public class GroupController {
 		return groupId;
 	}
 	
+//	@RequestMapping(value="/listRead", method=RequestMethod.GET)
+//	public String listRead(GroupVO vo, Model model) throws Exception {
+//		System.out.println("get listCri..............");
+//		model.addAttribute("GroupVO",service.listRead(vo));
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(service.countPaging(cri));
+//		model.addAttribute("pageMaker",pageMaker);
+//		
+//		return "group_list";
+//	}	
+	@RequestMapping(value = "/listRead", method = RequestMethod.GET)
+	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
+		System.out.println("get listRead..............");
+		System.out.println("groupId: "+groupId);
+//		System.out.println("get listRead..............");
+//		System.out.println("get listRead..............");
+		model.addAttribute("GroupVO",service.listRead(groupId));
+	    return "group_list_read";
+	}
+	
 	@RequestMapping(value="/listCri", method=RequestMethod.GET)
-	public String listAll(GroupCriteria cri, Model model) throws Exception {
+	public String listCri(GroupCriteria cri, Model model) throws Exception {
 		System.out.println("get listCri..............");
 		model.addAttribute("list",service.listCriteria(cri));
 		PageMaker pageMaker = new PageMaker();

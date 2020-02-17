@@ -46,5 +46,15 @@
  	]]>
  	</select>
  	
+ 	<select id="listRead" resultType="ams.group.domain.GroupVO">
+ 	<![CDATA[
+ 	select
+ 		*
+ 	from
+ 		study_groups
+ 	where group_id=#{groupId}
+ 	]]>
+ 	</select>
+ 	
    
 </mapper>
