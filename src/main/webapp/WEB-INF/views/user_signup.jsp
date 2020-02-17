@@ -8,11 +8,11 @@
 <sec:csrfMetaTags />
 <title>회원가입 </title>
 <style>
-#pwMsg {
-	color: red;
-	font-size: 14px;
-	transition: 0.5s all;
-}
+	#pwMsg {
+		color: red;
+		font-size: 14px;
+		transition: 0.5s all;
+	}
 </style>
 </head>
 <body>
@@ -43,6 +43,6 @@
 				</div>
 			</form>
 		</section>
-		<script type="text/javascript" src="/js/user_signup.js" />
+		<script type="text/javascript" src="/js/user_signup.js"></script>
 </body>
 </html>

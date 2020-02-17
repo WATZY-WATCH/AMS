@@ -10,6 +10,9 @@
 		http://www.springframework.org/schema/security/spring-security.xsd
 	">
 	<sec:http pattern="/resources/**" security="none" />
+	<sec:http pattern="/js/**" security="none" />
+	<sec:http pattern="/css/**" security="none" />
+	<sec:http pattern="/img/**" security="none" />
 	<sec:http>
 		<sec:form-login
 			login-page="/login"

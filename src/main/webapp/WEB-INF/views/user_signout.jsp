@@ -26,6 +26,6 @@
 				</div>
 			</form>
 		</section>
-		<script type="text/javascript" src="/js/user_signout.js" />
+		<script type="text/javascript" src="/js/user_signout.js"></script>
 </body>
 </html>
