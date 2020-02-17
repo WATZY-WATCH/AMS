@@ -123,6 +123,6 @@
 
 
 		</section>
-		<script type="text/javascript" src="/js/group_create.js" />
+		<script type="text/javascript" src="/js/group_create.js"></script>
 </body>
 </html>

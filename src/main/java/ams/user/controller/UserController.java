@@ -108,6 +108,29 @@ public class UserController {
 		return pwdEncoder.matches(userPw, hashPw);
 	}
 	
+	@RequestMapping(value="/modifyPw", method=RequestMethod.GET)
+	public String getModifyPw(Principal principal, Model model) throws Exception {
+		logger.info("get Modify Password......");
+		model.addAttribute("userId",principal.getName());
+		return "user_modify_pw";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/modifyPw", method=RequestMethod.POST)
+	public int postModifyPw(@RequestBody UserVO vo) throws Exception {
+		logger.info("post Modify Password......");
+		String userPw = vo.getUserPw();
+		String pwd = pwdEncoder.encode(userPw);
+		vo.setUserPw(pwd);
+		return service.modifyUserPw(vo);
+	}
+	
+	@RequestMapping(value="/modifyPwSuccess", method=RequestMethod.GET)
+	public String getModifyPw() throws Exception {
+		logger.info("Success Modify Password......");
+		return "user_modify_pw_success";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/signout", method=RequestMethod.POST)
 	public int postSignout(@RequestBody UserVO vo,HttpSession session) throws Exception {

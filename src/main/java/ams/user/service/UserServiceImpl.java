@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int modifyUserPw(UserVO vo) throws Exception {
+		return dao.modifyUserPw(vo);
+	}
+	
+	@Override
 	public UserVO getUserInfo(String userId) throws Exception {
 		return dao.getUserInfo(userId);
 	}

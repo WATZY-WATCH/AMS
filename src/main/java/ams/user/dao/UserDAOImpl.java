@@ -54,6 +54,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public int modifyUserPw(UserVO vo) throws Exception {
+		return sql.update(ns+".modifyUserPw", vo);
+	}
+	
+	@Override
 	public UserVO getUserInfo(String userId) throws Exception {
 		return sql.selectOne(ns+".getUserInfo",userId);
 	}

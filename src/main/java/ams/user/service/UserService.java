@@ -10,6 +10,7 @@ public interface UserService {
 	public int pwChk(UserVO vo) throws Exception;
 	public int signout(String userId) throws Exception;
 	public int modifyUser(UserVO vo) throws Exception;
+	public int modifyUserPw(UserVO vo) throws Exception;
 	public UserVO getUserInfo(String userId) throws Exception;
 	public String findUser(String userId) throws Exception;
 }

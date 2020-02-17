@@ -19,6 +19,7 @@
 		<button>로그아웃 </button>
 	</form>
 	<a href="/user/modify">정보수정</a>
+	<a href="/user/modifyPw">비밀번호 변경 </a>
 	<a href="/user/signout">회원탈퇴</a>
 </sec:authorize>
 <sec:authorize access="hasAuthority('OAUTH_USER')">
