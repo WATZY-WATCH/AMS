@@ -24,10 +24,18 @@
 <sec:authorize access="hasAuthority('OAUTH_USER')">
 	<a href="/oauth/user/logout">로그아웃 </a>
 	<a href="/oauth/user/modify">정보수정</a>
-	<a href="/oauth/user/signout">회원탈퇴</a>
+	<button onclick="signoutChk()">회원탈퇴</button>
 </sec:authorize>
 <div>
 <a href="/group/create">그룹생성</a>
 </div>
+<script>
+	function signoutChk() {
+		let ret = confirm('카카오 계정과 서비스 연동이 해제됩니다.\n연동 해제 이후 데이터 복구가 불가능합니다.');
+		if(ret) {
+			document.location.href = "/oauth/user/signout";
+		}
+	}
+</script>
 </body>
 </html>

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,21 +80,15 @@ public class OAuthUserController {
 	}
 	
 	@RequestMapping(value="/signout", method=RequestMethod.GET)
-	public String getSignOut(Principal principal, Model model) throws Exception {
-		logger.info("get signout.....");
-		model.addAttribute("userId",principal.getName());
-		return "user_signout";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/signout", method=RequestMethod.POST)
-	public int postSignout(@RequestBody OAuthUserVO vo, HttpSession session) throws Exception {
-		logger.info("post signout......");
-		int ret= service.signoutOAuth(vo.getUserId());
-		if(ret>0) {
-			session.invalidate();
+	public String postSignout(Principal principal, HttpSession session) throws Exception {
+		logger.info("post kakao oauth singout......");
+		OAuthUserVO vo = service.getOAuthUserInfo(principal.getName());
+		JsonNode OAuthUser = KakaoAPI.postSignout(vo.getAccessToken());
+		String retId = OAuthUser.get("id").asText();
+		if(retId != null) {
+			service.signoutOAuth(retId);
 		}
-		return ret;
+		return "oauth_signout";
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
