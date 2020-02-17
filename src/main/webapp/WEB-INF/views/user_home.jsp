@@ -33,6 +33,9 @@
 <div>
 <a href="/group/listCri">그룹찾기</a>
 </div>
+<div>
+<a href="/group/mapAPI">지도 </a>
+</div>
 <script>
 	function signoutChk() {
 		let ret = confirm('카카오 계정과 서비스 연동이 해제됩니다.\n연동 해제 이후 데이터 복구가 불가능합니다.');

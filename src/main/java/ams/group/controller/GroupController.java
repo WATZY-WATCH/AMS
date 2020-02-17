@@ -57,5 +57,10 @@ public class GroupController {
 		model.addAttribute("pageMaker",pageMaker);
 		
 		return "group_list";
-	}	
+	}
+	
+	@RequestMapping(value="/mapAPI", method=RequestMethod.GET)
+	public String getMapAPI() {
+		return "group_map";
+	}
 }
