@@ -39,7 +39,8 @@ public class OAuthUserController {
 	public String postSignUp(OAuthUserVO vo, RedirectAttributes rttr) throws Exception {
 		logger.info("post register");
 		service.signupOAuth(vo);
-		return "redirect:/";
+		if(vo.getUserEmail() == null) return "redirect:./modify";
+		else return "redirect:/";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
