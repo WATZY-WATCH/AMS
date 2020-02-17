@@ -39,4 +39,8 @@ public class GroupDAOImpl implements GroupDAO{
 	public int countPaging(GroupCriteria cri) throws Exception {
 		return sql.selectOne(ns+".countPaging", cri);
 	}
+	@Override
+	public GroupVO listRead(int groupId) throws Exception {
+		return sql.selectOne(ns+".listRead", groupId);
+	}
 }

@@ -37,4 +37,8 @@ public class GroupServiceImpl implements GroupService {
 	public int countPaging(GroupCriteria cri) throws Exception {
 		return dao.countPaging(cri);
 	}
+	@Override
+	public GroupVO listRead(int groupId)throws Exception {
+		return dao.listRead(groupId);
+	}
 }

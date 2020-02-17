@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
-<title>스터디 그룹 리스트 </title>
+<title>스터디 그룹 리스트 조회 </title>
 </head>
 <body>
 <h2>신청가능 스터디 목록입니다.</h2>
@@ -25,12 +25,10 @@
 			<th>연령대</th>
 			<th>작성 날짜</th>
 		</tr>
-	<c:forEach items="${list}" var="GroupVO">
-	
 		<tr>
 			<td>${GroupVO.groupId}</td>
 			<td>${GroupVO.groupCategory}</td>
-			<td><a href="./listRead${pageMaker.makeQuery(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName}</a></td>
+			<td>${GroupVO.groupName}</td>
 			<td>${GroupVO.groupMemberLimit}</td>
 			<td>${GroupVO.groupPeriod}</td>
 			<td>${GroupVO.groupArea}</td>
@@ -39,28 +37,15 @@
 			<td><fmt:setTimeZone value="UTC" />
 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" /></td>
 		</tr>
-	</c:forEach>
 	</table>
-	<ul>
-		<c:if test="${pageMaker.prev}">
-			<li><a
-				href="./listCri${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
-		</c:if>
+	
+	<h2>스터디 활동 소개</h2>
+	<textarea name="groupDetail" cols="80" rows="10" readonly="readonly">${GroupVO.groupDetail}</textarea>
+	<button type="button" id="modifyBtn" onclick="modifyBoard()">수정하기</button>
+	<button type="button" id="deleteBtn" onclick="deleteBoard()">삭제하기</button>
+	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum})">목록으로</button>
+	<script type="text/javascript" src="/js/group_list_read.js"></script>
 
-		<c:forEach begin="${pageMaker.startPage }"
-			end="${pageMaker.endPage }" var="idx">
-			<li
-				<c:out value="${pageMaker.cri.page == idx}"/>>
-				<a href="./listCri${pageMaker.makeQuery(idx)}">${idx}</a>
-			</li>
-		</c:forEach>
-
-		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			<li><a
-				href="./listCri${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
-		</c:if>
-
-	</ul>
 </section>
 </body>
 </html>
