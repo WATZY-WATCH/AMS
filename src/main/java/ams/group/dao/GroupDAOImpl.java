@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
@@ -47,5 +48,17 @@ public class GroupDAOImpl implements GroupDAO{
 	public void updateViewCnt(int groupId) throws Exception {
 		sql.update(ns+".updateViewCnt", groupId);
 		return;
+	}
+	@Override
+	public int memberChk(GroupMemberVO vo) throws Exception {
+		return sql.selectOne(ns+".memberChk",vo);
+	}
+	@Override
+	public int listApply(GroupApplicationsVO vo) throws Exception {
+		return sql.insert(ns+".listApply",vo);
+	}
+	@Override
+	public int listApplyChk(GroupApplicationsVO vo) throws Exception {
+		return sql.selectOne(ns+".listApplyChk",vo);
 	}
 }

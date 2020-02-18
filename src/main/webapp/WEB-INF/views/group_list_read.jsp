@@ -41,13 +41,17 @@
 		</tr>
 	</table>
 	
-	<h2>스터디 활동 소개</h2>
+	<h2>스터디 활동 소개 ${memberChk}</h2>
 	<textarea name="groupDetail" cols="80" rows="10" readonly="readonly">${GroupVO.groupDetail}</textarea>
-	<button type="button" id="modifyBtn" onclick="modifyBoard()">수정하기</button>
-	<button type="button" id="deleteBtn" onclick="deleteBoard()">삭제하기</button>
+	<c:if test="${memberChk eq 0}">
+		<h2>스터디장에게 보낼 메세지를 입력해주세요.</h2>
+		<div>
+			<textarea id="postMsg" cols="80" rows="5"></textarea>
+		</div>
+		<button type="button" id="applyBtn" onclick="applyGroup(${GroupVO.groupId},'${UserVO.userId}','${UserVO.userName}',${listApplyChk})">신청하기</button>
+	</c:if>
 	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum})">목록으로</button>
 	<script type="text/javascript" src="/js/group_list_read.js"></script>
-
 </section>
 </body>
 </html>
