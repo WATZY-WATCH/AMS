@@ -23,6 +23,7 @@
 			<th>지역</th>
 			<th>진행상황</th>
 			<th>연령대</th>
+			<th>조회수</th>
 			<th>작성 날짜</th>
 		</tr>
 		<tr>
@@ -34,6 +35,7 @@
 			<td>${GroupVO.groupArea}</td>
 			<td>${GroupVO.groupStatus}</td>
 			<td>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</td>
+			<td>${GroupVO.viewCnt}</td>
 			<td><fmt:setTimeZone value="UTC" />
 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" /></td>
 		</tr>

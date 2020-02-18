@@ -16,6 +16,7 @@ public class GroupVO {
 	private String groupEndAge;
 	private Date regDate;
 	private Date modDate;
+	private int viewCnt;
 	
 	public int getGroupId() {
 		return groupId;
@@ -88,6 +89,12 @@ public class GroupVO {
 	}
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
+	}
+	public int getViewCnt() {
+		return viewCnt;
+	}
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
 	}
 	
 }
