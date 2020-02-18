@@ -187,6 +187,7 @@ function displayPlaces(places) {
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
         	
         	marker.index = i;
+        	marker.clicekd = false;
         	//검색 결과 항목을 클릭하면 해당 위치를 지도 중심이 되도록 이동 
         	itemEl.index = i;
         	itemEl.onclick = function () {
@@ -212,16 +213,23 @@ function displayPlaces(places) {
                 displayInfowindow(marker, title);
             });
 
-            kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
+            kakao.maps.event.addListener(marker, 'mouseout', makerMouseOutEvt);
             
             kakao.maps.event.addListener(marker, 'click', function() {
+            	if(marker.clicked) {
+            		kakao.maps.event.addListener(marker, 'mouseout', makerMouseOutEvt);
+            		marker.clicked = false;
+            	} else {
+            		kakao.maps.event.removeListener(marker, 'mouseout', makerMouseOutEvt);
+            		marker.clicked = true;
+            	}
             	let idx = marker.index;
             	let x = places[idx].x, y = places[idx].y;
         		let currPlace = {Ga: x, Ha: y};
         		panTo(currPlace);
                 console.log(places[idx]);
+                console.log(marker);
+                
             });
             
         })(marker, places[i].place_name);
@@ -234,6 +242,10 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
+}
+
+function makerMouseOutEvt() {
+	infowindow.close();
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
