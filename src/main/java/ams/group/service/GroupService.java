@@ -13,4 +13,5 @@ public interface GroupService {
 	public List<GroupVO> listCriteria(GroupCriteria cri)throws Exception;
 	public int countPaging(GroupCriteria cri)throws Exception;
 	public GroupVO listRead(int groupId)throws Exception;
+	public void updateViewCnt(int groupId)throws Exception;
 }

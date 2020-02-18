@@ -43,4 +43,9 @@ public class GroupDAOImpl implements GroupDAO{
 	public GroupVO listRead(int groupId) throws Exception {
 		return sql.selectOne(ns+".listRead", groupId);
 	}
+	@Override
+	public void updateViewCnt(int groupId) throws Exception {
+		sql.update(ns+".updateViewCnt", groupId);
+		return;
+	}
 }

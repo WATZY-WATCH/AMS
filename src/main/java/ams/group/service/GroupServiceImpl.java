@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupDAO;
 import ams.group.domain.GroupCriteria;
@@ -37,8 +39,15 @@ public class GroupServiceImpl implements GroupService {
 	public int countPaging(GroupCriteria cri) throws Exception {
 		return dao.countPaging(cri);
 	}
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public GroupVO listRead(int groupId)throws Exception {
+		dao.updateViewCnt(groupId);
 		return dao.listRead(groupId);
+	}
+	@Override
+	public void updateViewCnt(int groupId)throws Exception {
+		dao.updateViewCnt(groupId);
+		return;
 	}
 }

@@ -49,23 +49,10 @@ public class GroupController {
 		return groupId;
 	}
 	
-//	@RequestMapping(value="/listRead", method=RequestMethod.GET)
-//	public String listRead(GroupVO vo, Model model) throws Exception {
-//		System.out.println("get listCri..............");
-//		model.addAttribute("GroupVO",service.listRead(vo));
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalCount(service.countPaging(cri));
-//		model.addAttribute("pageMaker",pageMaker);
-//		
-//		return "group_list";
-//	}	
 	@RequestMapping(value = "/listRead", method = RequestMethod.GET)
 	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
 		System.out.println("get listRead..............");
 		System.out.println("groupId: "+groupId);
-//		System.out.println("get listRead..............");
-//		System.out.println("get listRead..............");
 		model.addAttribute("GroupVO",service.listRead(groupId));
 	    return "group_list_read";
 	}
