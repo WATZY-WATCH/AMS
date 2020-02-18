@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>다음 지도 API</title>
+	<sec:csrfMetaTags />
 	<link href="/css/map.css" />
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
 <body>
+	<sec:csrfInput />
 	<div class="map_wrap">
     <div id="menu_wrap" class="bg_white">
         <div class="option">
