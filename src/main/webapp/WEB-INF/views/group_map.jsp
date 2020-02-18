@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<title>다음 지도 API</title>
 	<sec:csrfMetaTags />
-	<link href="/css/map.css" />
+	<link rel="stylesheet" href="/css/map.css" />
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
@@ -21,7 +21,7 @@
               <button onclick="searchPlace()">검색하기</button> 
             </div>
         </div>
-        <div id="map" style="width:100%;height:80vh;position:relative;overflow:hidden;"></div>
+        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
         <div id="clickLatlng"></div>
         <hr>
         <ul id="placesList"></ul>
