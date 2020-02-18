@@ -12,6 +12,9 @@
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 	">
+	<mvc:cors>
+		<mvc:mapping path="//dapi.kakao.com/**" allowed-origins="http://localhost:8080"/>
+	</mvc:cors>
 	<sec:http pattern="/resources/**" security="none" />
 	<sec:http pattern="/js/**" security="none" />
 	<sec:http pattern="/css/**" security="none" />

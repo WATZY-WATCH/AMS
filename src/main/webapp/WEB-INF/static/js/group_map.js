@@ -1,3 +1,8 @@
+const elementToken = document.querySelector('meta[name="_csrf"]');
+const token = elementToken && elementToken.getAttribute("content");
+const elementHeader = document.querySelector('meta[name="_csrf_header"]');
+const header = elementHeader && elementHeader.getAttribute("content");
+
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -53,7 +58,6 @@ function setCurrLocation() {
 
 //지도에 마커와 인포윈도우를 표시하는 함수입니다
 function displayMarker(locPosition, message) {
-
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({  
         map: map, 
@@ -77,28 +81,43 @@ function displayMarker(locPosition, message) {
 }   
 
 // 지도 영역 변화 이벤트를 등록한다
-kakao.maps.event.addListener(map, 'bounds_changed', function () {
-	var mapBounds = map.getBounds(),
-		message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
-					mapBounds.toString() + '입니다.';
-
-	console.log(message);	
-});
+//kakao.maps.event.addListener(map, 'bounds_changed', function () {
+//	var mapBounds = map.getBounds(),
+//		message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
+//					mapBounds.toString() + '입니다.';
+//
+//	console.log(message);	
+//});
 
 //지도에 클릭 이벤트를 등록합니다
 //지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	 // 클릭한 위도, 경도 정보를 가져옵니다 
-	 var latlng = mouseEvent.latLng; 
+	var latlng = mouseEvent.latLng; 
+	const data = {x: latlng.Ga, y: latlng.Ha};
+	const xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", "./locInfo");
+	xhr.setRequestHeader(header, token);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify(data));
+	
+	xhr.onload = function () {
+		if(xhr.status == 200 || xhr.status == 201) {
+			console.log(xhr.responseText);
+		} else {
+			console.log("위치 정보를 받아오지 못했습니다. ");
+		}
+	}
 	 
 	 // 마커 위치를 클릭한 위치로 옮깁니다
-	 initMarker.setPosition(latlng);
+	initMarker.setPosition(latlng);
 	 
-	 var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-	 message += '경도는 ' + latlng.getLng() + ' 입니다';
-	 
-	 var resultDiv = document.getElementById('clickLatlng'); 
-	 resultDiv.innerHTML = message;
+//	var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+//	message += '경도는 ' + latlng.getLng() + ' 입니다';
+//	 
+//	var resultDiv = document.getElementById('clickLatlng'); 
+//	resultDiv.innerHTML = message;
 });
 
 // 지도 시점 변화 완료 이벤트를 등록한다

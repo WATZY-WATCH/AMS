@@ -10,7 +10,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Service;
@@ -134,5 +136,38 @@ public class Kakaoapi {
 	            // clear resources
 	        }
 	        return returnNode;
+	 }
+	 
+	 public JsonNode getAddressInfo(JsonNode location) {
+		 final String RequestUrl = "https://dapi.kakao.com/v2/local/geo/coord2address.json?";
+		 final HttpClient client = HttpClientBuilder.create().build();
+		 final List<NameValuePair> getParams = new ArrayList<NameValuePair>();
+		 getParams.add(new BasicNameValuePair("x", location.get("x").asText()));
+		 getParams.add(new BasicNameValuePair("y", location.get("y").asText()));
+		 
+		 final HttpGet get = new HttpGet(RequestUrl + URLEncodedUtils.format(getParams, "UTF-8"));
+		 
+		 get.addHeader("Authorization", "KakaoAK " + CLIENT_ID);
+		 
+		 JsonNode returnNode = null;
+		 
+		 try {
+			final HttpResponse response = client.execute(get);
+			final int responseCode = response.getStatusLine().getStatusCode();
+			// JSON 형태 반환값 처리
+            ObjectMapper mapper = new ObjectMapper();
+		    returnNode = mapper.readTree(response.getEntity().getContent());
+		    
+		    System.out.println(returnNode);
+		 } catch (ClientProtocolException e) {
+		    e.printStackTrace();
+		 } catch (IOException e) {
+		    e.printStackTrace();
+		 } finally {
+		    // clear resources
+		 }
+		 
+		 return returnNode;
+		 
 	 }
  }
