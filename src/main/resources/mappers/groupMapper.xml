@@ -59,6 +59,16 @@
  	<update id="updateViewCnt">
   		update study_groups set viewcnt = viewcnt +1 where group_id = #{groupId}
 	</update>
- 	
+ 	<select id="memberChk" resultType="int">
+      SELECT COUNT(*) FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
+   </select>
+   
+   <insert id="listApply">
+    INSERT INTO GROUP_APPLICATIONS(GROUP_ID, USER_ID, USER_NAME, MSG)
+       					VALUES(#{groupId}, #{userId}, #{userName}, #{msg})
+   </insert>
+   <select id="listApplyChk" resultType="int">
+      SELECT COUNT(*) FROM GROUP_APPLICATIONS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
+   </select>
    
 </mapper>

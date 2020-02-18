@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupDAO;
+import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
@@ -49,5 +50,17 @@ public class GroupServiceImpl implements GroupService {
 	public void updateViewCnt(int groupId)throws Exception {
 		dao.updateViewCnt(groupId);
 		return;
+	}
+	@Override
+	public int memberChk(GroupMemberVO vo)throws Exception {
+		return dao.memberChk(vo);
+	}
+	@Override
+	public int listApply(GroupApplicationsVO vo)throws Exception {
+		return dao.listApply(vo);
+	}
+	@Override
+	public int listApplyChk(GroupApplicationsVO vo) throws Exception {
+		return dao.listApplyChk(vo);
 	}
 }

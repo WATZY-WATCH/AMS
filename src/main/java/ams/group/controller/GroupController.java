@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.PageMaker;
 import ams.group.service.GroupService;
+import ams.user.domain.UserVO;
+import ams.user.service.UserService;
 
 @Controller
 @RequestMapping("/group/**")
@@ -28,6 +31,7 @@ public class GroupController {
 	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
 	
 	@Inject GroupService service;
+	@Inject UserService userService;
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
 	public String getCreate() throws Exception {
@@ -48,12 +52,30 @@ public class GroupController {
 		service.createGroupMember(gmvo);
 		return groupId;
 	}
+	@ResponseBody
+	@RequestMapping(value = "/listApply", method = RequestMethod.POST)
+	  public int listApply(@RequestBody GroupApplicationsVO vo) throws Exception {
+		System.out.println("post listApply..............");
+		return service.listApply(vo); 
+	}
 	
 	@RequestMapping(value = "/listRead", method = RequestMethod.GET)
-	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
+	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model,Principal principal) throws Exception {
 		System.out.println("get listRead..............");
-		System.out.println("groupId: "+groupId);
 		model.addAttribute("GroupVO",service.listRead(groupId));
+		String userId=principal.getName();
+		GroupMemberVO gmvo=new GroupMemberVO();
+		gmvo.setUserId(userId);
+		gmvo.setGroupId(groupId);
+		int ret=service.memberChk(gmvo);
+		System.out.println("ret: "+ret);
+		if(ret>=1) model.addAttribute("memberChk",1);
+		else model.addAttribute("memberChk",0);
+		model.addAttribute("UserVO", userService.getUserInfo(userId));
+		GroupApplicationsVO gavo= new GroupApplicationsVO();
+		gavo.setGroupId(groupId);
+		gavo.setUserId(userId);
+		model.addAttribute("listApplyChk", service.listApplyChk(gavo));
 	    return "group_list_read";
 	}
 	
@@ -65,7 +87,6 @@ public class GroupController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.countPaging(cri));
 		model.addAttribute("pageMaker",pageMaker);
-		
 		return "group_list";
 	}
 	
@@ -73,4 +94,6 @@ public class GroupController {
 	public String getMapAPI() {
 		return "group_map";
 	}
+	
+	
 }

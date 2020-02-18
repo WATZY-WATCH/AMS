@@ -27,7 +27,6 @@
 			<th>작성 날짜</th>
 		</tr>
 	<c:forEach items="${list}" var="GroupVO">
-	
 		<tr>
 			<td>${GroupVO.groupId}</td>
 			<td>${GroupVO.groupCategory}</td>
@@ -48,7 +47,6 @@
 			<li><a
 				href="./listCri${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
 		</c:if>
-
 		<c:forEach begin="${pageMaker.startPage }"
 			end="${pageMaker.endPage }" var="idx">
 			<li
@@ -56,12 +54,10 @@
 				<a href="./listCri${pageMaker.makeQuery(idx)}">${idx}</a>
 			</li>
 		</c:forEach>
-
 		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 			<li><a
 				href="./listCri${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
 		</c:if>
-
 	</ul>
 </section>
 </body>
