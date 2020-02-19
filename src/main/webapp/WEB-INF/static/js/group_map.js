@@ -22,7 +22,14 @@ var ps = new kakao.maps.services.Places();
 //마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-setCurrLocation();
+
+async function initMap() {
+	await setCurrLocation();
+	await getCurrLocation();
+}
+
+initMap();
+
 
 //지도를 클릭한 위치에 표출할 마커입니다
 var initMarker = new kakao.maps.Marker({ 
@@ -32,27 +39,59 @@ var initMarker = new kakao.maps.Marker({
 // 지도에 마커를 표시합니다
 initMarker.setMap(map);
 
+//지도 중심을 현재 위치로, 현재 위치를 얻을 수 없을 때는 특정 위치로 이
 function setCurrLocation() {
-	//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-	if (navigator.geolocation) {
+	return new Promise(function(resolve, reject) {
+		//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+		if (navigator.geolocation) {
 
-		// GeoLocation을 이용해서 접속 위치를 얻어옵니다
-		navigator.geolocation.getCurrentPosition(function(position) {
-		    var lat = position.coords.latitude, // 위도
-		        lon = position.coords.longitude; // 경도
+			// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			navigator.geolocation.getCurrentPosition(function(position) {
+			    var lat = position.coords.latitude, // 위도
+			        lon = position.coords.longitude; // 경도
+			    
+			    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+			        message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+			    // 마커와 인포윈도우를 표시합니다
+			    displayMarker(locPosition, message);
+			    resolve();
+			});
 		    
-		    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-		        message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-		    // 마커와 인포윈도우를 표시합니다
-		    displayMarker(locPosition, message); 
-		});
-	    
-	} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-	    
-	    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-	        message = 'geolocation을 사용할수 없어요..'
-	    displayMarker(locPosition, message);
-	}
+		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+		    
+		    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+		        message = 'geolocation을 사용할수 없어요..'
+		    displayMarker(locPosition, message);
+		    reject();
+		}
+	})
+}
+
+function getCurrLocation() {
+	return new Promise(function(resolve, reject) {
+		//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+		if (navigator.geolocation) {
+			// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			navigator.geolocation.getCurrentPosition(function(position) {
+				//현재 위치와 거리 계산할 기준점 
+				let base = map.getCenter();
+			    var lat = position.coords.latitude, // 위도
+			    	lon = position.coords.longitude; // 경도
+			    let currLoc = new kakao.maps.LatLng(lat, lon);
+			    clickLine = new kakao.maps.Polyline({
+		            path: [base, currLoc] // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+		        });
+			    console.log("기준점: ", base, "현재위치: ", currLoc);
+			    console.log("거리 ", Math.round(clickLine.getLength()));
+			    resolve();
+			});
+		    
+		} else {
+		    alert("현재 위치 정보를 사용할 수 없습니다. ");
+		    reject();
+		}
+		
+	})
 }
 
 
@@ -84,7 +123,7 @@ function displayMarker(locPosition, message) {
 //지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	 // 클릭한 위도, 경도 정보를 가져옵니다 
-	var latlng = mouseEvent.latLng; 
+	var latlng = mouseEvent.latLng;
 	const data = {x: latlng.Ga, y: latlng.Ha};
 	const xhr = new XMLHttpRequest();
 	
