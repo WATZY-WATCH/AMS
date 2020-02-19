@@ -2,10 +2,13 @@ package ams.group.domain;
 
 import java.util.Date;
 
+import ams.user.domain.UserVO;
+
 public class GroupVO {
 	
 	private int groupId;
 	private String groupCategory;
+	private String groupMasterId;
 	private String groupName;
 	private String groupDetail;
 	private int groupMemberLimit;
@@ -17,6 +20,7 @@ public class GroupVO {
 	private Date regDate;
 	private Date modDate;
 	private int viewCnt;
+	private UserVO userVO;
 	
 	public int getGroupId() {
 		return groupId;
@@ -95,6 +99,18 @@ public class GroupVO {
 	}
 	public void setViewCnt(int viewCnt) {
 		this.viewCnt = viewCnt;
+	}
+	public String getGroupMasterId() {
+		return groupMasterId;
+	}
+	public void setGroupMasterId(String groupMasterId) {
+		this.groupMasterId = groupMasterId;
+	}
+	public UserVO getUserVO() {
+		return userVO;
+	}
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
 	}
 	
 }

@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS AUTHORITIES (
 CREATE TABLE IF NOT EXISTS STUDY_GROUPS (
   group_id int NOT NULL AUTO_INCREMENT,
   group_category varchar(45) NOT NULL,
+  group_master_id varchar(45) NOT NULL,
   group_name varchar(45) NOT NULL,
   group_detail longtext NOT NULL,
   group_member_limit int NOT NULL,

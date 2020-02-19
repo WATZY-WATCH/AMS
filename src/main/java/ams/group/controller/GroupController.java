@@ -2,6 +2,7 @@ package ams.group.controller;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,7 @@ import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.PageMaker;
+import ams.group.domain.SearchCriteria;
 import ams.group.service.GroupService;
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
@@ -42,6 +44,7 @@ public class GroupController {
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public int postCreate(@RequestBody GroupVO vo, Principal principal) throws Exception {
 		logger.info("post /group/create.......");
+		vo.setGroupMasterId(principal.getName());
 		service.createGroup(vo);
 		int groupId=vo.getGroupId();
 		System.out.println("ID: "+principal.getName());
@@ -60,9 +63,11 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/listRead", method = RequestMethod.GET)
-	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model,Principal principal) throws Exception {
+	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") SearchCriteria cri, Model model,Principal principal) throws Exception {
 		System.out.println("get listRead..............");
-		model.addAttribute("GroupVO",service.listRead(groupId));
+		GroupVO gvo=service.listRead(groupId);
+		model.addAttribute("GroupVO",gvo);
+		model.addAttribute("UserVO",userService.getUserInfo(gvo.getGroupMasterId()));
 		String userId=principal.getName();
 		GroupMemberVO gmvo=new GroupMemberVO();
 		gmvo.setUserId(userId);
@@ -78,14 +83,15 @@ public class GroupController {
 		model.addAttribute("listApplyChk", service.listApplyChk(gavo));
 	    return "group_list_read";
 	}
-	
+
 	@RequestMapping(value="/listCri", method=RequestMethod.GET)
-	public String listCri(GroupCriteria cri, Model model) throws Exception {
+	public String listCri(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		System.out.println("get listCri..............");
-		model.addAttribute("list",service.listCriteria(cri));
+		List<GroupVO> gvoList = service.listSearch(cri);
+		model.addAttribute("list",gvoList);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.countPaging(cri));
+		pageMaker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("pageMaker",pageMaker);
 		return "group_list";
 	}

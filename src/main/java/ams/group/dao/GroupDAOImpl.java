@@ -11,6 +11,7 @@ import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
+import ams.group.domain.SearchCriteria;
 
 @Repository
 public class GroupDAOImpl implements GroupDAO{
@@ -25,20 +26,6 @@ public class GroupDAOImpl implements GroupDAO{
 	@Override
 	public int createGroupMember(GroupMemberVO vo) throws Exception {
 		return sql.insert(ns+".groupCreateMember", vo);
-	}
-	@Override
-	public List<GroupVO> listPage(int page) throws Exception {
-		if(page<=0) page =1;
-		page=(page-1)*10;
-		return sql.selectList(ns+".listPage",page);
-	}
-	@Override
-	public List<GroupVO> listCriteria(GroupCriteria cri) throws Exception {
-		return sql.selectList(ns+".listCriteria", cri);
-	}
-	@Override
-	public int countPaging(GroupCriteria cri) throws Exception {
-		return sql.selectOne(ns+".countPaging", cri);
 	}
 	@Override
 	public GroupVO listRead(int groupId) throws Exception {
@@ -60,5 +47,13 @@ public class GroupDAOImpl implements GroupDAO{
 	@Override
 	public int listApplyChk(GroupApplicationsVO vo) throws Exception {
 		return sql.selectOne(ns+".listApplyChk",vo);
+	}
+	@Override
+	public List<GroupVO> listSearch(SearchCriteria cri) throws Exception {
+		return sql.selectList(ns+".listSearch",cri);
+	}
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return sql.selectOne(ns+".listSearchCount",cri);
 	}
 }

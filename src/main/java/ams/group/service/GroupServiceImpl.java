@@ -13,6 +13,7 @@ import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
+import ams.group.domain.SearchCriteria;
 
 
 @Service
@@ -27,18 +28,6 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int createGroupMember(GroupMemberVO vo) throws Exception {
 		return dao.createGroupMember(vo);
-	}
-	@Override
-	public List<GroupVO> listPage(int page) throws Exception {
-		return dao.listPage(page);
-	}
-	@Override
-	public List<GroupVO> listCriteria(GroupCriteria cri) throws Exception {
-		return dao.listCriteria(cri);
-	}
-	@Override
-	public int countPaging(GroupCriteria cri) throws Exception {
-		return dao.countPaging(cri);
 	}
 	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
@@ -62,5 +51,13 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int listApplyChk(GroupApplicationsVO vo) throws Exception {
 		return dao.listApplyChk(vo);
+	}
+	@Override
+	public List<GroupVO> listSearch(SearchCriteria cri) throws Exception {
+		return dao.listSearch(cri);
+	}
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return dao.listSearchCount(cri);
 	}
 }

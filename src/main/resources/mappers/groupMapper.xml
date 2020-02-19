@@ -5,54 +5,137 @@
   
  <mapper namespace="ams.group.mapper.groupMapper">
    <insert id="groupCreate" useGeneratedKeys="true" keyProperty="groupId" >
-   INSERT INTO STUDY_GROUPS(GROUP_CATEGORY, GROUP_NAME, GROUP_DETAIL, GROUP_MEMBER_LIMIT, GROUP_PERIOD, GROUP_AREA, GROUP_START_AGE, GROUP_END_AGE)
-       					VALUES(#{groupCategory}, #{groupName}, #{groupDetail}, #{groupMemberLimit}, #{groupPeriod},#{groupArea},#{groupStartAge},#{groupEndAge})
+   INSERT INTO STUDY_GROUPS(GROUP_CATEGORY, GROUP_MASTER_ID, GROUP_NAME, GROUP_DETAIL, GROUP_MEMBER_LIMIT, GROUP_PERIOD, GROUP_AREA, GROUP_START_AGE, GROUP_END_AGE)
+       					VALUES(#{groupCategory}, #{groupMasterId}, #{groupName}, #{groupDetail}, #{groupMemberLimit}, #{groupPeriod},#{groupArea},#{groupStartAge},#{groupEndAge})
    </insert>
    <insert id="groupCreateMember">
     INSERT INTO GROUP_MEMBERS(GROUP_ID, USER_ID, GROUP_AUTHORITY)
        					VALUES(#{groupId}, #{userId}, #{groupAuthority})
    </insert>
-   <select id="listPage" resultType="ams.group.domain.GroupVO">
+   <select id="listPage" resultType="GroupVO">
  	<![CDATA[
  	select
  		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, viewCnt
  	from
  		study_groups
  	where group_id > 0 and (group_status='모집중' or group_status='진행중')
- 	order by group_id desc, reg_date desc
+ 	order by group_id desc, mod_date desc
  	limit #{page},10
  	]]>
  	</select>
  	
- 	<select id="listCriteria" resultType="ams.group.domain.GroupVO">
+ 	
+ 	<resultMap id="listUserName" type="UserVO">
+	    <result property="userName" column="USER_NAME"/>
+	</resultMap>
+ 	<resultMap id="listGroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupDetail" column="GROUP_DETAIL"/>
+	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <result property="groupStartAge" column="GROUP_START_AGE"/>
+	    <result property="groupEndAge" column="GROUP_END_AGE"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <result property="modDate" column="MOD_DATE"/>
+	    <result property="viewCnt" column="VIEWCNT"/>
+	    <collection property="userVO" resultMap="listUserName"/>
+	</resultMap>
+ 	<select id="listSearch" parameterType="GroupVO" resultMap="listGroupVO">
  	<![CDATA[
  	select
- 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, viewCnt
- 	from
- 		study_groups
- 	where group_id>0 and (group_status='모집중' or group_status='진행중')
- 	order by group_id desc, reg_date desc
- 	limit #{pageStart},#{perPageNum}
+ 		SG.GROUP_ID
+ 		, SG.GROUP_CATEGORY 
+ 		, SG.GROUP_NAME
+ 		, SG.GROUP_DETAIL
+ 		, SG.GROUP_MEMBER_LIMIT
+ 		, SG.GROUP_PERIOD
+ 		, SG.GROUP_AREA
+ 		, SG.GROUP_STATUS
+ 		, SG.GROUP_START_AGE
+ 		, SG.GROUP_END_AGE
+ 		, SG.REG_DATE
+ 		, SG.MOD_DATE
+ 		, SG.VIEWCNT
+ 		, U.USER_NAME
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	WHERE SG.GROUP_ID>0 AND (SG.GROUP_STATUS='모집중' OR SG.GROUP_STATUS='진행중')
+ 	]]>
+ 	
+ 	<if test="searchType != null" >
+ 		<if test="searchType=='t'.toString()">
+ 			and SG.GROUP_NAME like CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType=='c'.toString()">
+ 			and SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType=='w'.toString()">
+ 			and U.USER_NAME like CONCAT('%', #{keyword}, '%')
+ 		</if>
+ 		<if test="searchType=='tc'.toString()">
+ 			and (SG.GROUP_NAME like CONCAT('%', #{keyword}, '%') OR SG.GROUP_DETAIL like CONCAT('%', #{keyword},'%'))
+ 		</if>
+ 		<if test="searchType=='cw'.toString()">
+ 			and (SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%') OR U.USER_NAME like CONCAT('%',#{keyword}, '%'))
+ 		</if>
+ 		<if test="searchType=='tcw'.toString()">
+ 			and (SG.GROUP_NAME like CONCAT('%', #{keyword}, '%')
+ 			OR SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%')
+ 			OR U.USER_NAME like CONCAT('%', #{keyword}, '%'))
+ 		</if>
+ 	</if>
+ 	<![CDATA[
+ 	ORDER BY SG.GROUP_ID DESC, SG.REG_DATE DESC
+ 	LIMIT #{pageStart},#{perPageNum}
  	]]>
  	</select>
  	
- 	<select id="countPaging" resultType="int">
+ 	<select id="listSearchCount" resultType="int">
  	<![CDATA[
  	select
- 		count(group_id)
- 	from
- 		study_groups
+ 		count(SG.GROUP_ID)
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
  	where group_id>0 and (group_status='모집중' or group_status='진행중')
  	]]>
+ 		<include refid="search"></include>
  	</select>
- 	
- 	<select id="listRead" resultType="ams.group.domain.GroupVO">
+ 	<select id="listRead" parameterType="GroupVO" resultMap="listGroupVO">
  	<![CDATA[
  	select
- 		*
- 	from
- 		study_groups
- 	where group_id=#{groupId}
+ 		SG.GROUP_ID
+ 		, SG.GROUP_CATEGORY 
+ 		, SG.GROUP_NAME
+ 		, SG.GROUP_DETAIL
+ 		, SG.GROUP_MEMBER_LIMIT
+ 		, SG.GROUP_PERIOD
+ 		, SG.GROUP_AREA
+ 		, SG.GROUP_STATUS
+ 		, SG.GROUP_START_AGE
+ 		, SG.GROUP_END_AGE
+ 		, SG.REG_DATE
+ 		, SG.MOD_DATE
+ 		, SG.VIEWCNT
+ 		, U.USER_NAME
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	WHERE SG.GROUP_ID=#{groupId}
  	]]>
  	</select>
  	
@@ -70,5 +153,31 @@
    <select id="listApplyChk" resultType="int">
       SELECT COUNT(*) FROM GROUP_APPLICATIONS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
    </select>
+   <sql id="search">
+   	<if test="searchType != null">
+   		<if test="searchType=='t'.toString()">
+   			and SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
+   		</if>
+   		<if test="searchType=='c'.toString()">
+   			and SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
+   		</if>
+   		<if test="searchType=='w'.toString()">
+   			and U.USER_NAME like CONCAT ('%',#{keyword}, '%')
+   		</if>
+   		<if test="searchType=='tc'.toString()">
+   			and (SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
+   			OR SG.GROUP_DETAIL like CONCAT('%',#{keyword}, '%'))
+   		</if>
+   		<if test="searchType=='cw'.toString()">
+   			and (SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
+   			OR U.USER_NAME like CONCAT ('%',#{keyword}, '%'))
+   		</if>
+   		<if test="searchType=='tcw'.toString()">
+   			and (SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
+   			OR SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
+   			OR U.USER_NAME like CONCAT ('%',#{keyword}, '%'))
+   		</if>
+   	</if>
+   </sql>
    
 </mapper>

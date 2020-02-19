@@ -3,9 +3,10 @@ const token = elementToken && elementToken.getAttribute("content");
 const elementHeader = document.querySelector('meta[name="_csrf_header"]');
 const header = elementHeader && elementHeader.getAttribute("content");
 
-function listBoard(page, perPageNum) {
-	document.location.href="/group/listCri?page="+page+"&perPageNum="+perPageNum;
+function listBoard(page, perPageNum, searchType, keyword) {
+	document.location.href="/group/listCri?page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
 }
+
 var listApplyFlag=0;
 function applyGroup(groupId, userId, userName, listApplyChk) {
 	if(listApplyChk>0||listApplyFlag>0){

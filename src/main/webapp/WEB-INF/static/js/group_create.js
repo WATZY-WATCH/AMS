@@ -16,7 +16,7 @@ function periodSelect(){
 	}
 }
 
-function formChk() {
+function formChk(userId) {
 	const form = document.getElementById("groupCreateForm");
 	const groupName=document.getElementById("groupName").value;
 	const groupDetail=document.getElementById("groupDetail").value;
@@ -46,7 +46,6 @@ function formChk() {
 			groupStartAge : startAgeValue,
 			groupEndAge : endAgeValue
 		};
-	
 	if(groupName === "") {
 		alert("스터디 이름을 입력해주세요.");
 	} else if(groupDetail === "") {

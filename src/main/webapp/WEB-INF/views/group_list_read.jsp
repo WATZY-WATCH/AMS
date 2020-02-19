@@ -17,6 +17,7 @@
 		<tr>
 			<th>번호</th>
 			<th>카테고리</th>
+			<th>그룹장</th>
 			<th>제목</th>
 			<th>최대 인원수</th>
 			<th>주기</th>
@@ -29,6 +30,7 @@
 		<tr>
 			<td>${GroupVO.groupId}</td>
 			<td>${GroupVO.groupCategory}</td>
+			<td>${GroupVO.userVO.userName}</td>
 			<td>${GroupVO.groupName}</td>
 			<td>${GroupVO.groupMemberLimit}</td>
 			<td>${GroupVO.groupPeriod}</td>
@@ -50,7 +52,7 @@
 		</div>
 		<button type="button" id="applyBtn" onclick="applyGroup(${GroupVO.groupId},'${UserVO.userId}','${UserVO.userName}',${listApplyChk})">신청하기</button>
 	</c:if>
-	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum})">목록으로</button>
+	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum},'${cri.searchType}','${cri.keyword}')">목록으로</button>
 	<script type="text/javascript" src="/js/group_list_read.js"></script>
 </section>
 </body>
