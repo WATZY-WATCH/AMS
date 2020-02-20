@@ -61,8 +61,7 @@ public class GroupAttendanceController {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> retObj = new HashMap<String, Object>();
-		if(inputId == userId) {
-			System.out.println(inputId + ": :" + userId + ".");
+		if(!inputId.equals(userId)) {
 			retObj.put("error", "잘못된 요청입니다. ");
 			return mapper.writeValueAsString(retObj);
 		}
