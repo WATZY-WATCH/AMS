@@ -1,9 +1,12 @@
 package ams.user.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import ams.group.domain.GroupVO;
 import ams.user.dao.UserDAO;
 import ams.user.domain.UserVO;
 
@@ -62,5 +65,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String findUser(String userId) throws Exception {
 		return dao.findUser(userId);
+	}
+	
+	@Override
+	public List<GroupVO> findJoinedGroup(String userId) throws Exception {
+		return dao.findJoinedGroup(userId);
 	}
 }

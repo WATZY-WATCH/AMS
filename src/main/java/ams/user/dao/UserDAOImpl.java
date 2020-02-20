@@ -1,10 +1,13 @@
 package ams.user.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 
 @Repository
@@ -66,5 +69,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public String findUser(String userId) throws Exception{
 		return sql.selectOne(ns+".findUser",userId);
+	}
+
+	@Override
+	public List<GroupVO> findJoinedGroup(String userId) throws Exception {
+		return sql.selectList(ns+".findJoinedGroup", userId);
 	}
 }

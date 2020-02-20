@@ -3,8 +3,7 @@ const token = elementToken && elementToken.getAttribute("content");
 const elementHeader = document.querySelector('meta[name="_csrf_header"]');
 const header = elementHeader && elementHeader.getAttribute("content");
 
-var baseTime,
-	dist;
+var dist;
 
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";
@@ -41,7 +40,6 @@ async function init() {
 init();
 
 function attend(groupId, userId, base) {
-	baseTime = base;
 	if(dist === -1) {
 		alert("현재 위치 정보를 사용할 수 없습니다. ");
 		return;
@@ -65,7 +63,7 @@ function attend(groupId, userId, base) {
 			let retObj = JSON.parse(ret);
 			if(retObj.error) alert(retObj.error);
 			else {
-				alert(userId + "님 " + retObj.status + "했습니다. ");
+				alert(retObj.chkTime+"\n"+userId + "님 " + retObj.status + "처리 되었습니다. ");
 				const body = document.querySelector("body");
 				const form = document.querySelector("form");
 				const attendBtn = document.querySelector(".attendBtn");
@@ -81,7 +79,7 @@ function attend(groupId, userId, base) {
 
 let timer = setInterval(function() {
 	let now = new Date();
-	let baseCmp = new Date(baseTime);
+	let baseCmp = new Date(startTime);
 	if(parseInt((now- baseCmp) / 60000) > 10) {
 		clearInterval(timer);
 		const body = document.querySelector("body");

@@ -1,6 +1,7 @@
 package ams.user.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
 
@@ -142,4 +144,12 @@ public class UserController {
 		return ret;
 	}
 	
+	@RequestMapping(value="/myPage", method=RequestMethod.GET)
+	public String getJoinedGroup(Principal principal, Model model) throws Exception {
+		logger.info("get my page.....");
+		String userId = principal.getName();
+		List<GroupVO> myGroups = service.findJoinedGroup(userId);
+		model.addAttribute("gList", myGroups);
+		return "user_mypage";
+	}
 }

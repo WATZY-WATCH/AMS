@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,40 +25,47 @@ public class GroupAttendanceController {
 	
 	private boolean attendanceStatus = false; //출석 체크 여부
 	private boolean isTimeout = false;
+	private boolean finished = false;
 	
 	@RequestMapping(path="/attend", method=RequestMethod.GET)
 	public String getAttendance(@RequestParam("groupId") int groupId, Principal principal, Model model) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		Date now = new Date();
 		String userId = principal.getName();
-		String baseTime = "2020-02-20 19:20";
-		Date base = format.parse(baseTime);
+		String beginTime = "2020-02-20 22:20";
+		String endTime = "2020-02-20 23:59";
+		Date start = format.parse(beginTime);
+		Date end = format.parse(endTime);
 		
 		System.out.println("now: " + now);
-		System.out.println("base: " + base);
+		System.out.println("base: " + start);
 		
-		isTimeout = (now.getTime() <= base.getTime()) || (now.getTime() - base.getTime()) / 60000L <= 10L; //출석 시간 이내 접근인지 확- 
+		isTimeout = (now.getTime() <= start.getTime()) || (now.getTime() - start.getTime()) / 60000L <= 10L; //출석 시간 이내 접근인지 확인 
+		finished = (now.getTime() > end.getTime());
 		
-		System.out.println(attendanceStatus + " " + isTimeout);
+		
+		System.out.println(attendanceStatus + " " + isTimeout + " " + finished);
 		model.addAttribute("userId", userId);
 		model.addAttribute("groupId", groupId);
 		model.addAttribute("attendanceStatus", attendanceStatus);
 		model.addAttribute("isTimeout", isTimeout);
-		model.addAttribute("base", baseTime);
+		model.addAttribute("finished", finished);
+		model.addAttribute("start", beginTime);
 		return "group_attend";
 	}
 	
 	@ResponseBody
 	@RequestMapping(path="/attend",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
-	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal, HttpServletRequest req) throws ParseException, IOException {
-		System.out.println(req.getServletPath() + " " + req.getRequestURI() + req.getQueryString());
+	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal) throws ParseException, IOException {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		String nowTime = reqInfo.get("date").asText();
 		String inputId = reqInfo.get("userId").asText();
 		String userId = principal.getName();
-		String baseTime = "2020-02-20 19:20";
-		Date base = format.parse(baseTime);
+		String beginTime = "2020-02-20 22:20";
+		String endTime = "2020-02-20 23:59";
+		Date start = format.parse(beginTime);
+		Date end = format.parse(endTime);
 		Date now = format.parse(nowTime);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -70,10 +75,11 @@ public class GroupAttendanceController {
 			return mapper.writeValueAsString(retObj);
 		}
 		
-		isTimeout = (now.getTime() <= base.getTime()) || (now.getTime() - base.getTime()) / 60000L <= 10L; //출석 시간 이내 접근인지 확- 
-		if(isTimeout) attendanceStatus = true;
+		isTimeout = (now.getTime() <= start.getTime()) || (now.getTime() - start.getTime()) / 60000L <= 10L; //출석 시간 이내 접근인지 확인 
+		attendanceStatus = true;
 		
 		
+		retObj.put("chkTime", format.format(new Date()));
 		retObj.put("status", (isTimeout ? "출석완료" : "지각"));
 		
 		return mapper.writeValueAsString(retObj);
