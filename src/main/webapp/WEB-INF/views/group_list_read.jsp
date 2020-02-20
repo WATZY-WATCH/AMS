@@ -37,7 +37,7 @@
 			<td>${GroupVO.groupArea}</td>
 			<td>${GroupVO.groupStatus}</td>
 			<td>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</td>
-			<td>${GroupVO.viewCnt}</td>
+			<td>${GroupVO.groupViewCnt}</td>
 			<td><fmt:setTimeZone value="UTC" />
 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" /></td>
 		</tr>
