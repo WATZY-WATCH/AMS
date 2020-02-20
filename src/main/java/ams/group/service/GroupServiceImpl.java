@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupDAO;
 import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
@@ -59,5 +60,21 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
+	}
+	@Override
+	public List<GroupCommentVO> commentList(int groupId) throws Exception {
+		return dao.commentList(groupId);
+	}
+	@Override
+	public int createComment(GroupCommentVO vo) throws Exception {
+		return dao.createComment(vo);
+	}
+	@Override
+	public int updateComment(GroupCommentVO vo) throws Exception {
+		return dao.updateComment(vo);
+	}
+	@Override
+	public int deleteComment(int commentId) throws Exception {
+		return dao.deleteComment(commentId);
 	}
 }

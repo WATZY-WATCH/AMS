@@ -10,5 +10,6 @@
 		<typeAlias type="ams.user.domain.UserVO" alias="UserVO"/>
 		<typeAlias type="ams.group.domain.GroupVO" alias="GroupVO"/>
 		<typeAlias type="ams.group.domain.GroupMemberVO" alias="GroupMemberVO"/>
+		<typeAlias type="ams.group.domain.GroupCommentVO" alias="GroupCommentVO"/>
 	</typeAliases>
 </configuration>

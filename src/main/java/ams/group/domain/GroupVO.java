@@ -19,7 +19,7 @@ public class GroupVO {
 	private String groupEndAge;
 	private Date regDate;
 	private Date modDate;
-	private int viewCnt;
+	private int groupViewCnt;
 	private UserVO userVO;
 	
 	public int getGroupId() {
@@ -94,11 +94,11 @@ public class GroupVO {
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
 	}
-	public int getViewCnt() {
-		return viewCnt;
+	public int getGroupViewCnt() {
+		return groupViewCnt;
 	}
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setGroupViewCnt(int groupViewCnt) {
+		this.groupViewCnt = groupViewCnt;
 	}
 	public String getGroupMasterId() {
 		return groupMasterId;

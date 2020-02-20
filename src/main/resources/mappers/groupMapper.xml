@@ -15,7 +15,7 @@
    <select id="listPage" resultType="GroupVO">
  	<![CDATA[
  	select
- 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, viewCnt
+ 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, GROUP_VIEW_CNT
  	from
  		study_groups
  	where group_id > 0 and (group_status='모집중' or group_status='진행중')
@@ -41,7 +41,7 @@
 	    <result property="groupEndAge" column="GROUP_END_AGE"/>
 	    <result property="regDate" column="REG_DATE"/>
 	    <result property="modDate" column="MOD_DATE"/>
-	    <result property="viewCnt" column="VIEWCNT"/>
+	    <result property="groupViewCnt" column="GROUP_VIEW_CNT"/>
 	    <collection property="userVO" resultMap="listUserName"/>
 	</resultMap>
  	<select id="listSearch" parameterType="GroupVO" resultMap="listGroupVO">
@@ -59,7 +59,7 @@
  		, SG.GROUP_END_AGE
  		, SG.REG_DATE
  		, SG.MOD_DATE
- 		, SG.VIEWCNT
+ 		, SG.GROUP_VIEW_CNT
  		, U.USER_NAME
  	FROM
  		STUDY_GROUPS SG
@@ -127,7 +127,7 @@
  		, SG.GROUP_END_AGE
  		, SG.REG_DATE
  		, SG.MOD_DATE
- 		, SG.VIEWCNT
+ 		, SG.GROUP_VIEW_CNT
  		, U.USER_NAME
  	FROM
  		STUDY_GROUPS SG
@@ -140,7 +140,7 @@
  	</select>
  	
  	<update id="updateViewCnt">
-  		update study_groups set viewcnt = viewcnt +1 where group_id = #{groupId}
+  		update study_groups set GROUP_VIEW_CNT = GROUP_VIEW_CNT +1 where group_id = #{groupId}
 	</update>
  	<select id="memberChk" resultType="int">
       SELECT COUNT(*) FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
@@ -179,5 +179,22 @@
    		</if>
    	</if>
    </sql>
+   
+   <select id="commentList" resultType="GroupCommentVO">
+   	select * from group_comment where group_id=#{groupId} order by comment_id DESC
+   </select>
+   
+   <insert id="commentCreate">
+   	insert into group_comment (group_id, user_id, group_msg)
+   	values (#{groupId}, #{userId}, #{groupMsg})
+   </insert>
+   
+   <update id="commentUpdate">
+   	update group_comment set comment_msg = #{commentMsg} where comment_id = #{commentId}
+   </update>
+   
+   <delete id="commentDelete">
+   	delete from group_comment where comment_id=#{commentId}
+   </delete>
    
 </mapper>
