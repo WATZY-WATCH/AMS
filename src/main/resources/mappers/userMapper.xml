@@ -73,7 +73,28 @@
    </select>
    
    <select id="findUser" resultType="String">
-      SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
+     SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
+   </select>
+   
+   <resultMap id="GroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	</resultMap>
+   <select id="findJoinedGroup" resultMap="GroupVO">
+   	SELECT SG.GROUP_ID,
+   				SG.GROUP_CATEGORY,
+   				SG.GROUP_NAME,
+   				SG.GROUP_PERIOD,
+   				SG.GROUP_AREA,
+   				SG.GROUP_STATUS
+   	FROM STUDY_GROUPS SG
+   	LEFT JOIN GROUP_MEMBERS GM
+   	ON SG.GROUP_ID = GM.GROUP_ID
+   	WHERE GM.USER_ID=#{userId}
    </select>
    
    <update id="modifyUser" parameterType="ams.user.domain.UserVO">

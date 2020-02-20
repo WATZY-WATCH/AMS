@@ -13,6 +13,7 @@
 </h1>
 
 <p id="userName"> ${userName } 님 환영합니다! </p>
+<a href="/user/myPage">마이페이지 </a>
 <sec:authorize access="hasAuthority('USER')">
 	<form action="<c:url value='/logout' />" method="post">
 		<sec:csrfInput />

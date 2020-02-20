@@ -13,14 +13,11 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${isTimeout && (attendanceStatus eq false) }">
+		<c:when test="${(finished eq false) && (attendanceStatus eq false) }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
-				<button class="attendBtn" type="button" onclick="attend(${groupId}, '${userId }', '${base }')">출석하기 </button>
+				<button class="attendBtn" type="button" onclick="attend(${groupId}, '${userId }', '${start }')">출석하기 </button>
 			</form>
-		</c:when>
-		<c:when test="${attendanceStatus && (isTimeout eq false)}">
-			<h2>지각 </h2>
 		</c:when>
 		<c:when test="${attendanceStatus eq true }">
 			<h2>출석완료 </h2>
@@ -30,5 +27,6 @@
 		</c:otherwise>
 	</c:choose>
 </body>
+<script>var startTime = "${start}"</script>
 <script type="text/javascript" src="/js/group_attend.js"></script>
 </html>
