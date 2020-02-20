@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,7 @@ public class GroupAttendanceController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		Date now = new Date();
 		String userId = principal.getName();
-		String baseTime = "2020-02-20 13:20";
+		String baseTime = "2020-02-20 19:20";
 		Date base = format.parse(baseTime);
 		
 		System.out.println("now: " + now);
@@ -50,12 +52,14 @@ public class GroupAttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(path="/attend",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
-	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal) throws ParseException, IOException {
+	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal, HttpServletRequest req) throws ParseException, IOException {
+		System.out.println(req.getServletPath() + " " + req.getRequestURI() + req.getQueryString());
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		String nowTime = reqInfo.get("date").asText();
 		String inputId = reqInfo.get("userId").asText();
 		String userId = principal.getName();
-		String baseTime = "2020-02-20 13:20";
+		String baseTime = "2020-02-20 19:20";
 		Date base = format.parse(baseTime);
 		Date now = format.parse(nowTime);
 		
