@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
@@ -55,5 +56,21 @@ public class GroupDAOImpl implements GroupDAO{
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return sql.selectOne(ns+".listSearchCount",cri);
+	}
+	@Override
+	public List<GroupCommentVO> commentList(int groupId) throws Exception {
+		return sql.selectList(ns+".commentList", groupId);
+	}
+	@Override
+	public int createComment(GroupCommentVO vo) throws Exception {
+		return sql.insert(ns+".commentCreate", vo);
+	}
+	@Override
+	public int updateComment(GroupCommentVO vo) throws Exception {
+		return sql.update(ns+".commentUpdate", vo);
+	}
+	@Override
+	public int deleteComment(int commentId) throws Exception {
+		return sql.delete(ns+".deleteComment", commentId);
 	}
 }

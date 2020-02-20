@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
@@ -101,5 +104,17 @@ public class GroupController {
 		return "group_map";
 	}
 	
+	@RequestMapping(value="/createComment", method = RequestMethod.POST)
+	public ResponseEntity<String> register(@RequestBody GroupCommentVO vo){
+		ResponseEntity<String> entity = null;
+		try {
+			service.createComment(vo);
+			entity=new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
 }
