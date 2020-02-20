@@ -5,17 +5,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<sec:csrfMetaTags />
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<sec:csrfMetaTags />
+	<title>Insert title here</title>
+	<!-- services 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
 <body>
 	<c:choose>
 		<c:when test="${isTimeout && (attendanceStatus eq false) }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
-				<button class="attendBtn" type="button" onclick="attend()">출석하기 </button>
+				<button class="attendBtn" type="button" onclick="attend(${groupId}, '${userId }', '${base }')">출석하기 </button>
 			</form>
+		</c:when>
+		<c:when test="${attendanceStatus && (isTimeout eq false)}">
+			<h2>지각 </h2>
 		</c:when>
 		<c:when test="${attendanceStatus eq true }">
 			<h2>출석완료 </h2>
@@ -25,10 +30,5 @@
 		</c:otherwise>
 	</c:choose>
 </body>
-	<script>
-		var groupId = "${groupId}",
-				userId = "${userId}";
-				baseTime = "${base}";
-	</script>
-	<script type="text/javascript" src="/js/group_attend.js"></script>
+<script type="text/javascript" src="/js/group_attend.js"></script>
 </html>

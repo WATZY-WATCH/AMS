@@ -3,6 +3,9 @@ const token = elementToken && elementToken.getAttribute("content");
 const elementHeader = document.querySelector('meta[name="_csrf_header"]');
 const header = elementHeader && elementHeader.getAttribute("content");
 
+var baseTime,
+	dist;
+
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";
  
@@ -30,10 +33,25 @@ String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
 
+async function init() {
+	await getCurrLocation();
+	console.log(dist);
+}
 
-function attend() {
+init();
+
+function attend(groupId, userId, base) {
+	baseTime = base;
+	if(dist === -1) {
+		alert("현재 위치 정보를 사용할 수 없습니다. ");
+		return;
+	} else if(dist > 1000) {
+		alert("출석 가능 지역이 아닙니다. ");
+		return;
+	}
+	
 	const xhr = new XMLHttpRequest();
-	const data = {groupId: groupId, date: new Date().format("yyyy-MM-dd HH:mm")};
+	const data = {groupId: groupId, userId:userId, date: new Date().format("yyyy-MM-dd HH:mm")};
 	
 	xhr.open("POST", "./attend", true);
 	xhr.setRequestHeader(header, token);
@@ -45,15 +63,18 @@ function attend() {
 		if(xhr.status == 200 || xhr.status == 201) {
 			let ret = xhr.responseText;
 			let retObj = JSON.parse(ret);
-			alert(userId + "님 " + retObj.status + "했습니다. ");
-			const body = document.querySelector("body");
-			const form = document.querySelector("form");
-			const attendBtn = document.querySelector(".attendBtn");
-			form.removeChild(attendBtn);
-			let h2 = document.createElement("h2");
-			let text = document.createTextNode(retObj.status);
-			h2.appendChild(text);
-			body.appendChild(h2);
+			if(retObj.error) alert(retObj.error);
+			else {
+				alert(userId + "님 " + retObj.status + "했습니다. ");
+				const body = document.querySelector("body");
+				const form = document.querySelector("form");
+				const attendBtn = document.querySelector(".attendBtn");
+				form.removeChild(attendBtn);
+				let h2 = document.createElement("h2");
+				let text = document.createTextNode(retObj.status);
+				h2.appendChild(text);
+				body.appendChild(h2);
+			}
 		}
 	}
 }
@@ -65,11 +86,38 @@ let timer = setInterval(function() {
 		clearInterval(timer);
 		const body = document.querySelector("body");
 		const form = document.querySelector("form");
-		const attendBtn = document.querySelector(".attendBtn");
-		form.removeChild(attendBtn);
+		let attendBtn = document.querySelector(".attendBtn");
+		if(attendBtn) form.removeChild(attendBtn);
 		let h2 = document.createElement("h2");
 		let text = document.createTextNode("출석종료 ");
 		h2.appendChild(text);
 		body.appendChild(h2);
 	}
 }, 1000);
+
+function getCurrLocation() {
+	return new Promise(function(resolve, reject) {
+		if (navigator.geolocation) {
+			// GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			navigator.geolocation.getCurrentPosition(function(position) {
+				//현재 위치와 거리 계산할 기준점 
+				let base = new kakao.maps.LatLng(33.450701, 126.570667);
+			    var lat = position.coords.latitude, // 위도
+			    	lon = position.coords.longitude; // 경도
+			    let currLoc = new kakao.maps.LatLng(lat, lon);
+			    base = currLoc;
+			    clickLine = new kakao.maps.Polyline({
+		            path: [base, currLoc] // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+		        });
+			    console.log("기준점: ", base, "현재위치: ", currLoc);
+			    console.log("거리 ", Math.round(clickLine.getLength()));
+			    dist = Math.round(clickLine.getLength());
+			    resolve();
+			});
+		    
+		} else {
+			dist = -1;
+			reject();
+		}
+	})
+}
