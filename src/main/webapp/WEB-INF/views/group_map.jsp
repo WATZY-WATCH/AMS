@@ -7,7 +7,9 @@
 	<meta charset="utf-8">
 	<title>다음 지도 API</title>
 	<sec:csrfMetaTags />
+	<link rel="stylesheet" href="/css/animation.css" />
 	<link rel="stylesheet" href="/css/map.css" />
+	<link rel="stylesheet" href="/css/schedule.css" />
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
@@ -21,13 +23,29 @@
               <button onclick="searchPlace()">검색하기</button> 
             </div>
         </div>
-        <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
+        <div id="map" style="width:100%;height:90%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
         <div id="clickLatlng"></div>
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
     </div>
 	</div>
-	<script src="/js/group_map.js"></script>
+	<div class="schedule-modal-wrapper">
+		<div class="schedule-modal-content">
+			<h2>일정 생성하기 </h2>
+			<h3>${groupName }</h3>
+			<label for="scheduleDate">일시 </label>
+			<input type="date" id="scheduleDate" name="scheduleDate"  />
+			<input type="time" id="beginTime" name="beginTime" value="00:00" /> &ensp; ~ &ensp;
+			<input type="time" id="endTime" name="endTime" value="23:59" />
+			<div class="location-name">
+				<p class="building-name"></p>
+				<p class="address"></p>
+			</div>
+			<button onclick="submitSchedule(${groupId})">생성 </button>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/group_map.js"></script>
 </body>
 </html>

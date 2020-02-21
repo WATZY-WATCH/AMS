@@ -76,6 +76,10 @@
      SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
    </select>
    
+   <resultMap id="GroupMemberVO" type="GroupMemberVO">
+	    <result property="groupAuthority" column="GROUP_AUTHORITY"/>
+	    <result property="regDate" column="REG_DATE"/>
+	 </resultMap>
    <resultMap id="GroupVO" type="GroupVO">
 	    <result property="groupId" column="GROUP_ID"/>
 	    <result property="groupCategory" column="GROUP_CATEGORY"/>
@@ -83,6 +87,7 @@
 	    <result property="groupPeriod" column="GROUP_PERIOD"/>
 	    <result property="groupArea" column="GROUP_AREA"/>
 	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <collection property="groupMemberVO" resultMap="GroupMemberVO"/>
 	</resultMap>
    <select id="findJoinedGroup" resultMap="GroupVO">
    	SELECT SG.GROUP_ID,
@@ -90,7 +95,9 @@
    				SG.GROUP_NAME,
    				SG.GROUP_PERIOD,
    				SG.GROUP_AREA,
-   				SG.GROUP_STATUS
+   				SG.GROUP_STATUS,
+   				GM.GROUP_AUTHORITY,
+   				GM.REG_DATE
    	FROM STUDY_GROUPS SG
    	LEFT JOIN GROUP_MEMBERS GM
    	ON SG.GROUP_ID = GM.GROUP_ID

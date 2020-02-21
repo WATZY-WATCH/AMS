@@ -28,5 +28,6 @@
 	</c:choose>
 </body>
 <script>var startTime = "${start}"</script>
+<script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/group_attend.js"></script>
 </html>
