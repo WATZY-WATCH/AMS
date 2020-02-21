@@ -13,6 +13,7 @@ import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
+import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.SearchCriteria;
 
@@ -76,5 +77,9 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int deleteComment(int commentId) throws Exception {
 		return dao.deleteComment(commentId);
+	}
+	@Override
+	public int createSchedule(GroupScheduleVO vo) throws Exception {
+		return dao.createSchedule(vo);
 	}
 }

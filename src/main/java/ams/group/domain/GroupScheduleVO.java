@@ -5,6 +5,10 @@ import java.util.Date;
 public class GroupScheduleVO {
 	private int scheduleId;
 	private int groupId;
+	private double placeLatitude;
+	private double placeLongitude;
+	private String placeAddress;
+	private String buildingName;
 	private Date beginTime;
 	private Date endTime;
 	private Date regDate;
@@ -21,6 +25,30 @@ public class GroupScheduleVO {
 	}
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
+	}
+	public double getPlaceLatitude() {
+		return placeLatitude;
+	}
+	public void setPlaceLatitude(double placeLatitude) {
+		this.placeLatitude = placeLatitude;
+	}
+	public double getPlaceLongitude() {
+		return placeLongitude;
+	}
+	public void setPlaceLongitude(double placeLongitude) {
+		this.placeLongitude = placeLongitude;
+	}
+	public String getPlaceAddress() {
+		return placeAddress;
+	}
+	public void setPlaceAddress(String placeAddress) {
+		this.placeAddress = placeAddress;
+	}
+	public String getBuildingName() {
+		return buildingName;
+	}
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
 	}
 	public Date getBeginTime() {
 		return beginTime;

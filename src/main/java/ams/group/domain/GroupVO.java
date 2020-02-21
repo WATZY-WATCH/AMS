@@ -21,6 +21,7 @@ public class GroupVO {
 	private Date modDate;
 	private int groupViewCnt;
 	private UserVO userVO;
+	private GroupMemberVO groupMemberVO;
 	
 	public int getGroupId() {
 		return groupId;
@@ -111,6 +112,12 @@ public class GroupVO {
 	}
 	public void setUserVO(UserVO userVO) {
 		this.userVO = userVO;
+	}
+	public GroupMemberVO getGroupMemberVO() {
+		return groupMemberVO;
+	}
+	public void setGroupMemberVO(GroupMemberVO groupMemberVO) {
+		this.groupMemberVO = groupMemberVO;
 	}
 	
 }
