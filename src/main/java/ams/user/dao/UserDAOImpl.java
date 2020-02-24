@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 
@@ -74,5 +75,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<GroupVO> findJoinedGroup(String userId) throws Exception {
 		return sql.selectList(ns+".findJoinedGroup", userId);
+	}
+	
+	@Override
+	public List<GroupScheduleVO> showWeekSchedule(UserVO vo) throws Exception {
+		return sql.selectList(ns+".showWeekSchedule", vo);
 	}
 }

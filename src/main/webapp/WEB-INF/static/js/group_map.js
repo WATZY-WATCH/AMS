@@ -157,6 +157,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 				initMarker.address_name = addressInfo.road_address.address_name; //클릭됐을 때 마커에 해당 위치 저장 
 			} else {
 				message = initMarker.address_name = addressInfo.road_address.address_name;
+				initMarker.building_name = "";
 			}
 			// 마커 위치를 클릭한 위치로 옮깁니다
 			initMarker.setPosition(latlng);
@@ -422,10 +423,8 @@ function saveLocation() {
 	const data = {};
 	
 	data.position = initMarker.position;
-	if(initMarker.building_name) {
-		data.building_name = initMarker.building_name;
-		buildingName.innerText = initMarker.building_name;
-	}
+	data.building_name = initMarker.building_name;
+	buildingName.innerText = initMarker.building_name;
 	data.address = initMarker.address_name;
 	addressName.innerText = initMarker.address_name;
 	scheduleDate.value = new Date().format("yyyy-MM-dd");
@@ -447,8 +446,10 @@ function submitSchedule(groupId) {
 	const data = {};
 	data.groupId = groupId;
 	data.position = initMarker.position;
-	if(initMarker.building_name) {
+	if(initMarker.building_name !== "") {
 		data.building_name = initMarker.building_name;
+	} else {
+		data.building_name = "NULL";
 	}
 	data.address = initMarker.address_name;
 	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
@@ -463,6 +464,10 @@ function submitSchedule(groupId) {
 		if(xhr.status == 200 || xhr.status == 201) {
 			if(Number(xhr.responseText) >= 1) {
 				alert("일정이 성공적으로 등록되었습니다. ");
+				if(scheduleModalWrapper.classList.contains("fade-in")) {
+					scheduleModalWrapper.classList.remove("fade-in");
+			}
+			scheduleModalWrapper.classList.add("fade-out");
 			}
 		} else {
 			console.log("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");

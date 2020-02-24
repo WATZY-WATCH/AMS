@@ -14,6 +14,9 @@ public class GroupScheduleVO {
 	private Date regDate;
 	private Date modDate;
 	
+	private String groupCategory;
+	private String groupName;
+	
 	public int getScheduleId() {
 		return scheduleId;
 	}
@@ -75,5 +78,17 @@ public class GroupScheduleVO {
 		this.modDate = modDate;
 	}
 	
+	public String getGroupCategory() {
+		return groupCategory;
+	}
+	public void setGroupCategory(String groupCategory) {
+		this.groupCategory = groupCategory;
+	}
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 	
 }

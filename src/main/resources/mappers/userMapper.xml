@@ -104,6 +104,23 @@
    	WHERE GM.USER_ID=#{userId}
    </select>
    
+   <resultMap id="GroupScheduleVO" type="GroupScheduleVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="beginTime" column="BEGIN_TIME"/>
+	</resultMap>
+   <select id="showWeekSchedule" parameterType="UserVO" resultMap="GroupScheduleVO">
+   SELECT DISTINCT GS.GROUP_ID, GS.SCHEDULE_ID,
+   				 SG.GROUP_CATEGORY,
+   				 SG.GROUP_NAME,
+   				 GS.BEGIN_TIME
+   	FROM GROUP_SCHEDULES GS
+    LEFT JOIN GROUP_MEMBERS GM ON GM.USER_ID = #{userId}
+		LEFT JOIN STUDY_GROUPS SG ON SG.GROUP_ID = GS.GROUP_ID
+   	WHERE GS.BEGIN_TIME BETWEEN #{weekStart} AND #{weekEnd}
+   </select>
+   
    <update id="modifyUser" parameterType="ams.user.domain.UserVO">
       UPDATE USERS SET USER_NAME = #{userName}, USER_EMAIL=#{userEmail} WHERE USER_ID=#{userId}
    </update>

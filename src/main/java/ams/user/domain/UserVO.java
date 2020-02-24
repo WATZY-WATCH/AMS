@@ -11,6 +11,21 @@ public class UserVO {
 	private Date modDate;
 	private boolean enabled;
 	
+	private String weekStart;
+	private String weekEnd;
+	
+	public String getWeekStart() {
+		return weekStart;
+	}
+	public void setWeekStart(String weekStart) {
+		this.weekStart = weekStart;
+	}
+	public String getWeekEnd() {
+		return weekEnd;
+	}
+	public void setWeekEnd(String weekEnd) {
+		this.weekEnd = weekEnd;
+	}
 	public String getUserId() {
 		return userId;
 	}
