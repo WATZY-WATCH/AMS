@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupDAO;
 import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupAttendanceVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
@@ -81,5 +82,29 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int createSchedule(GroupScheduleVO vo) throws Exception {
 		return dao.createSchedule(vo);
+	}
+	@Override
+	public int modifySchedule(GroupScheduleVO vo) throws Exception {
+		return dao.modifySchedule(vo);
+	}
+	@Override
+	public int deleteSchedule(int scheduleId) throws Exception {
+		return dao.deleteSchedule(scheduleId);
+	}
+	@Override
+	public List<GroupScheduleVO> getScheduleList(int groupId) throws Exception {
+		return dao.getScheduleList(groupId);
+	}
+	@Override
+	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception {
+		return dao.getSchedule(vo);
+	}
+	@Override
+	public int requestAttend(GroupAttendanceVO vo) throws Exception {
+		return dao.requestAttend(vo);
+	}
+	@Override
+	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception {
+		return dao.chkAttendanceStatus(vo);
 	}
 }

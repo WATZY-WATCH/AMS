@@ -62,9 +62,12 @@
 		<fmt:parseNumber value="${cmp.time / (1000*60*60*24)}" integerOnly="true" var="cmpStr"></fmt:parseNumber>
 
 		<li class="schedule-${cmpStr - baseStr}">
-			<span>${s.groupName }</span>&ensp;
-			<span>${s.groupCategory }</span>&ensp;
-			<span><fmt:formatDate pattern="HH:mm" value="${s.beginTime}" /></span>
+			<a href="/attend?groupId=${s.groupId }&scheduleId=${s.scheduleId}">
+				<span><fmt:formatDate pattern="HH:mm" value="${s.beginTime}" /></span>
+				<span>${s.groupName }</span>&ensp;
+				<span>${s.groupCategory }</span>&ensp;
+			</a>
+			
 		</li>
 	</c:forEach>
 </div>

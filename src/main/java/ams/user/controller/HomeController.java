@@ -60,13 +60,6 @@ public class HomeController {
 		vo.setWeekEnd(weekEnd.format(format));
 		List<GroupScheduleVO> schedule = service.showWeekSchedule(vo);
 		
-		for(GroupScheduleVO s : schedule) {
-			System.out.println(s.getGroupName());
-			System.out.println(s.getGroupId());
-			System.out.println(s.getBeginTime());
-			System.out.println(s.getGroupCategory());
-		}
-		
 		model.addAttribute("schedules", schedule);
 		
 		String userName = service.findUser(principal.getName());

@@ -38,7 +38,8 @@ initMap();
 var initMarker = new kakao.maps.Marker({ 
     // 지도 중심좌표에 마커를 생성합니다 
     position: map.getCenter() 
-}); 
+});
+
 // 지도에 마커를 표시합니다
 initMarker.setMap(map);
 
@@ -60,10 +61,10 @@ function setCurrLocation() {
 			    var lat = position.coords.latitude, // 위도
 			        lon = position.coords.longitude; // 경도
 			    
-			    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			        message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
-			    // 마커와 인포윈도우를 표시합니다
-			    displayMarker(locPosition, message);
+			    var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+			    initMarker.setPosition(locPosition);
+			    // 지도 중심좌표를 접속위치로 변경합니다
+			    map.setCenter(locPosition);  
 			    resolve();
 			});
 		    
@@ -108,10 +109,10 @@ function getCurrLocation() {
 //지도에 마커와 인포윈도우를 표시하는 함수입니다
 function displayMarker(locPosition, message) {
     // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({  
+    initMarker = new kakao.maps.Marker({  
         map: map, 
         position: locPosition
-    }); 
+    })
     
     var iwContent = message, // 인포윈도우에 표시할 내용
         iwRemoveable = true;
@@ -123,7 +124,7 @@ function displayMarker(locPosition, message) {
     });
     
     // 인포윈도우를 마커위에 표시합니다 
-    infowindow.open(map, marker);
+    infowindow.open(map, initMarker);
     
     // 지도 중심좌표를 접속위치로 변경합니다
     map.setCenter(locPosition);      
@@ -152,6 +153,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 				message = "해당 위치의 장소 정보가 존재하지 않습니다. ";
 			} else if(addressInfo.road_address === null) {
 				message = initMarker.address_name = addressInfo.address.address_name;
+				initMarker.building_name = "";
 			} else if(addressInfo.road_address.building_name !== "") {
 				message = initMarker.building_name = addressInfo.road_address.building_name;
 				initMarker.address_name = addressInfo.road_address.address_name; //클릭됐을 때 마커에 해당 위치 저장 
@@ -159,6 +161,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 				message = initMarker.address_name = addressInfo.road_address.address_name;
 				initMarker.building_name = "";
 			}
+			
 			// 마커 위치를 클릭한 위치로 옮깁니다
 			initMarker.setPosition(latlng);
 			panTo(latlng);
@@ -428,6 +431,8 @@ function saveLocation() {
 	data.address = initMarker.address_name;
 	addressName.innerText = initMarker.address_name;
 	scheduleDate.value = new Date().format("yyyy-MM-dd");
+	beginTime.value = "00:00";
+	endTime.value = "23:59";
 	
 	if(scheduleModalWrapper.classList.contains("fade-out")) {
 			scheduleModalWrapper.classList.remove("fade-out");
@@ -438,6 +443,7 @@ function saveLocation() {
 function submitSchedule(groupId) {
 	let scheduleBegin = dateInput.value + " " + beginTime.value;
 	let scheduleEnd = dateInput.value + " " + endTime.value;
+	
 	const xhr = new XMLHttpRequest();
 	
 	if(beginTime.value >= endTime.value) {

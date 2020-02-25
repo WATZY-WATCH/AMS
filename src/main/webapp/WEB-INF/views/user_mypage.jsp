@@ -26,7 +26,7 @@
 		<c:forEach items="${gList}" var="GroupVO">
 			<tr>
 				<td>${GroupVO.groupCategory}</td>
-				<td><a href="/attend?groupId=${GroupVO.groupId }">${GroupVO.groupName }</a></td>
+				<td>${GroupVO.groupName }</td>
 				<td>${GroupVO.groupPeriod}</td>
 				<td>${GroupVO.groupArea}</td>
 				<td>${GroupVO.groupStatus}</td>
@@ -42,7 +42,7 @@
 				</td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${GroupVO.groupMemberVO.regDate}" /></td>
 				<c:if test="${GroupVO.groupMemberVO.groupAuthority == 'MASTER' }">
-				<td><a href="/group/mapAPI/?groupId=${GroupVO.groupId }">일정생성하기</a></td>
+				<td><a href="/group/schedule?groupId=${GroupVO.groupId }">일정관리</a></td>
 			</c:if>
 			</tr>
 			
