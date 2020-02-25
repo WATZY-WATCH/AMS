@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS STUDY_GROUPS (
   group_view_cnt int NOT NULL DEFAULT '0', 
   reg_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   mod_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  group_comment_cnt int NOT NULL DEFAULT '0',
   PRIMARY KEY (group_id),
   UNIQUE KEY group_id_UNIQUE (group_id),
   KEY FK_GROUPID (GROUP_ID),

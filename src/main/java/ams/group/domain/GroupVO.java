@@ -20,6 +20,7 @@ public class GroupVO {
 	private Date regDate;
 	private Date modDate;
 	private int groupViewCnt;
+	private int groupCommentCnt;
 	private UserVO userVO;
 	private GroupMemberVO groupMemberVO;
 	
@@ -112,6 +113,12 @@ public class GroupVO {
 	}
 	public void setUserVO(UserVO userVO) {
 		this.userVO = userVO;
+	}
+	public int getGroupCommentCnt() {
+		return groupCommentCnt;
+	}
+	public void setGroupCommentCnt(int groupCommentCnt) {
+		this.groupCommentCnt = groupCommentCnt;
 	}
 	public GroupMemberVO getGroupMemberVO() {
 		return groupMemberVO;

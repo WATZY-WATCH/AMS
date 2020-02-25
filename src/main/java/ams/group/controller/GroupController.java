@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,7 @@ import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.PageMaker;
 import ams.group.domain.SearchCriteria;
+import ams.group.service.GroupCommentService;
 import ams.group.service.GroupService;
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
@@ -36,6 +38,7 @@ public class GroupController {
 	private static final Logger logger = LoggerFactory.getLogger(GroupController.class);
 	
 	@Inject GroupService service;
+	@Inject GroupCommentService commentService;
 	@Inject UserService userService;
 	
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -72,6 +75,7 @@ public class GroupController {
 		model.addAttribute("GroupVO",gvo);
 		model.addAttribute("UserVO",userService.getUserInfo(gvo.getGroupMasterId()));
 		String userId=principal.getName();
+		model.addAttribute("userId",userId);
 		GroupMemberVO gmvo=new GroupMemberVO();
 		gmvo.setUserId(userId);
 		gmvo.setGroupId(groupId);
@@ -96,6 +100,7 @@ public class GroupController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(service.listSearchCount(cri));
 		model.addAttribute("pageMaker",pageMaker);
+		
 		return "group_list";
 	}
 	
@@ -105,19 +110,6 @@ public class GroupController {
 		model.addAttribute("groupId", groupId);
 		model.addAttribute("groupName", groupName);
 		return "group_map";
-	}
-	
-	@RequestMapping(value="/createComment", method = RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody GroupCommentVO vo){
-		ResponseEntity<String> entity = null;
-		try {
-			service.createComment(vo);
-			entity=new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		} catch(Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
-		return entity;
 	}
 	
 }
