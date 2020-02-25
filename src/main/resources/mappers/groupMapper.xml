@@ -15,7 +15,7 @@
    <select id="listPage" resultType="GroupVO">
  	<![CDATA[
  	select
- 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, GROUP_VIEW_CNT
+ 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, GROUP_VIEW_CNT, GROUP_COMMENT_CNT
  	from
  		study_groups
  	where group_id > 0 and (group_status='모집중' or group_status='진행중')
@@ -23,8 +23,6 @@
  	limit #{page},10
  	]]>
  	</select>
- 	
- 	
  	<resultMap id="listUserName" type="UserVO">
 	    <result property="userName" column="USER_NAME"/>
 	</resultMap>
@@ -42,9 +40,10 @@
 	    <result property="regDate" column="REG_DATE"/>
 	    <result property="modDate" column="MOD_DATE"/>
 	    <result property="groupViewCnt" column="GROUP_VIEW_CNT"/>
+	    <result property="groupCommentCnt" column="GROUP_COMMENT_CNT"/>
 	    <collection property="userVO" resultMap="listUserName"/>
 	</resultMap>
- 	<select id="listSearch" parameterType="GroupVO" resultMap="listGroupVO">
+ 	<select id="listSearch" resultMap="listGroupVO">
  	<![CDATA[
  	select
  		SG.GROUP_ID
@@ -60,6 +59,7 @@
  		, SG.REG_DATE
  		, SG.MOD_DATE
  		, SG.GROUP_VIEW_CNT
+ 		, SG.GROUP_COMMENT_CNT
  		, U.USER_NAME
  	FROM
  		STUDY_GROUPS SG
@@ -128,6 +128,7 @@
  		, SG.REG_DATE
  		, SG.MOD_DATE
  		, SG.GROUP_VIEW_CNT
+ 		, SG.GROUP_COMMENT_CNT
  		, U.USER_NAME
  	FROM
  		STUDY_GROUPS SG
@@ -180,21 +181,10 @@
    	</if>
    </sql>
    
-   <select id="commentList" resultType="GroupCommentVO">
-   	select * from group_comment where group_id=#{groupId} order by comment_id DESC
-   </select>
-   
-   <insert id="commentCreate">
-   	insert into group_comment (group_id, user_id, group_msg)
-   	values (#{groupId}, #{userId}, #{groupMsg})
-   </insert>
-   
-   <update id="commentUpdate">
-   	update group_comment set comment_msg = #{commentMsg} where comment_id = #{commentId}
-   </update>
-   
-   <delete id="commentDelete">
-   	delete from group_comment where comment_id=#{commentId}
-   </delete>
+   <update id="updateCommentCnt">
+   <![CDATA[
+  	update STUDY_GROUPS set GROUP_COMMENT_CNT = GROUP_COMMENT_CNT + #{amount} where GROUP_ID = #{groupId}
+  	]]>
+	</update>
    
 </mapper>

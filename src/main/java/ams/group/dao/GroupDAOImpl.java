@@ -1,6 +1,8 @@
 package ams.group.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -58,19 +60,11 @@ public class GroupDAOImpl implements GroupDAO{
 		return sql.selectOne(ns+".listSearchCount",cri);
 	}
 	@Override
-	public List<GroupCommentVO> commentList(int groupId) throws Exception {
-		return sql.selectList(ns+".commentList", groupId);
+	public void updateCommentCnt(int groupId, int amount)throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+	    paramMap.put("groupId", groupId);
+	    paramMap.put("amount", amount);
+	    sql.update(ns + ".updateCommentCnt", paramMap);
 	}
-	@Override
-	public int createComment(GroupCommentVO vo) throws Exception {
-		return sql.insert(ns+".commentCreate", vo);
-	}
-	@Override
-	public int updateComment(GroupCommentVO vo) throws Exception {
-		return sql.update(ns+".commentUpdate", vo);
-	}
-	@Override
-	public int deleteComment(int commentId) throws Exception {
-		return sql.delete(ns+".deleteComment", commentId);
-	}
+
 }

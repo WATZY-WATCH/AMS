@@ -1,6 +1,8 @@
 package ams.group.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -61,20 +63,5 @@ public class GroupServiceImpl implements GroupService {
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
 	}
-	@Override
-	public List<GroupCommentVO> commentList(int groupId) throws Exception {
-		return dao.commentList(groupId);
-	}
-	@Override
-	public int createComment(GroupCommentVO vo) throws Exception {
-		return dao.createComment(vo);
-	}
-	@Override
-	public int updateComment(GroupCommentVO vo) throws Exception {
-		return dao.updateComment(vo);
-	}
-	@Override
-	public int deleteComment(int commentId) throws Exception {
-		return dao.deleteComment(commentId);
-	}
+	
 }

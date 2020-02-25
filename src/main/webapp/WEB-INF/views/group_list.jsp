@@ -42,7 +42,6 @@
 		<button id='searchBtn' onclick="searchGroup(${cri.page},${cri.perPageNum})">Search</button>
 		<button id='newBtn' onclick="newGroup()">New Board</button>
 	</div>
-
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -62,13 +61,17 @@
 			<td>${GroupVO.groupId}</td>
 			<td>${GroupVO.groupCategory}</td>
 			<td>${GroupVO.userVO.userName}</td>
-			<td><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName}</a></td>
+			<td><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
+				<c:if test="${GroupVO.groupCommentCnt > 0}">
+					(${GroupVO.groupCommentCnt})
+				</c:if>
+			</a></td>
 			<td>${GroupVO.groupMemberLimit}</td>
 			<td>${GroupVO.groupPeriod}</td>
 			<td>${GroupVO.groupArea}</td>
 			<td>${GroupVO.groupStatus}</td>
 			<td>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</td>
-			<td>${GroupVO.viewCnt}</td>
+			<td>${GroupVO.groupViewCnt}</td>
 			<td><fmt:setTimeZone value="UTC" />
 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" /></td>
 		</tr>

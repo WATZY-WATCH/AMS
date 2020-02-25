@@ -19,9 +19,4 @@ public interface GroupService {
 	public int listApplyChk(GroupApplicationsVO vo)throws Exception;
 	public List<GroupVO> listSearch(SearchCriteria cri)throws Exception;
 	public int listSearchCount(SearchCriteria cri)throws Exception;
-	//´ñ±Û
-	public List<GroupCommentVO> commentList(int groupId)throws Exception;
-	public int createComment(GroupCommentVO vo)throws Exception;
-	public int updateComment(GroupCommentVO vo)throws Exception;
-	public int deleteComment(int commentId)throws Exception;
 }
