@@ -1,5 +1,9 @@
 package ams.user.dao;
 
+import java.util.List;
+
+import ams.group.domain.GroupScheduleVO;
+import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 
 public interface UserDAO {
@@ -13,4 +17,6 @@ public interface UserDAO {
 	public int modifyUserPw(UserVO vo) throws Exception;
 	public UserVO getUserInfo(String userId) throws Exception;
 	public String findUser(String userId) throws Exception;
+	public List<GroupVO> findJoinedGroup(String userId) throws Exception;
+	public List<GroupScheduleVO> showWeekSchedule(UserVO vo) throws Exception;
 }

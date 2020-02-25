@@ -1,7 +1,10 @@
-const elementToken = document.querySelector('meta[name="_csrf"]');
-const token = elementToken && elementToken.getAttribute("content");
-const elementHeader = document.querySelector('meta[name="_csrf_header"]');
-const header = elementHeader && elementHeader.getAttribute("content");
+const scheduleModalWrapper = document.querySelector(".schedule-modal-wrapper");
+const scheduleModalContent = document.querySelector(".schedule-modal-content");
+const buildingName = document.querySelector(".location-name > .building-name");
+const addressName = document.querySelector(".location-name > .address");
+var dateInput = document.getElementById("scheduleDate");
+var beginTime = document.getElementById("beginTime");
+var endTime = document.getElementById("endTime");
 
 // 마커를 담을 배열입니다
 var markers = [];
@@ -39,7 +42,14 @@ var initMarker = new kakao.maps.Marker({
 // 지도에 마커를 표시합니다
 initMarker.setMap(map);
 
-//지도 중심을 현재 위치로, 현재 위치를 얻을 수 없을 때는 특정 위치로 이
+scheduleModalWrapper.onclick = function (e) {
+	if(e.target === scheduleModalWrapper && e.target != scheduleModalContent) {
+		scheduleModalWrapper.classList.add("fade-out");
+		scheduleModalWrapper.classList.remove("fade-in");
+	}
+}
+
+//지도 중심을 현재 위치로, 현재 위치를 얻을 수 없을 때는 특정 위치로 이동 
 function setCurrLocation() {
 	return new Promise(function(resolve, reject) {
 		//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
@@ -134,10 +144,28 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	
 	xhr.onload = function () {
 		if(xhr.status == 200 || xhr.status == 201) {
-			console.log(xhr.responseText);
+			let message;
+			const ret = JSON.parse(xhr.responseText),
+				  cnt = ret.meta.total_count,
+				  addressInfo = ret.documents[0];
+			if(cnt === 0) {
+				message = "해당 위치의 장소 정보가 존재하지 않습니다. ";
+			} else if(addressInfo.road_address === null) {
+				message = initMarker.address_name = addressInfo.address.address_name;
+			} else if(addressInfo.road_address.building_name !== "") {
+				message = initMarker.building_name = addressInfo.road_address.building_name;
+				initMarker.address_name = addressInfo.road_address.address_name; //클릭됐을 때 마커에 해당 위치 저장 
+			} else {
+				message = initMarker.address_name = addressInfo.road_address.address_name;
+				initMarker.building_name = "";
+			}
 			// 마커 위치를 클릭한 위치로 옮깁니다
 			initMarker.setPosition(latlng);
 			panTo(latlng);
+			
+			initMarker.position = data; //클릭한 위치 마커에 저장 
+			//마커 위치에 인포윈도우 출력
+			displayInfowindow(initMarker, message);
 		} else {
 			console.log("위치 정보를 받아오지 못했습니다. ");
 		}
@@ -148,13 +176,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 //	 
 //	var resultDiv = document.getElementById('clickLatlng'); 
 //	resultDiv.innerHTML = message;
-});
-
-// 지도 시점 변화 완료 이벤트를 등록한다
-kakao.maps.event.addListener(map, 'idle', function () {
-	var message = '지도의 중심좌표는 ' + map.getCenter().toString() + ' 이고,' + 
-					'확대 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
-	console.log(message);
 });
 
 function searchPlace() {
@@ -207,7 +228,6 @@ function displayPlaces(places) {
     menuEl = document.getElementById('menu_wrap'),
     fragment = document.createDocumentFragment(), 
     bounds = new kakao.maps.LatLngBounds(), 
-    listStr = '',
     mapObj = document.getElementById('map');
     mapObj.style.width = "calc(100% - 300px)";
     listEl.after(mapObj);
@@ -230,10 +250,8 @@ function displayPlaces(places) {
         	//검색 결과 항목을 클릭하면 해당 위치를 지도 중심이 되도록 이동 
         	itemEl.index = i;
         	itemEl.onclick = function () {
-//        		let clickedMarker = document.querySelector(".currClickedMarker");
         		
         		let idx = this.index;
-        		console.log(places[idx]);
         		let x = places[idx].x, y = places[idx].y;
         		let currPlace = {Ga: x, Ha: y};
         		panTo(currPlace);
@@ -266,9 +284,12 @@ function displayPlaces(places) {
             	let x = places[idx].x, y = places[idx].y;
         		let currPlace = {Ga: x, Ha: y};
         		panTo(currPlace);
-                console.log(places[idx]);
-                console.log(marker);
-                
+        		
+        		console.log(marker, initMarker);
+        		initMarker = marker;
+        		initMarker.position = {x: x, y: y};
+        		initMarker.building_name = places[idx].place_name;
+        		initMarker.address_name = places[idx].address_name;
             });
             
         })(marker, places[i].place_name);
@@ -374,8 +395,9 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>'
+    	+ '<button onclick="saveLocation()">일정 생성하기 </button>';
+    
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
@@ -395,3 +417,60 @@ function panTo(latlng) {
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     map.panTo(moveLatLon);            
 }  
+
+function saveLocation() {
+	const xhr = new XMLHttpRequest();
+	const data = {};
+	
+	data.position = initMarker.position;
+	data.building_name = initMarker.building_name;
+	buildingName.innerText = initMarker.building_name;
+	data.address = initMarker.address_name;
+	addressName.innerText = initMarker.address_name;
+	scheduleDate.value = new Date().format("yyyy-MM-dd");
+	
+	if(scheduleModalWrapper.classList.contains("fade-out")) {
+			scheduleModalWrapper.classList.remove("fade-out");
+	}
+	scheduleModalWrapper.classList.add("fade-in");
+}
+
+function submitSchedule(groupId) {
+	let scheduleBegin = dateInput.value + " " + beginTime.value;
+	let scheduleEnd = dateInput.value + " " + endTime.value;
+	const xhr = new XMLHttpRequest();
+	
+	if(beginTime.value >= endTime.value) {
+		alert("일정 시작 시간은 종료 시간보다 빨라야 합니다. ");
+	}
+	const data = {};
+	data.groupId = groupId;
+	data.position = initMarker.position;
+	if(initMarker.building_name !== "") {
+		data.building_name = initMarker.building_name;
+	} else {
+		data.building_name = "NULL";
+	}
+	data.address = initMarker.address_name;
+	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
+	data.endTime = new Date(scheduleEnd).format("yyyy-MM-dd HH:mm");
+	
+	xhr.open("POST", "./saveSchedule");
+	xhr.setRequestHeader(header, token);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify(data));
+	
+	xhr.onload = function () {
+		if(xhr.status == 200 || xhr.status == 201) {
+			if(Number(xhr.responseText) >= 1) {
+				alert("일정이 성공적으로 등록되었습니다. ");
+				if(scheduleModalWrapper.classList.contains("fade-in")) {
+					scheduleModalWrapper.classList.remove("fade-in");
+			}
+			scheduleModalWrapper.classList.add("fade-out");
+			}
+		} else {
+			console.log("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");
+		}
+	}
+}

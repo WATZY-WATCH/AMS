@@ -22,6 +22,7 @@ public class GroupVO {
 	private int groupViewCnt;
 	private int groupCommentCnt;
 	private UserVO userVO;
+	private GroupMemberVO groupMemberVO;
 	
 	public int getGroupId() {
 		return groupId;
@@ -119,4 +120,11 @@ public class GroupVO {
 	public void setGroupCommentCnt(int groupCommentCnt) {
 		this.groupCommentCnt = groupCommentCnt;
 	}
+	public GroupMemberVO getGroupMemberVO() {
+		return groupMemberVO;
+	}
+	public void setGroupMemberVO(GroupMemberVO groupMemberVO) {
+		this.groupMemberVO = groupMemberVO;
+	}
+	
 }

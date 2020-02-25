@@ -105,7 +105,10 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="/mapAPI", method=RequestMethod.GET)
-	public String getMapAPI() {
+	public String getMapAPI(@RequestParam("groupId") int groupId, Model model) throws Exception {
+		String groupName = service.listRead(groupId).getGroupName();
+		model.addAttribute("groupId", groupId);
+		model.addAttribute("groupName", groupName);
 		return "group_map";
 	}
 	

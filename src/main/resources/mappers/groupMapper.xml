@@ -12,6 +12,12 @@
     INSERT INTO GROUP_MEMBERS(GROUP_ID, USER_ID, GROUP_AUTHORITY)
        					VALUES(#{groupId}, #{userId}, #{groupAuthority})
    </insert>
+   
+   <insert id="createSchedule" parameterType="GroupScheduleVO">
+   	INSERT INTO GROUP_SCHEDULES(GROUP_ID, PLACE_LATITUDE, PLACE_LONGITUDE, PLACE_ADDRESS, BUILDING_NAME, BEGIN_TIME, END_TIME)
+   							VALUES(#{groupId}, #{placeLatitude}, #{placeLongitude}, #{placeAddress}, #{buildingName}, #{beginTime}, #{endTime})
+   </insert>
+   
    <select id="listPage" resultType="GroupVO">
  	<![CDATA[
  	select

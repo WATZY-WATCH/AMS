@@ -13,6 +13,7 @@ import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
+import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.SearchCriteria;
 
@@ -65,6 +66,11 @@ public class GroupDAOImpl implements GroupDAO{
 	    paramMap.put("groupId", groupId);
 	    paramMap.put("amount", amount);
 	    sql.update(ns + ".updateCommentCnt", paramMap);
+	}
+
+	@Override
+	public int createSchedule(GroupScheduleVO vo) throws Exception {
+		return sql.insert(ns+".createSchedule", vo);
 	}
 
 }

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
 	<title>Home</title>
@@ -13,6 +15,7 @@
 </h1>
 
 <p id="userName"> ${userName } 님 환영합니다! </p>
+<a href="/user/myPage">마이페이지 </a>
 <sec:authorize access="hasAuthority('USER')">
 	<form action="<c:url value='/logout' />" method="post">
 		<sec:csrfInput />
@@ -33,8 +36,37 @@
 <div>
 <a href="/group/listCri">그룹찾기</a>
 </div>
-<div>
-<a href="/group/mapAPI">지도 </a>
+<table border="1">
+	<tr class="week-day">
+		<c:forEach items="${weeks }" var="d">
+			<c:set var="len" value="${fn:length(d) }" />
+			<th class="day-${d }">${fn:substring(d, 5, len) }</th>
+		</c:forEach>
+	</tr>
+	<tr>
+		<c:forEach items="${weeks }" var="d">
+			<td class="schedule">
+				<ul class="schedule-${d }">
+				</ul>
+			</td>
+		</c:forEach>
+	</tr>
+</table>
+<div class="schedule-list" style="display:none;">
+	<fmt:parseDate value="${beginDate }" var="base" pattern="yyyy-MM-dd"/>
+	<fmt:parseNumber value="${base.time / (1000*60*60*24)}" integerOnly="true" var="baseStr"></fmt:parseNumber>
+	
+	<c:forEach items="${schedules}" var="s">
+		<fmt:formatDate pattern="yyyy-MM-dd" value="${s.beginTime}" var="curr" />
+		<fmt:parseDate value="${curr }" var="cmp" pattern="yyyy-MM-dd"/>
+		<fmt:parseNumber value="${cmp.time / (1000*60*60*24)}" integerOnly="true" var="cmpStr"></fmt:parseNumber>
+
+		<li class="schedule-${cmpStr - baseStr}">
+			<span>${s.groupName }</span>&ensp;
+			<span>${s.groupCategory }</span>&ensp;
+			<span><fmt:formatDate pattern="HH:mm" value="${s.beginTime}" /></span>
+		</li>
+	</c:forEach>
 </div>
 <script>
 	function signoutChk() {
@@ -44,5 +76,6 @@
 		}
 	}
 </script>
+<script type="text/javascript" src="/js/user_schedule.js"></script>
 </body>
 </html>

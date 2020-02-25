@@ -73,7 +73,52 @@
    </select>
    
    <select id="findUser" resultType="String">
-      SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
+     SELECT USER_NAME FROM USERS WHERE USER_ID=#{userId}
+   </select>
+   
+   <resultMap id="GroupMemberVO" type="GroupMemberVO">
+	    <result property="groupAuthority" column="GROUP_AUTHORITY"/>
+	    <result property="regDate" column="REG_DATE"/>
+	 </resultMap>
+   <resultMap id="GroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <collection property="groupMemberVO" resultMap="GroupMemberVO"/>
+	</resultMap>
+   <select id="findJoinedGroup" resultMap="GroupVO">
+   	SELECT SG.GROUP_ID,
+   				SG.GROUP_CATEGORY,
+   				SG.GROUP_NAME,
+   				SG.GROUP_PERIOD,
+   				SG.GROUP_AREA,
+   				SG.GROUP_STATUS,
+   				GM.GROUP_AUTHORITY,
+   				GM.REG_DATE
+   	FROM STUDY_GROUPS SG
+   	LEFT JOIN GROUP_MEMBERS GM
+   	ON SG.GROUP_ID = GM.GROUP_ID
+   	WHERE GM.USER_ID=#{userId}
+   </select>
+   
+   <resultMap id="GroupScheduleVO" type="GroupScheduleVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="beginTime" column="BEGIN_TIME"/>
+	</resultMap>
+   <select id="showWeekSchedule" parameterType="UserVO" resultMap="GroupScheduleVO">
+   SELECT DISTINCT GS.GROUP_ID, GS.SCHEDULE_ID,
+   				 SG.GROUP_CATEGORY,
+   				 SG.GROUP_NAME,
+   				 GS.BEGIN_TIME
+   	FROM GROUP_SCHEDULES GS
+    LEFT JOIN GROUP_MEMBERS GM ON GM.USER_ID = #{userId}
+		LEFT JOIN STUDY_GROUPS SG ON SG.GROUP_ID = GS.GROUP_ID
+   	WHERE GS.BEGIN_TIME BETWEEN #{weekStart} AND #{weekEnd}
    </select>
    
    <update id="modifyUser" parameterType="ams.user.domain.UserVO">
