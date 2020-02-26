@@ -21,6 +21,7 @@ public interface GroupDAO {
 	public int listApplyChk(GroupApplicationsVO vo)throws Exception;
 	public List<GroupVO> listSearch(SearchCriteria cri)throws Exception;
 	public int listSearchCount(SearchCriteria cri)throws Exception;
+	public void updateCommentCnt(int groupId, int amount)throws Exception;
 	public List<GroupCommentVO> commentList(int groupId)throws Exception;
 	public int createComment(GroupCommentVO vo)throws Exception;
 	public int updateComment(GroupCommentVO vo)throws Exception;

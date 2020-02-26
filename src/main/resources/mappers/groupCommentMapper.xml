@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ams.group.mapper.groupCommentMapper">
+	<resultMap id="listUserName" type="UserVO">
+    	<result property="userName" column="USER_NAME"/>
+	</resultMap>
+	<resultMap id="listCommentVO" type="GroupCommentVO">
+	    <result property="commentId" column="COMMENT_ID"/>
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="userId" column="USER_ID"/>
+	    <result property="commentMsg" column="COMMENT_MSG"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <result property="modDate" column="MOD_DATE"/>
+	    <collection property="userVO" resultMap="listUserName"/>
+	</resultMap>
+   <select id="commentList" resultMap="listCommentVO">
+   	<![CDATA[
+   	select
+ 		GC.GROUP_ID
+ 		, GC.COMMENT_ID
+ 		, GC.USER_ID
+ 		, GC.COMMENT_MSG
+ 		, GC.REG_DATE
+ 		, GC.MOD_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		GROUP_COMMENT GC
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		GC.USER_ID = U.USER_ID
+ 	WHERE GC.COMMENT_ID>0 AND GC.GROUP_ID=#{groupId}
+ 	]]>
+ 	<![CDATA[
+ 	ORDER BY GC.COMMENT_ID ASC, GC.REG_DATE DESC
+ 	LIMIT #{cri.pageStart}, 10
+ 	]]>
+   </select>
+   
+   <select id="commentCount" resultType="int">
+   	select count(comment_id) from group_comment where group_id=#{groupId}
+   </select>
+   
+   <insert id="commentCreate">
+   	insert into group_comment (group_id, user_id, comment_msg)
+   	values (#{groupId}, #{userId}, #{commentMsg})
+   </insert>
+   
+   <update id="commentUpdate">
+   	update group_comment set comment_msg = #{commentMsg} where comment_id = #{commentId}
+   </update>
+   
+   <delete id="commentDelete">
+   	delete from group_comment where comment_id=#{commentId}
+   </delete>
+</mapper>
+

@@ -2,6 +2,8 @@ package ams.group.domain;
 
 import java.util.Date;
 
+import ams.user.domain.UserVO;
+
 public class GroupCommentVO {
 	private int commentId;
 	private int groupId;
@@ -9,6 +11,9 @@ public class GroupCommentVO {
 	private String commentMsg;
 	private Date regDate;
 	private Date modDate;
+	
+	private UserVO userVO;
+	
 	public int getCommentId() {
 		return commentId;
 	}
@@ -45,9 +50,17 @@ public class GroupCommentVO {
 	public void setModDate(Date modDate) {
 		this.modDate = modDate;
 	}
+	public UserVO getUserVO() {
+		return userVO;
+	}
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
 	@Override
 	public String toString() {
-		return "CommentVO [commentId=" + commentId + ", groupId=" + groupId + ", userId=" + userId + ", commentMsg="
-				+ commentMsg + ", regDate=" + regDate + ", modDate=" + modDate + "]";
+		return "GroupCommentVO [commentId=" + commentId + ", groupId=" + groupId + ", userId=" + userId
+				+ ", commentMsg=" + commentMsg + ", regDate=" + regDate + ", modDate=" + modDate + ", userVO=" + userVO
+				+ "]";
 	}
+	
 }
