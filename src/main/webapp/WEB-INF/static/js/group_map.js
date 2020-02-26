@@ -151,6 +151,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 				  addressInfo = ret.documents[0];
 			if(cnt === 0) {
 				message = "해당 위치의 장소 정보가 존재하지 않습니다. ";
+				initMarker.building_name = initMarker.address_name = "";
 			} else if(addressInfo.road_address === null) {
 				message = initMarker.address_name = addressInfo.address.address_name;
 				initMarker.building_name = "";
@@ -457,7 +458,11 @@ function submitSchedule(groupId) {
 	} else {
 		data.building_name = "NULL";
 	}
-	data.address = initMarker.address_name;
+	if(initMarker.address_name !== "") {
+		data.address = initMarker.address_name;
+	} else {
+		data.address = "NULL";
+	}
 	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
 	data.endTime = new Date(scheduleEnd).format("yyyy-MM-dd HH:mm");
 	
