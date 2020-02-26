@@ -3,12 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
 		https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans
 		https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
-		https://www.springframework.org/schema/context/spring-context.xsd">
+		https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -34,5 +37,11 @@
 	<context:component-scan base-package="ams.group.service" />
 	<context:component-scan base-package="ams.group.dao" />
 	<context:component-scan base-package="ams.group.controller" />
+	<context:component-scan base-package="ams.server.service" />
+	<context:component-scan base-package="ams.server.dao" />
+	<context:component-scan base-package="ams.server.controller" />
+
+	<!-- 주기적인 task 실행을 위한 spring-task 설정 -->
+	<task:annotation-driven />
 
 </beans:beans>

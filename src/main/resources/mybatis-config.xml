@@ -12,5 +12,6 @@
 		<typeAlias type="ams.group.domain.GroupMemberVO" alias="GroupMemberVO"/>
 		<typeAlias type="ams.group.domain.GroupCommentVO" alias="GroupCommentVO"/>
 		<typeAlias type="ams.group.domain.GroupScheduleVO" alias="GroupScheduleVO"/>
+		<typeAlias type="ams.group.domain.GroupAttendanceVO" alias="GroupAttendanceVO"/>
 	</typeAliases>
 </configuration>
