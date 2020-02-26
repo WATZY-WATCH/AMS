@@ -1,13 +1,34 @@
 var dist;
+const body = document.querySelector("body");
+const form = document.querySelector("form");
 
 async function init() {
 	await getCurrLocation();
-	console.log(dist);
 }
 
 init();
 
-function attend(groupId, userId, base) {
+let timer = setInterval(function() {
+	let status = document.querySelector(".attendanceStatus");
+	if(status !== null) {
+		clearInterval(timer);
+		return;
+	}
+	let now = new Date();
+	let base = new Date(startTime)
+	console.log(Math.abs(parseInt((now- base) / 60000)));
+	if(Math.abs(parseInt((now- base) / 60000)) > 10) {
+		clearInterval(timer);
+		let attendBtn = document.querySelector(".attendBtn");
+		if(attendBtn) form.removeChild(attendBtn);
+		let h2 = document.createElement("h2");
+		let text = document.createTextNode("출석시간이 아닙니다. ");
+		h2.appendChild(text);
+		body.appendChild(h2);
+	}
+}, 1000);
+
+function attend(scheduleId, groupId, userId, base) {
 	if(dist === -1) {
 		alert("현재 위치 정보를 사용할 수 없습니다. ");
 		return;
@@ -17,7 +38,7 @@ function attend(groupId, userId, base) {
 	}
 	
 	const xhr = new XMLHttpRequest();
-	const data = {groupId: groupId, userId:userId, date: new Date().format("yyyy-MM-dd HH:mm")};
+	const data = {scheduleId: scheduleId, groupId: groupId, userId:userId, date: new Date().format("yyyy-MM-dd HH:mm")};
 	
 	xhr.open("POST", "./attend", true);
 	xhr.setRequestHeader(header, token);
@@ -37,6 +58,7 @@ function attend(groupId, userId, base) {
 				const attendBtn = document.querySelector(".attendBtn");
 				form.removeChild(attendBtn);
 				let h2 = document.createElement("h2");
+				h2.classList.add("attendanceStatus");
 				let text = document.createTextNode(retObj.status);
 				h2.appendChild(text);
 				body.appendChild(h2);
@@ -44,22 +66,6 @@ function attend(groupId, userId, base) {
 		}
 	}
 }
-
-let timer = setInterval(function() {
-	let now = new Date();
-	let baseCmp = new Date(startTime);
-	if(parseInt((now- baseCmp) / 60000) > 10) {
-		clearInterval(timer);
-		const body = document.querySelector("body");
-		const form = document.querySelector("form");
-		let attendBtn = document.querySelector(".attendBtn");
-		if(attendBtn) form.removeChild(attendBtn);
-		let h2 = document.createElement("h2");
-		let text = document.createTextNode("출석종료 ");
-		h2.appendChild(text);
-		body.appendChild(h2);
-	}
-}, 1000);
 
 function getCurrLocation() {
 	return new Promise(function(resolve, reject) {

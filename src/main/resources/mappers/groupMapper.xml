@@ -18,6 +18,21 @@
    							VALUES(#{groupId}, #{placeLatitude}, #{placeLongitude}, #{placeAddress}, #{buildingName}, #{beginTime}, #{endTime})
    </insert>
    
+   <update id="modifySchedule" parameterType="GroupScheduleVO">
+   	UPDATE GROUP_SCHEDULES SET PLACE_LATITUDE = #{placeLatitude}, PLACE_LONGITUDE = #{placeLongitude}, PLACE_ADDRESS = #{placeAddress}, BUILDING_NAME = #{buildingName}, BEGIN_TIME = #{beginTime}, END_TIME = #{endTime}
+													 WHERE GROUP_ID = #{groupId} AND SCHEDULE_ID = #{scheduleId}   	
+   </update>
+   
+   <delete id="deleteSchedule">
+   	DELETE FROM GROUP_SCHEDULES WHERE SCHEDULE_ID = #{scheduleId}
+   </delete>
+   
+   <select id="getScheduleList" resultType="GroupScheduleVO">
+   	SELECT GS.*, SG.GROUP_NAME FROM GROUP_SCHEDULES GS
+   	LEFT JOIN STUDY_GROUPS SG ON GS.GROUP_ID = SG.GROUP_ID
+   	WHERE GS.GROUP_ID = #{groupId}
+   </select>
+   
    <select id="listPage" resultType="GroupVO">
  	<![CDATA[
  	select
@@ -146,6 +161,10 @@
  	]]>
  	</select>
  	
+ 	<select id="getSchedule" resultType="GroupScheduleVO">
+ 		SELECT * FROM GROUP_SCHEDULES WHERE GROUP_ID = #{groupId} AND SCHEDULE_ID = ${scheduleId}
+ 	</select>
+ 	
  	<update id="updateViewCnt">
   		update study_groups set GROUP_VIEW_CNT = GROUP_VIEW_CNT +1 where group_id = #{groupId}
 	</update>
@@ -157,6 +176,7 @@
     INSERT INTO GROUP_APPLICATIONS(GROUP_ID, USER_ID, USER_NAME, MSG)
        					VALUES(#{groupId}, #{userId}, #{userName}, #{msg})
    </insert>
+   
    <select id="listApplyChk" resultType="int">
       SELECT COUNT(*) FROM GROUP_APPLICATIONS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
    </select>
@@ -192,5 +212,15 @@
   	update STUDY_GROUPS set GROUP_COMMENT_CNT = GROUP_COMMENT_CNT + #{amount} where GROUP_ID = #{groupId}
   	]]>
 	</update>
+   
+   <select id="chkAttend" resultType="String">
+   	SELECT ATTENDANCE_STATUS FROM GROUP_ATTENDANCES
+   				 WHERE GROUP_ID = #{groupId} AND SCHEDULE_ID = #{scheduleId} AND USER_ID = #{userId}
+   </select>
+   
+   <insert id="requestAttend">
+   	INSERT INTO GROUP_ATTENDANCES (GROUP_ID, SCHEDULE_ID, USER_ID, ATTENDANCE_STATUS)
+   							VALUES (#{groupId}, #{scheduleId}, #{userId}, #{attendanceStatus})
+   </insert>
    
 </mapper>

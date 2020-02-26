@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupAttendanceVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
@@ -72,5 +73,28 @@ public class GroupDAOImpl implements GroupDAO{
 	public int createSchedule(GroupScheduleVO vo) throws Exception {
 		return sql.insert(ns+".createSchedule", vo);
 	}
-
+	@Override
+	public int modifySchedule(GroupScheduleVO vo) throws Exception {
+		return sql.update(ns+".modifySchedule", vo);
+	}
+	@Override
+	public int deleteSchedule(int scheduleId) throws Exception {
+		return sql.delete(ns+".deleteSchedule", scheduleId);
+	}
+	@Override
+	public List<GroupScheduleVO> getScheduleList(int groupId) throws Exception {
+		return sql.selectList(ns+".getScheduleList", groupId);
+	}
+	@Override
+	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception {
+		return sql.selectOne(ns+".getSchedule", vo);
+	}
+	@Override
+	public int requestAttend(GroupAttendanceVO vo) throws Exception {
+		return sql.insert(ns+".requestAttend", vo);
+	}
+	@Override
+	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception {
+		return sql.selectOne(ns+".chkAttend", vo);
+	}
 }

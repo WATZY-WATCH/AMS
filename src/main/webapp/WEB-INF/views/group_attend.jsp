@@ -13,17 +13,20 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${(finished eq false) && (attendanceStatus eq false) }">
+		<c:when test="${isTimeOn eq true } && ${(finished eq false) && (attendanceStatus eq null) }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
-				<button class="attendBtn" type="button" onclick="attend(${groupId}, '${userId }', '${start }')">출석하기 </button>
+				<button class="attendBtn" type="button" onclick="attend(${scheduleId}, ${groupId}, '${userId }', '${start }')">출석하기 </button>
 			</form>
 		</c:when>
-		<c:when test="${attendanceStatus eq true }">
-			<h2>출석완료 </h2>
+		<c:when test="${attendanceStatus ne null }">
+			<h2 class="attendanceStatus">${attendanceStatus } </h2>
+		</c:when>
+		<c:when test="${finished eq true &&  attendanceStatus eq null}">
+			<h2 class="attendanceStatus">결석 </h2>
 		</c:when>
 		<c:otherwise>
-			<h2>결석 </h2>
+			<h2 class="attendanceStatus">출석시간이 아닙니다 </h2>
 		</c:otherwise>
 	</c:choose>
 </body>

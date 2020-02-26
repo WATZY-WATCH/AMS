@@ -6,6 +6,7 @@
 	top: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.7);
+	pointer-events: none;
 }
 
 .schedule-modal-content {
@@ -18,15 +19,15 @@
 }
 
 .fade-in {
-  animation: fadeIn 0.2s ease-in;
+  animation: fadeIn 0.7s ease-in;
   opacity: 1 !important;
-  pointer-event: auto;
+  pointer-events: auto;
   z-index:1;
 }
 
 .fade-out {
-  animation: fadeOut 0.2s ease;
+  animation: fadeOut 0.7s ease;
   opacity: 0 !important;
-  pointer-event: none;
+  pointer-events: none;
   z-index: 0;
 }

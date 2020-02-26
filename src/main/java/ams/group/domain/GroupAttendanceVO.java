@@ -6,7 +6,7 @@ public class GroupAttendanceVO {
 	private int groupId;
 	private int scheduleId;
 	private String userId;
-	private String attendaceStatus;
+	private String attendanceStatus;
 	private Date regDate;
 	private Date modDate;
 	
@@ -29,10 +29,10 @@ public class GroupAttendanceVO {
 		this.userId = userId;
 	}
 	public String getAttendaceStatus() {
-		return attendaceStatus;
+		return attendanceStatus;
 	}
-	public void setAttendaceStatus(String attendaceStatus) {
-		this.attendaceStatus = attendaceStatus;
+	public void setAttendaceStatus(String attendanceStatus) {
+		this.attendanceStatus = attendanceStatus;
 	}
 	public Date getRegDate() {
 		return regDate;
