@@ -4,8 +4,6 @@ import java.util.List;
 
 import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupAttendanceVO;
-import ams.group.domain.GroupCommentVO;
-import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;

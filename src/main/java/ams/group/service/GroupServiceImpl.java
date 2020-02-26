@@ -1,9 +1,6 @@
 package ams.group.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -13,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ams.group.dao.GroupDAO;
 import ams.group.domain.GroupApplicationsVO;
 import ams.group.domain.GroupAttendanceVO;
-import ams.group.domain.GroupCommentVO;
-import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;
