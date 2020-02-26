@@ -25,12 +25,12 @@
 			<th>삭제 </th>
 		</tr>
 		<c:forEach items="${schedules }" var="schedule">
-			<tr class="schedule">
+			<tr class="schedule" schedule-id = "${schedule.scheduleId }">
 				<td>${schedule.groupName }</td>
 				<td class="scheduleDate"><fmt:formatDate pattern="yyyy-MM-dd" value="${schedule.beginTime}" /></td>
 				<td class="scheduleBeginTime"><fmt:formatDate pattern="HH:mm" value="${schedule.beginTime}" /></td>
 				<td class="scheduleEndTime"><fmt:formatDate pattern="HH:mm" value="${schedule.endTime}" /></td>
-				<td>
+				<td class="scheduleAddress">
 						<c:if test="${schedule.buildingName ne 'NULL' }">
 							${schedule.buildingName }<br/>
 						</c:if>
@@ -50,12 +50,12 @@
 			<input type="date" id="scheduleDate" name="scheduleDate"  />
 			<input type="time" id="beginTime" name="beginTime" value="00:00" /> &ensp; ~ &ensp;
 			<input type="time" id="endTime" name="endTime" value="23:59" />
-			<div id="map" style="width:80%;height:50%;margin:24px auto;position:relative;overflow:hidden; box-sizing:border-box;"></div>
 			<div class="location-name">
 				<p class="building-name"></p>
 				<p class="address"></p>
 			</div>
-			<button onclick="submitModify()">생성 </button>
+			<div id="map" style="width:80%;height:50%;margin:24px auto;position:relative;overflow:hidden; box-sizing:border-box;"></div>
+			<button onclick="submitModify(${groupId})">생성 </button>
 		</div>
 	</div>
 	<!-- services 라이브러리 불러오기 -->
