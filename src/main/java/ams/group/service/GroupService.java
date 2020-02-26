@@ -25,5 +25,6 @@ public interface GroupService {
 	public List<GroupScheduleVO> getScheduleList(int groupId) throws Exception;
 	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception;
 	public int requestAttend(GroupAttendanceVO vo) throws Exception;
+	public int addDemerit(GroupMemberVO vo) throws Exception;
 	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception;
 }

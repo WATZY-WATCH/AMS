@@ -24,4 +24,12 @@ public class SchedulingDAOImpl implements SchedulingDAO {
 	public int insertAbsentList(List<GroupAttendanceVO> list) throws Exception {
 		return sql.insert(ns+".insertAbsentList", list);
 	}
+	@Override
+	public int addDemerit(List<GroupAttendanceVO> list) throws Exception {
+		return sql.update(ns+".addDemerit", list);
+	}
+	@Override
+	public int deleteDemeritUser() throws Exception {
+		return sql.delete(ns+"deleteDemeritUser");
+	}
 }

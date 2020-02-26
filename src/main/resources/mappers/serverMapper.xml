@@ -2,27 +2,44 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="ams.server.mapper.serverMapper">
-  	<select id="getAbsentList" resultType="GroupAttendanceVO">
-  		SELECT GS.GROUP_ID,
-						 GS.SCHEDULE_ID,
-					   GM.USER_ID,
-					   GA.ATTENDANCE_STATUS
-					   FROM GROUP_SCHEDULES GS
-					   LEFT JOIN GROUP_MEMBERS GM
-					   ON GS.GROUP_ID = GM.GROUP_ID
-					   LEFT OUTER JOIN GROUP_ATTENDANCES GA
-					   ON GS.GROUP_ID = GA.GROUP_ID AND GS.SCHEDULE_ID = GA.SCHEDULE_ID AND GM.USER_ID = GA.USER_ID
-					   WHERE GS.END_TIME BETWEEN SUBDATE(NOW(), INTERVAL 61 MINUTE) AND SUBDATE(NOW(), INTERVAL 1 MINUTE)
-					   			 AND GA.ATTENDANCE_STATUS IS NULL
-					   ORDER BY GS.SCHEDULE_ID ASC
-  	</select>
-  	
-  	<insert id="insertAbsentList" parameterType="list">
-  		INSERT INTO GROUP_ATTENDANCES(GROUP_ID, SCHEDULE_ID, USER_ID)
-  					 VALUES
-  					 <foreach item="attendance" collection="list" separator=",">
-  					 	(#{attendance.groupId}, #{attendance.scheduleId}, #{attendance.userId})
-  					 </foreach>
-  	</insert>
-  </mapper>
+
+<mapper namespace="ams.server.mapper.serverMapper">
+	<select id="getAbsentList" resultType="GroupAttendanceVO">
+		SELECT GS.GROUP_ID,
+				 GS.SCHEDULE_ID,
+			   GM.USER_ID,
+			   GA.ATTENDANCE_STATUS
+			   FROM GROUP_SCHEDULES GS
+			   LEFT JOIN GROUP_MEMBERS GM
+			   ON GS.GROUP_ID = GM.GROUP_ID
+			   LEFT OUTER JOIN GROUP_ATTENDANCES GA
+			   ON GS.GROUP_ID = GA.GROUP_ID AND GS.SCHEDULE_ID = GA.SCHEDULE_ID AND GM.USER_ID = GA.USER_ID
+			   WHERE GS.END_TIME BETWEEN SUBDATE(NOW(), INTERVAL 61 MINUTE) AND SUBDATE(NOW(), INTERVAL 1 MINUTE)
+			   			 AND GA.ATTENDANCE_STATUS IS NULL
+			   ORDER BY GS.SCHEDULE_ID ASC
+	</select>
+	
+	<insert id="insertAbsentList" parameterType="list">
+		INSERT INTO GROUP_ATTENDANCES(GROUP_ID, SCHEDULE_ID, USER_ID)
+					 VALUES
+					 <foreach item="attendance" collection="list" separator=",">
+					 	(#{attendance.groupId}, #{attendance.scheduleId}, #{attendance.userId})
+					 </foreach>
+	</insert>
+	
+	<update id="addDemerit" parameterType="list">
+		UPDATE GROUP_MEMBERS SET DEMERIT_CNT = CASE
+					 <foreach item="member" collection="list" separator="">
+					 WHEN GROUP_ID = #{member.groupId} AND USER_ID = #{member.userId}
+					 THEN DEMERIT_CNT+3
+					 </foreach>
+					 ELSE DEMERIT_CNT
+					 END
+	</update>
+	
+	<delete id="deleteDemeritUser">
+		<![CDATA[
+		DELETE * FROM GROUP_MEMBERS WHERE DEMERIT_CNT >= 12
+	 	]]>
+	</delete>
+</mapper>

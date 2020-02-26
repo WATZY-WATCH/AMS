@@ -92,6 +92,10 @@ public class GroupDAOImpl implements GroupDAO{
 		return sql.insert(ns+".requestAttend", vo);
 	}
 	@Override
+	public int addDemerit(GroupMemberVO vo) throws Exception {
+		return sql.update(ns+".addDemerit", vo);
+	}
+	@Override
 	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception {
 		return sql.selectOne(ns+".chkAttend", vo);
 	}

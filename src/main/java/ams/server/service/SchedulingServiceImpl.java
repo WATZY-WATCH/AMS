@@ -21,4 +21,12 @@ public class SchedulingServiceImpl implements SchedulingService {
 	public int insertAbsentList(List<GroupAttendanceVO> list) throws Exception {
 		return dao.insertAbsentList(list);
 	}
+	@Override
+	public int addDemerit(List<GroupAttendanceVO> list) throws Exception {
+		return dao.addDemerit(list);
+	}
+	@Override
+	public int deleteDemeritUser() throws Exception {
+		return dao.deleteDemeritUser();
+	}
 }

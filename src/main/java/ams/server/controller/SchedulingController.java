@@ -25,9 +25,14 @@ public class SchedulingController {
 			System.out.println(l.getGroupId() + " " + l.getScheduleId() + " " + l.getUserId() + " " + l.getAttendaceStatus());
 		}
 		
-		int ret = service.insertAbsentList(list);
+		if(!list.isEmpty()) {
+			int insertRet = service.insertAbsentList(list);
+			int updateRet = service.addDemerit(list);
+			
+			System.out.println("insert: " + insertRet);
+			System.out.println("update: " + updateRet);
+		}
 		
-		System.out.println("ret: " + ret);
 		
 		return;
 	}

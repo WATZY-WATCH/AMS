@@ -13,7 +13,7 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${isTimeOn eq true } && ${(finished eq false) && (attendanceStatus eq null) }">
+		<c:when test="${finished eq false && attendanceStatus eq null }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
 				<button class="attendBtn" type="button" onclick="attend(${scheduleId}, ${groupId}, '${userId }', '${start }')">출석하기 </button>
@@ -30,7 +30,7 @@
 		</c:otherwise>
 	</c:choose>
 </body>
-<script>var startTime = "${start}"</script>
+<script>var startTime = "${start}", endTime = "${end}";</script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/group_attend.js"></script>
 </html>
