@@ -39,7 +39,7 @@
 	
 	<delete id="deleteDemeritUser">
 		<![CDATA[
-		DELETE * FROM GROUP_MEMBERS WHERE DEMERIT_CNT >= 12
+		DELETE FROM GROUP_MEMBERS WHERE DEMERIT_CNT >= 12
 	 	]]>
 	</delete>
 </mapper>

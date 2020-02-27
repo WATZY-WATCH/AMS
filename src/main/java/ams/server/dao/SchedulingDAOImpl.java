@@ -30,6 +30,6 @@ public class SchedulingDAOImpl implements SchedulingDAO {
 	}
 	@Override
 	public int deleteDemeritUser() throws Exception {
-		return sql.delete(ns+"deleteDemeritUser");
+		return sql.delete(ns+".deleteDemeritUser");
 	}
 }

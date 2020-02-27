@@ -15,7 +15,7 @@ public class SchedulingController {
 	
 	@Inject SchedulingService service;
 	
-	@Scheduled(cron="0 0 0/1 * * *")
+	@Scheduled(cron="0 0/2 0/1 * * *")
 	public void chkAbsent() throws Exception {
 		System.out.println("매 시간마다 결석 체크....");
 		
@@ -33,6 +33,9 @@ public class SchedulingController {
 			System.out.println("update: " + updateRet);
 		}
 		
+		int removed = service.deleteDemeritUser();
+		
+		System.out.println("removed: " + removed);
 		
 		return;
 	}
