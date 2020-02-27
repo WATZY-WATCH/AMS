@@ -223,4 +223,9 @@
    							VALUES (#{groupId}, #{scheduleId}, #{userId}, #{attendanceStatus})
    </insert>
    
+   <update id="addDemerit" parameterType="GroupMemberVO">
+		UPDATE GROUP_MEMBERS SET DEMERIT_CNT = DEMERIT_CNT+2
+					 WHERE GROUP_ID = #{groupId} AND USER_ID = #{userId}
+	</update>
+   
 </mapper>

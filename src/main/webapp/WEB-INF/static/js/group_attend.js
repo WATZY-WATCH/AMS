@@ -15,9 +15,9 @@ let timer = setInterval(function() {
 		return;
 	}
 	let now = new Date();
-	let base = new Date(startTime)
-	console.log(Math.abs(parseInt((now- base) / 60000)));
-	if(Math.abs(parseInt((now- base) / 60000)) > 10) {
+	let base = new Date(startTime),
+		limit = new Date(endTime);
+	if(limit < now) {
 		clearInterval(timer);
 		let attendBtn = document.querySelector(".attendBtn");
 		if(attendBtn) form.removeChild(attendBtn);

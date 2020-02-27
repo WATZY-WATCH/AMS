@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,6 +70,10 @@ public class GroupAttendanceController {
 		model.addAttribute("isTimeOn", isTimeOn);
 		model.addAttribute("finished", finished);
 		model.addAttribute("start", format.format(start));
+		model.addAttribute("end", format.format(end));
+		
+		System.out.println(format.format(start) + " " + format.format(end));
+		
 		return "group_attend";
 	}
 	
@@ -124,6 +129,15 @@ public class GroupAttendanceController {
 			retObj.put("error", "에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			return mapper.writeValueAsString(retObj);
 		}
+		
+		if(!isTimeout) {
+			int demerit = service.addDemerit(member);
+			if(demerit == 0) {
+				retObj.put("error", "에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				return mapper.writeValueAsString(retObj);
+			}
+		}
+		
 		
 		retObj.put("chkTime", format.format(new Date()));
 		retObj.put("status", (isTimeout ? "출석" : "지각"));

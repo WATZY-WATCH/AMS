@@ -85,6 +85,10 @@ public class GroupServiceImpl implements GroupService {
 		return dao.requestAttend(vo);
 	}
 	@Override
+	public int addDemerit(GroupMemberVO vo) throws Exception {
+		return dao.addDemerit(vo);
+	}
+	@Override
 	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception {
 		return dao.chkAttendanceStatus(vo);
 	}
