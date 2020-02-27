@@ -41,7 +41,7 @@ public class GroupServiceImpl implements GroupService {
 		return;
 	}
 	@Override
-	public int memberChk(GroupMemberVO vo)throws Exception {
+	public int memberChk(GroupMemberVO vo) throws Exception {
 		return dao.memberChk(vo);
 	}
 	@Override

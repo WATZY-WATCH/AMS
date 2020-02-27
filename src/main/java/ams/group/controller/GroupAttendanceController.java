@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,23 +31,19 @@ public class GroupAttendanceController {
 	
 	@Inject GroupService service;
 	
+	@PreAuthorize("@customAuthorizationHandler.isMember(#groupId, principal.username)")
 	@RequestMapping(path="/attend", method=RequestMethod.GET)
 	public String getAttendance(@RequestParam("groupId") int groupId, @RequestParam("scheduleId") int scheduleId, Principal principal, Model model) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		Date now = new Date();
 		String userId = principal.getName();
 		
-		GroupMemberVO member = new GroupMemberVO();
-		member.setGroupId(groupId);
-		member.setUserId(userId);
-		int isMember = service.memberChk(member);
-		
 		GroupScheduleVO vo = new GroupScheduleVO();
 		vo.setGroupId(groupId);
 		vo.setScheduleId(scheduleId);
 		GroupScheduleVO schedule = service.getSchedule(vo);
 		
-		if(isMember == 0 || schedule == null) {
+		if(schedule == null) {
 			return "error";
 		}
 		
@@ -77,6 +73,7 @@ public class GroupAttendanceController {
 		return "group_attend";
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isMember(#reqInfo.get('groupId').asInt(), principal.username)")
 	@ResponseBody
 	@RequestMapping(path="/attend",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
 	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal) throws Exception {
@@ -89,6 +86,7 @@ public class GroupAttendanceController {
 		String inputId = reqInfo.get("userId").asText();
 		String userId = principal.getName();
 		
+	
 		if(!userId.equals(inputId)) {
 			retObj.put("error", "잘못된 요청입니다. ");
 			return mapper.writeValueAsString(retObj);
@@ -97,14 +95,13 @@ public class GroupAttendanceController {
 		GroupMemberVO member = new GroupMemberVO();
 		member.setGroupId(groupId);
 		member.setUserId(userId);
-		int isMember = service.memberChk(member);
 		
 		GroupScheduleVO vo = new GroupScheduleVO();
 		vo.setGroupId(groupId);
 		vo.setScheduleId(scheduleId);
 		GroupScheduleVO schedule = service.getSchedule(vo);
 		
-		if(isMember == 0 || schedule == null) {
+		if(schedule == null) {
 			retObj.put("error", "잘못된 요청입니다. ");
 			return mapper.writeValueAsString(retObj);
 		}
