@@ -53,7 +53,6 @@ public class GroupController {
 		vo.setGroupMasterId(principal.getName());
 		service.createGroup(vo);
 		int groupId=vo.getGroupId();
-		System.out.println("ID: "+principal.getName());
 		GroupMemberVO gmvo=new GroupMemberVO();
 		gmvo.setGroupId(groupId);
 		gmvo.setUserId(principal.getName());
@@ -80,7 +79,6 @@ public class GroupController {
 		gmvo.setUserId(userId);
 		gmvo.setGroupId(groupId);
 		int ret=service.memberChk(gmvo);
-		System.out.println("ret: "+ret);
 		if(ret>=1) model.addAttribute("memberChk",1);
 		else model.addAttribute("memberChk",0);
 		model.addAttribute("UserVO", userService.getUserInfo(userId));
