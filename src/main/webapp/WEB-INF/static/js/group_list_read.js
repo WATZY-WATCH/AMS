@@ -1,5 +1,14 @@
-function listBoard(page, perPageNum, searchType, keyword) {
-	document.location.href="/group/listCri?page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword;
+function listBoard(page, perPageNum, searchType, keyword, startAge, endAge, category, area) {
+	var url="/group/listCri?page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startAge="+startAge+"&endAge="+endAge;
+	if(category!=""){
+		category=category.substring(1, category.length-1).split(", ").join(",");
+		url+="&category="+category;
+	}
+	if(area!=""){
+		area=area.substring(1, area.length-1).split(", ").join(",");
+		url+="&area="+area;
+	}
+	document.location.href=url;
 }
 
 var listApplyFlag=0;
@@ -37,7 +46,7 @@ function applyGroup(groupId, userId, userName, listApplyChk) {
 	}
 }
 
-function commentCreate(groupId, userId, num) {
+function commentCreate(groupId, userId) {
 	const commentMsg = document.getElementById("commentMsg").value;
 	const data = {
 			groupId : groupId,

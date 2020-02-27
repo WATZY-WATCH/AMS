@@ -2,7 +2,9 @@ package ams.group.domain;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -41,13 +43,18 @@ public class PageMaker {
 	}
 	
 	public String makeSearch(int page) {
-		UriComponents uriComponents = UriComponentsBuilder
-				.newInstance().queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum())
-				.queryParam("searchType", ((SearchCriteria) cri).getSearchType())
-				.queryParam("keyword", encoding(((SearchCriteria) cri).getKeyword()))
-				.build();
-		return uriComponents.toUriString(); 
+		UriComponentsBuilder urlBuilder=UriComponentsBuilder.fromUriString("");
+		urlBuilder.queryParam("page", page);
+		urlBuilder.queryParam("perPageNum", cri.getPerPageNum());
+		urlBuilder.queryParam("searchType", ((SearchCriteria) cri).getSearchType());
+		urlBuilder.queryParam("keyword", encoding(((SearchCriteria) cri).getKeyword()));
+		urlBuilder.queryParam("page", page);
+		urlBuilder.queryParam("startAge", ((SearchCriteria) cri).getStartAge());
+		urlBuilder.queryParam("endAge", ((SearchCriteria) cri).getEndAge());
+		if(((SearchCriteria) cri).getCategory()!=null) urlBuilder.queryParam("category", String.join(",",((SearchCriteria) cri).getCategory()));
+		if(((SearchCriteria) cri).getArea()!=null) urlBuilder.queryParam("area", String.join(",",((SearchCriteria) cri).getArea()));
+		
+		return urlBuilder.build().toUriString();
 	}
 	
 	private String encoding(String keyword) {
@@ -60,6 +67,7 @@ public class PageMaker {
 			return "";
 		}
 	}
+	
 	
 	public int getStartPage() {
 		return startPage;
