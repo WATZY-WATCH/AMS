@@ -42,4 +42,8 @@
 		DELETE FROM GROUP_MEMBERS WHERE DEMERIT_CNT >= 12
 	 	]]>
 	</delete>
+	
+	<select id="memberChk" resultType="int">
+      SELECT COUNT(*) FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
+  </select>
 </mapper>
