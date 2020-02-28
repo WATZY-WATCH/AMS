@@ -54,7 +54,7 @@
 		</div>
 		<button type="button" id="applyBtn" onclick="applyGroup(${GroupVO.groupId},'${UserVO.userId}','${UserVO.userName}',${listApplyChk})">신청하기</button>
 	</c:if>
-	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum},'${cri.searchType}','${cri.keyword}')">목록으로</button>
+	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum},'${cri.searchType}','${cri.keyword}','${cri.startAge}','${cri.endAge}','${cri.category}','${cri.area}')">목록으로</button>
 	<script>
 		var groupCommentCnt=${GroupVO.groupCommentCnt};
 	</script>
@@ -64,30 +64,15 @@
 		<textarea id="commentMsg" cols="80" rows="2" placeholder="내용을 입력해주세요"></textarea>
 		<button type="button" id="commentBtn" onclick="commentCreate(${GroupVO.groupId},'${userId}')">댓글등록</button>
 	</div>	
-	
-	
-	<div>
-       <div>
-          <h3>ADD NEW REPLY</h3>
-       </div>
-       <div>
-          <label for="exampleInputEmail1">Writer</label> 
-          <input type="text" placeholder="USER ID"
-             id="newReplyWriter"> <label for="exampleInputEmail1">Reply
-             Text</label> <input type="text"
-             placeholder="REPLY TEXT" id="newReplyText">
-
-       </div>
-       <div>
-          <button type="button" id="replyAddBtn">ADD
-             REPLY</button>
-       </div>
-    </div>
 
 	
 	<h2>댓글 목록입니다.</h2>
 	<div id="listComment"></div>
 	<script>
+	var category1 = "${cri.category}";
+	console.log(category1.substring(1, category1.length-1).split(",").map(v=> {
+		return "&category=" + v;
+	}).join());
 	const elementToken = document.querySelector('meta[name="_csrf"]');
 	const token = elementToken && elementToken.getAttribute("content");
 	const elementHeader = document.querySelector('meta[name="_csrf_header"]');
@@ -129,7 +114,7 @@
 						}
 					}
 				}
-			}
+			};
 		}
 		var divCommentId;
 		var tempComment;
@@ -170,8 +155,6 @@
 				}
 			}
 		}
-		
-		
 	</script>
 	<script type="text/javascript" src="/js/group_list_read.js"></script>
 	<script type="text/javascript" src="/js/group_list.js"></script>
