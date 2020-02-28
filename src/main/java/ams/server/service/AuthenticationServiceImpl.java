@@ -16,4 +16,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public int memberChk(GroupMemberVO vo) throws Exception {
 		return dao.memberChk(vo);
 	}
+	@Override
+	public String authorityChk(GroupMemberVO vo) throws Exception {
+		return dao.authorityChk(vo);
+	}
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -104,6 +105,7 @@ public class GroupController {
 		return "group_list";
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#groupId, principal.username)")
 	@RequestMapping(value="/mapAPI", method=RequestMethod.GET)
 	public String getMapAPI(@RequestParam("groupId") int groupId, Model model) throws Exception {
 		String groupName = service.listRead(groupId).getGroupName();

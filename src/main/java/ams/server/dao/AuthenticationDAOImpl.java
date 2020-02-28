@@ -18,4 +18,8 @@ public class AuthenticationDAOImpl implements AuthenticationDAO {
 	public int memberChk(GroupMemberVO vo) throws Exception {
 		return sql.selectOne(ns+".memberChk",vo);
 	}
+	@Override
+	public String authorityChk(GroupMemberVO vo) throws Exception {
+		return sql.selectOne(ns+".authorityChk", vo);
+	}
 }
