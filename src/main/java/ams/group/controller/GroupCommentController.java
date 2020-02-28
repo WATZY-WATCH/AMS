@@ -36,14 +36,42 @@ public class GroupCommentController {
 	@ResponseBody
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public void create(@RequestBody GroupCommentVO vo){
-		System.out.println("get create.........");
+		System.out.println("post create.........");
 		try {
 			service.createComment(vo);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	@RequestMapping(value="/list")
+	
+	@ResponseBody
+	@RequestMapping(value="/count", method = RequestMethod.POST)
+	public int count(@RequestBody String groupId){
+		System.out.println("post count.........");
+		int ret=0;
+		try {
+			ret=service.commentCount(Integer.parseInt(groupId));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/currentCount", method = RequestMethod.POST)
+	public int currentCount(@RequestBody GroupCommentVO vo){
+		System.out.println("post currentCount.........");
+		int ret=0;
+		try {
+			ret=service.currentCommentCount(vo);
+			System.out.println("ret: "+ret);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam int groupId, @RequestParam(defaultValue="1") int curPage, ModelAndView mav, Principal principal) throws JsonProcessingException {
 		try {
 			GroupCriteria cri = new GroupCriteria();
@@ -64,7 +92,7 @@ public class GroupCommentController {
 		return mav;
 	}
 	@ResponseBody
-	@RequestMapping("delete")
+	@RequestMapping(value="delete" ,method = RequestMethod.DELETE)
 	public int delete(@RequestBody GroupCommentVO vo) {
 		System.out.println("get delete.........");
 		int ret=0;
@@ -76,7 +104,7 @@ public class GroupCommentController {
 		return ret;
 	}
 	@ResponseBody
-	@RequestMapping("update")
+	@RequestMapping(value="update", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public int update(@RequestBody GroupCommentVO vo) {
 		System.out.println("get update.........");
 		int ret=0;
@@ -87,4 +115,5 @@ public class GroupCommentController {
 		}
 		return ret;
 	}
+	
 }

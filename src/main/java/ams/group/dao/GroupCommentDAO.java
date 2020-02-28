@@ -12,4 +12,5 @@ public interface GroupCommentDAO {
 		public int deleteComment(GroupCommentVO vo)throws Exception;
 		public List<GroupCommentVO> commentList(int groupId, GroupCriteria cri)throws Exception;
 		public int commentCount(int groupId)throws Exception;
+		public int currentCommentCount(GroupCommentVO vo)throws Exception;
 }

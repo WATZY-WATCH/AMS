@@ -44,6 +44,12 @@
    	select count(comment_id) from group_comment where group_id=#{groupId}
    </select>
    
+   <select id="currentCommentCount" resultType="int">
+   	<![CDATA[
+   		select count(comment_id) from group_comment where group_id=#{groupId} and comment_id<=#{commentId}
+   	]]>
+   </select>
+   
    <insert id="commentCreate">
    	insert into group_comment (group_id, user_id, comment_msg)
    	values (#{groupId}, #{userId}, #{commentMsg})

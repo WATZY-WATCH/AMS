@@ -55,9 +55,6 @@
 		<button type="button" id="applyBtn" onclick="applyGroup(${GroupVO.groupId},'${UserVO.userId}','${UserVO.userName}',${listApplyChk})">신청하기</button>
 	</c:if>
 	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum},'${cri.searchType}','${cri.keyword}','${cri.startAge}','${cri.endAge}','${cri.category}','${cri.area}')">목록으로</button>
-	<script>
-		var groupCommentCnt=${GroupVO.groupCommentCnt};
-	</script>
 	<div>	
 		<h2>댓글을 입력해주세요.</h2>
 		<label for="commentMsg">메세지를 작성해주세요</label>
@@ -69,10 +66,6 @@
 	<h2>댓글 목록입니다.</h2>
 	<div id="listComment"></div>
 	<script>
-	var category1 = "${cri.category}";
-	console.log(category1.substring(1, category1.length-1).split(",").map(v=> {
-		return "&category=" + v;
-	}).join());
 	const elementToken = document.querySelector('meta[name="_csrf"]');
 	const token = elementToken && elementToken.getAttribute("content");
 	const elementHeader = document.querySelector('meta[name="_csrf_header"]');
@@ -99,16 +92,16 @@
 			if(confirmed) {
 				const data={ commentId : commentId , groupId: ${GroupVO.groupId } };
 				const xhr = new XMLHttpRequest();
-				xhr.open("POST", "/comment/delete", true);
+				xhr.open("DELETE", "/comment/delete", true);
 				xhr.setRequestHeader(header, token);
 				xhr.setRequestHeader("Content-Type", "application/json");
 				xhr.send(JSON.stringify(data));
-				xhr.onload = function () {
+				xhr.onload = async function () {
 					if(xhr.status == 200 || xhr.status == 201) {
 						if(Number(xhr.responseText) == 1) {
 							alert("삭제되었습니다.")
-							groupCommentCnt--;
-							listComment(curPage);
+							let groupCommentCnt= await currentCommentCount(${GroupVO.groupId }, commentId);
+							listComment(Math.ceil(groupCommentCnt/10));
 						} else {
 							alert("에러가 발생했습니다. 잠시후 다시 시도해주세요.");
 						}
@@ -139,15 +132,16 @@
 				const commentMsg=document.getElementById("updateCommentMsg").value;	
 				const data={ commentId : commentId , commentMsg : commentMsg };
 				const xhr = new XMLHttpRequest();
-				xhr.open("POST", "/comment/update", true);
+				xhr.open("PUT", "/comment/update", true);
 				xhr.setRequestHeader(header, token);
 				xhr.setRequestHeader("Content-Type", "application/json");
 				xhr.send(JSON.stringify(data));
-				xhr.onload = function () {
+				xhr.onload = async function () {
 					if(xhr.status == 200 || xhr.status == 201) {
 						if(Number(xhr.responseText) == 1) {
 							alert("수정되었습니다.")
-							listComment(curPage);
+							let groupCommentCnt= await currentCommentCount(${GroupVO.groupId }, commentId);
+							listComment(Math.ceil(groupCommentCnt/10));
 						} else {
 							alert("에러가 발생했습니다. 잠시후 다시 시도해주세요.");
 						}
