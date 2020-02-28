@@ -80,8 +80,8 @@ public class GroupDAOImpl implements GroupDAO{
 		return sql.delete(ns+".deleteSchedule", scheduleId);
 	}
 	@Override
-	public List<GroupScheduleVO> getScheduleList(int groupId) throws Exception {
-		return sql.selectList(ns+".getScheduleList", groupId);
+	public List<GroupScheduleVO> getScheduleList(Map<String,Object> map) throws Exception {
+		return sql.selectList(ns+".getScheduleList", map);
 	}
 	@Override
 	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception {
