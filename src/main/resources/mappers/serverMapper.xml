@@ -6,7 +6,7 @@
 <mapper namespace="ams.server.mapper.serverMapper">
 	<select id="getAbsentList" resultType="GroupAttendanceVO">
 		SELECT GS.GROUP_ID,
-				 GS.SCHEDULE_ID,
+			   GS.SCHEDULE_ID,
 			   GM.USER_ID,
 			   GA.ATTENDANCE_STATUS
 			   FROM GROUP_SCHEDULES GS

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ams.group.mapper.groupManageMapper">
+ 
+    <resultMap id="listuserVO" type="UserVO">
+    	<result property="userName" column="USER_NAME"/>
+	</resultMap>
+    <resultMap id="listMemberVO" type="GroupMemberVO">
+    	<result property="groupAuthority" column="GROUP_AUTHORITY"/>
+    	<result property="regDate" column="REG_DATE"/>
+	</resultMap>
+	<resultMap id="listGroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupMasterId" column="GROUP_MASTER_ID"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <result property="groupStartAge" column="GROUP_START_AGE"/>
+	    <result property="groupEndAge" column="GROUP_END_AGE"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <result property="modDate" column="MOD_DATE"/>
+	    <collection property="groupMemberVO" resultMap="listMemberVO"/>
+	    <collection property="userVO" resultMap="listuserVO"/>
+	</resultMap>
+	
+	<select id="memberList" resultMap="listGroupVO">
+   	<![CDATA[
+   	select
+ 		SG.GROUP_ID
+ 		,SG.GROUP_CATEGORY
+ 		,SG.GROUP_MASTER_ID
+ 		,SG.GROUP_NAME
+ 		,SG.GROUP_MEMBER_LIMIT
+ 		,SG.GROUP_PERIOD
+ 		,SG.GROUP_AREA
+ 		,SG.GROUP_STATUS
+ 		,SG.GROUP_START_AGE
+ 		,SG.GROUP_END_AGE
+ 		,SG.REG_DATE
+ 		,SG.MOD_DATE
+ 		, GM.GROUP_AUTHORITY
+ 		, GM.REG_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		GROUP_MEMBERS GM
+ 	ON
+ 		SG.GROUP_ID = GM.GROUP_ID
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	WHERE GM.USER_ID=#{userId} AND GM.GROUP_AUTHORITY != 'MASTER'
+ 	ORDER BY GM.REG_DATE DESC
+ 	]]>
+   </select>
+   
+   <resultMap id="userName" type="UserVO">
+    	<result property="userName" column="USER_NAME"/>
+	</resultMap>
+	<resultMap id="masterListGroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupMasterId" column="GROUP_MASTER_ID"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <result property="groupStartAge" column="GROUP_START_AGE"/>
+	    <result property="groupEndAge" column="GROUP_END_AGE"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <result property="modDate" column="MOD_DATE"/>
+	    <collection property="userVO" resultMap="userName"/>
+	</resultMap>
+	
+	<select id="masterList" resultMap="masterListGroupVO">
+   	<![CDATA[
+   	select
+ 		SG.GROUP_ID
+ 		,SG.GROUP_CATEGORY
+ 		,SG.GROUP_MASTER_ID
+ 		,SG.GROUP_NAME
+ 		,SG.GROUP_MEMBER_LIMIT
+ 		,SG.GROUP_PERIOD
+ 		,SG.GROUP_AREA
+ 		,SG.GROUP_STATUS
+ 		,SG.GROUP_START_AGE
+ 		,SG.GROUP_END_AGE
+ 		,SG.REG_DATE
+ 		,SG.MOD_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	WHERE SG.GROUP_MASTER_ID=#{userId}
+ 	ORDER BY SG.REG_DATE DESC
+ 	]]>
+   </select>
+	<resultMap id="applicationListGroupVO" type="GroupVO">
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="groupCategory" column="GROUP_CATEGORY"/>
+	    <result property="groupMasterId" column="GROUP_MASTER_ID"/>
+	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
+	    <result property="groupPeriod" column="GROUP_PERIOD"/>
+	    <result property="groupArea" column="GROUP_AREA"/>
+	    <result property="groupStatus" column="GROUP_STATUS"/>
+	    <result property="groupStartAge" column="GROUP_START_AGE"/>
+	    <result property="groupEndAge" column="GROUP_END_AGE"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <result property="modDate" column="MOD_DATE"/>
+	    <collection property="userVO" resultMap="userName"/>
+	</resultMap>
+	<select id="applicationList" resultMap="applicationListGroupVO">
+   	<![CDATA[
+   	select
+ 		SG.GROUP_ID
+ 		,SG.GROUP_CATEGORY
+ 		,SG.GROUP_MASTER_ID
+ 		,SG.GROUP_NAME
+ 		,SG.GROUP_MEMBER_LIMIT
+ 		,SG.GROUP_PERIOD
+ 		,SG.GROUP_AREA
+ 		,SG.GROUP_STATUS
+ 		,SG.GROUP_START_AGE
+ 		,SG.GROUP_END_AGE
+ 		,SG.REG_DATE
+ 		,SG.MOD_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	LEFT JOIN
+ 		GROUP_APPLICATIONS GA
+ 	ON
+ 		GA.GROUP_ID = SG.GROUP_ID
+ 	WHERE GA.USER_ID=#{userId}
+ 	ORDER BY SG.REG_DATE DESC
+ 	]]>
+   </select>
+</mapper>
+
