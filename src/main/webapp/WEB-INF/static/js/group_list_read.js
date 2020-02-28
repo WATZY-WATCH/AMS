@@ -11,6 +11,44 @@ function listBoard(page, perPageNum, searchType, keyword, startAge, endAge, cate
 	document.location.href=url;
 }
 
+function commentCount(groupId) {
+	return new Promise(resolve=> { 
+			let ret=0;
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/comment/count", true);
+			xhr.setRequestHeader(header, token);
+			xhr.setRequestHeader("Content-Type", "text/plain");
+			xhr.send(groupId);
+			xhr.onload = function () {
+				if(xhr.status == 200 || xhr.status == 201) {
+					ret=Number(xhr.responseText);
+					resolve(ret);
+				}
+			}
+		}
+	);
+}
+
+function currentCommentCount(groupId, commentId) {
+	return new Promise(resolve=> { 
+			let ret=0;
+			const data = { groupId : groupId , commentId : commentId};
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/comment/currentCount", true);
+			xhr.setRequestHeader(header, token);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.send(JSON.stringify(data));
+			xhr.onload = function () {
+				if(xhr.status == 200 || xhr.status == 201) {
+					ret=Number(xhr.responseText);
+					resolve(ret);
+				}
+			}
+		}
+	);
+}
+
+
 var listApplyFlag=0;
 function applyGroup(groupId, userId, userName, listApplyChk) {
 	if(listApplyChk>0||listApplyFlag>0){
@@ -46,6 +84,7 @@ function applyGroup(groupId, userId, userName, listApplyChk) {
 	}
 }
 
+
 function commentCreate(groupId, userId) {
 	const commentMsg = document.getElementById("commentMsg").value;
 	const data = {
@@ -61,14 +100,14 @@ function commentCreate(groupId, userId) {
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));
-		xhr.onload = function () {
+		xhr.onload = async function () {
 			if(xhr.status == 200 || xhr.status == 201) {
 				alert("댓글이 등록되었습니다. ");
 				document.getElementById("commentMsg").value="";
-				groupCommentCnt++;
-				console.log("Math.ceil(groupCommentCnt/10): "+Math.ceil(groupCommentCnt/10));
+				let groupCommentCnt= await commentCount(groupId);
 				listComment(Math.ceil(groupCommentCnt/10));
 			}
 		}
 	}
 }
+

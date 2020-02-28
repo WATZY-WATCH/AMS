@@ -42,4 +42,8 @@ public class GroupCommentDAOImpl implements GroupCommentDAO {
 	public int commentCount(int groupId) throws Exception {
 		return sql.selectOne(ns+".commentCount", groupId);
 	}
+	@Override
+	public int currentCommentCount(GroupCommentVO vo)throws Exception{
+		return sql.selectOne(ns+".currentCommentCount", vo);
+	}
 }

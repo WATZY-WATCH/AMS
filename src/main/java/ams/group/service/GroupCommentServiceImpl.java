@@ -41,4 +41,8 @@ public class GroupCommentServiceImpl implements GroupCommentService {
 	public int commentCount(int groupId) throws Exception {
 		return dao.commentCount(groupId);
 	}
+	@Override
+	public int currentCommentCount(GroupCommentVO vo)throws Exception{
+		return dao.currentCommentCount(vo);
+	}
 }
