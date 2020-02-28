@@ -1,19 +1,16 @@
 package ams.group.controller;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,15 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ams.group.domain.GroupApplicationsVO;
-import ams.group.domain.GroupCommentVO;
-import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.PageMaker;
 import ams.group.domain.SearchCriteria;
 import ams.group.service.GroupCommentService;
 import ams.group.service.GroupService;
-import ams.user.domain.UserVO;
 import ams.user.service.UserService;
 
 @Controller
@@ -102,6 +96,7 @@ public class GroupController {
 		return "group_list";
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#groupId, principal.username)")
 	@RequestMapping(value="/mapAPI", method=RequestMethod.GET)
 	public String getMapAPI(@RequestParam("groupId") int groupId, Model model) throws Exception {
 		String groupName = service.listRead(groupId).getGroupName();
