@@ -37,7 +37,7 @@
 							${schedule.placeAddress }
 				</td>
 				<td><button onclick="modifySchedule(this, ${schedule.scheduleId }, ${schedule.placeLatitude }, ${schedule.placeLongitude })">수정 </button></td>
-				<td><button onclick="deleteSchedule(this, ${schedule.scheduleId })">삭제</button></td>
+				<td><button onclick="deleteSchedule(this, ${schedule.groupId }, ${schedule.scheduleId })">삭제</button></td>
 			</tr>
 		</c:forEach>
 	</table>

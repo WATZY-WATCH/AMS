@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,7 @@ public class GroupScheduleController {
 		return "group_schedule";
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
 	@RequestMapping(value="/saveSchedule", method=RequestMethod.POST)
 	public int saveLocationInfo(@RequestBody JsonNode info) throws Exception {
@@ -52,6 +54,7 @@ public class GroupScheduleController {
 		return service.createSchedule(vo);
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
 	@RequestMapping(value="/modifySchedule", method=RequestMethod.POST)
 	public int modifySchedule(@RequestBody JsonNode info) throws Exception {
@@ -70,10 +73,10 @@ public class GroupScheduleController {
 		return service.modifySchedule(vo);
 	}
 	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
 	@RequestMapping(value="/deleteSchedule", method=RequestMethod.POST)
 	public int deleteSchedule(@RequestBody JsonNode info) throws Exception {
-		System.out.println(info);
 		return service.deleteSchedule(info.get("scheduleId").asInt());
 	}
 }

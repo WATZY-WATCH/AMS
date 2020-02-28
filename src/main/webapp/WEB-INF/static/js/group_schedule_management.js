@@ -135,6 +135,11 @@ function modifySchedule(evt, scheduleId, lat, lon) {
 		scheduleAddress = address[1].trim();
 	}
 	
+
+	initMarker.position = {x: lon, y: lat};
+	initMarker.building_name = scheduleBuildingName;
+	initMarker.address_name = scheduleAddress;
+	
 	dateInput.value = scheduleDate;
 	beginTime.value = scheduleBeginTime;
 	endTime.value = scheduleEndTime;
@@ -180,6 +185,8 @@ function submitModify(groupId) {
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
 	
+	console.log(data);
+	
 	xhr.onload = function () {
 		if(xhr.status == 200 || xhr.status == 201) {
 			if(Number(xhr.responseText) >= 1) {
@@ -211,14 +218,14 @@ function submitModify(groupId) {
 	}
 }
 
-function deleteSchedule(evt, scheduleId) {
+function deleteSchedule(evt, groupId, scheduleId) {
 	let el = getParentNode(evt).parentNode;
 	
 	let ret = confirm("일정 삭제 이후 복구가 불가능합니다.\n삭제하시겠습니까?");
 	if(ret) {
 		const xhr = new XMLHttpRequest();
 		
-		const data = {scheduleId : scheduleId};
+		const data = {groupId: groupId, scheduleId : scheduleId};
 		xhr.open("POST", "./deleteSchedule");
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");

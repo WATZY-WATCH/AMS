@@ -25,7 +25,6 @@ public class CustomAuthorizationHandler {
 	}
 	
 	public boolean isAdmin(int groupId, String userId) throws Exception {
-		System.out.println("admin인지 확인 ");
 		GroupMemberVO vo = new GroupMemberVO();
 		vo.setGroupId(groupId);
 		vo.setUserId(userId);
