@@ -30,7 +30,8 @@
    <select id="getScheduleList" resultType="GroupScheduleVO">
    	SELECT GS.*, SG.GROUP_NAME FROM GROUP_SCHEDULES GS
    	LEFT JOIN STUDY_GROUPS SG ON GS.GROUP_ID = SG.GROUP_ID
-   	WHERE GS.GROUP_ID = #{groupId}
+   	WHERE GS.GROUP_ID = #{groupId} AND GS.BEGIN_TIME BETWEEN #{startDate} AND #{endDate}
+   	ORDER BY BEGIN_TIME ASC
    </select>
    
    <select id="listPage" resultType="GroupVO">

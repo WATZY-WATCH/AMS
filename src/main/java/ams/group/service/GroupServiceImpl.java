@@ -1,6 +1,8 @@
 package ams.group.service;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -73,8 +75,8 @@ public class GroupServiceImpl implements GroupService {
 		return dao.deleteSchedule(scheduleId);
 	}
 	@Override
-	public List<GroupScheduleVO> getScheduleList(int groupId) throws Exception {
-		return dao.getScheduleList(groupId);
+	public List<GroupScheduleVO> getScheduleList(Map<String,Object> map) throws Exception {
+		return dao.getScheduleList(map);
 	}
 	@Override
 	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception {
