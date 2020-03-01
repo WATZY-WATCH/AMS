@@ -111,20 +111,24 @@ public class GroupScheduleController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getCalendar", method=RequestMethod.POST)
+	@RequestMapping(value="/getCalendar",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
 	public String getCalendar(@RequestBody JsonNode info) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> retObj = new HashMap<String, Object>();
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		LocalDate today = LocalDate.now();
+		int year = info.get("year").asInt();
+		int month = info.get("month").asInt();
+		int term = info.get("term").asInt();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		LocalDate today = LocalDate.of(year, month, 1).plusMonths(term);
 		int day = today.getDayOfWeek().getValue();
 		
 		LocalDate firstDate = today.with(TemporalAdjusters.firstDayOfMonth()); //이번 달의 첫 날 
 		LocalDate lastDate = today.with(TemporalAdjusters.lastDayOfMonth()); //이번 달의 마지막 날 
 		
-		int firstDay = firstDate.getDayOfWeek().getValue(); //첫 날의 요일 
-		int lastDay = lastDate.getDayOfWeek().getValue(); //마지막 날의 요일 
+		int firstDay = firstDate.getDayOfWeek().getValue() % 7; //첫 날의 요일 
+		int lastDay = lastDate.getDayOfWeek().getValue() % 7; //마지막 날의 요일 
 		
 		LocalDate firstCal = firstDate.minusDays(firstDay); //캘린더에 나타낼 첫 날 
 		LocalDate lastCal = lastDate.plusDays(6-lastDay); //캘린더에 나타낼 마지막 날 
@@ -143,7 +147,7 @@ public class GroupScheduleController {
 		
 		LocalDate curDate = firstCal;
 		while(curDate.compareTo(lastCal) <= 0) {
-			String date = curDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+			String date = curDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			List<GroupScheduleVO> vo = new ArrayList<>();
 			calendar.put(date, vo);
 			curDate = curDate.plusDays(1);
@@ -159,6 +163,9 @@ public class GroupScheduleController {
 		retObj.put("calendar", calendar);
 		retObj.put("firstDate", firstCal);
 		retObj.put("lastDate", lastCal);
+		retObj.put("weeks", weeks);
+		retObj.put("year", today.getYear());
+		retObj.put("month", today.getMonthValue());
 		
 		return mapper.writeValueAsString(retObj);
 	}

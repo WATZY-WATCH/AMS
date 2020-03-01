@@ -46,7 +46,11 @@
 	<table>
 		<thead>
 			<tr class="calendar-month">
-				<td colspan="7"><span class="month-name"></span>월</td>
+				<td colspan="7">
+					<button onclick="getSchedule(-1)">&laquo;</button>
+					<span class="year-name">2020</span> - <span class="month-name">3</span>
+					<button onclick="getSchedule(1)">&raquo;</button>
+				</td>
 			</tr>
 			<tr class="calendar-day">
 				<td class="day-name">일</td>
@@ -58,7 +62,7 @@
 				<td class="day-name">토</td>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="calendar-body">
 		</tbody>
 	</table>
 	
