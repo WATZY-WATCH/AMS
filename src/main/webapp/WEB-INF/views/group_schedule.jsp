@@ -12,9 +12,10 @@
 <link rel="stylesheet" href="/css/schedule.css" />
 </head>
 <body>
+	<sec:csrfInput />
 	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
 	<table>
-		<sec:csrfInput />
+		
 		<tr>
 			<th>그룹명 </th>
 			<th>날짜 </th>
@@ -37,9 +38,32 @@
 							${schedule.placeAddress }
 				</td>
 				<td><button onclick="modifySchedule(this, ${schedule.scheduleId }, ${schedule.placeLatitude }, ${schedule.placeLongitude })">수정 </button></td>
-				<td><button onclick="deleteSchedule(this, ${schedule.scheduleId })">삭제</button></td>
+				<td><button onclick="deleteSchedule(this, ${schedule.groupId }, ${schedule.scheduleId })">삭제</button></td>
 			</tr>
 		</c:forEach>
+	</table>
+	
+	<table>
+		<thead>
+			<tr class="calendar-month">
+				<td colspan="7">
+					<button onclick="getSchedule(-1)">&laquo;</button>
+					<span class="year-name">2020</span> - <span class="month-name">3</span>
+					<button onclick="getSchedule(1)">&raquo;</button>
+				</td>
+			</tr>
+			<tr class="calendar-day">
+				<td class="day-name">일</td>
+				<td class="day-name">월</td>
+				<td class="day-name">화</td>
+				<td class="day-name">수</td>
+				<td class="day-name">목</td>
+				<td class="day-name">금</td>
+				<td class="day-name">토</td>
+			</tr>
+		</thead>
+		<tbody class="calendar-body">
+		</tbody>
 	</table>
 	
 	<div class="schedule-modal-wrapper">
@@ -61,6 +85,7 @@
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/group_calendar.js"></script>
 	<script type="text/javascript" src="/js/group_schedule_management.js"></script>
 </body>
 </html>

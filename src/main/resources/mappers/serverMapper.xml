@@ -46,4 +46,8 @@
 	<select id="memberChk" resultType="int">
       SELECT COUNT(*) FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
   </select>
+  
+  <select id="authorityChk" resultType="String">
+      SELECT GROUP_AUTHORITY FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
+  </select>
 </mapper>
