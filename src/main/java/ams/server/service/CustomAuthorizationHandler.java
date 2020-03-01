@@ -1,7 +1,6 @@
 package ams.server.service;
 
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Component;
 
 import ams.group.domain.GroupMemberVO;
@@ -16,11 +15,7 @@ public class CustomAuthorizationHandler {
 		vo.setGroupId(groupId);
 		vo.setUserId(userId);
 		
-		System.out.println(groupId + " " +  userId);
-		
 		int ret = service.memberChk(vo);
-		
-		System.out.println(ret);
 		return ret > 0;
 	}
 	
@@ -29,10 +24,7 @@ public class CustomAuthorizationHandler {
 		vo.setGroupId(groupId);
 		vo.setUserId(userId);
 		
-		System.out.println(groupId + " " +  userId);
-		
 		String authority = service.authorityChk(vo);
-		System.out.println(authority);
 		
 		//authority.equals("MASTER")의 경우 authority가 Null이면 NullPointerException 발생 
 		return "MASTER".equals(authority);

@@ -33,6 +33,7 @@ var initMarker = new kakao.maps.Marker({
 // 지도에 마커를 표시합니다
 initMarker.setMap(map);
 
+const groupName = document.querySelector(".groupName");
 const scheduleModalWrapper = document.querySelector(".schedule-modal-wrapper");
 const scheduleModalContent = document.querySelector(".schedule-modal-content");
 const buildingName = document.querySelector(".location-name > .building-name");
@@ -40,8 +41,6 @@ const addressName = document.querySelector(".location-name > .address");
 var dateInput = document.getElementById("scheduleDate");
 var beginTime = document.getElementById("beginTime");
 var endTime = document.getElementById("endTime");
-
-var clickedEl, clickedIdx;
 
 scheduleModalWrapper.onclick = function (e) {
 	if(e.target === scheduleModalWrapper && e.target != scheduleModalContent) {
@@ -111,54 +110,20 @@ function getElementIndex(element) {
   return [].indexOf.call(element.parentNode.children, element);
 }
 
-function modifySchedule(evt, scheduleId, lat, lon) {
-	let el = getParentNode(evt).parentNode;
-	let idx = getElementIndex(el) - 1;
+function modifySchedule() {
+	map.setZoomable(true);
+	map.setDraggable(true);
 	
-	clickedEl = el;
-	clickedIdx = idx;
-	
-	let address = document.querySelectorAll(".scheduleAddress")[idx].innerHTML.split("<br>");
-		scheduleDate = document.querySelectorAll(".scheduleDate")[idx].innerText,
-		scheduleBeginTime = document.querySelectorAll(".scheduleBeginTime")[idx].innerText,
-		scheduleEndTime = document.querySelectorAll(".scheduleEndTime")[idx].innerText,
-		locPosition = new kakao.maps.LatLng(lat, lon),
-		scheduleBuildingName = "",
-		scheduleAddress = "";
-	map.setCenter(locPosition); //일정 장소를 지도의 중심으로 이동 
-	initMarker.setPosition(locPosition);
-	
-	if(address.length == 1) {
-		scheduleAddress = address[0].trim();
-	} else {
-		scheduleBuildingName = address[0].trim();
-		scheduleAddress = address[1].trim();
-	}
-	
-
-	initMarker.position = {x: lon, y: lat};
-	initMarker.building_name = scheduleBuildingName;
-	initMarker.address_name = scheduleAddress;
-	
-	dateInput.value = scheduleDate;
-	beginTime.value = scheduleBeginTime;
-	endTime.value = scheduleEndTime;
-	buildingName.innerText = scheduleBuildingName;
-	addressName.innerText = scheduleAddress;
-	
-	
-	if(scheduleModalWrapper.classList.contains("fade-out")) {
-		scheduleModalWrapper.classList.remove("fade-out");
-	}
-	scheduleModalWrapper.classList.add("fade-in");
+	dateInput.removeAttribute("readOnly");
+	beginTime.removeAttribute("readOnly");
+	endTime.removeAttribute("readOnly");
 }
 
-function submitModify(groupId) {
-	let scheduleId = clickedEl.getAttribute("schedule-id");
-		scheduleBegin = dateInput.value + " " + beginTime.value,
-		scheduleEnd = dateInput.value + " " + endTime.value;
-	
+function submitModify(groupId, scheduleId) {
 	const xhr = new XMLHttpRequest();
+	
+	let scheduleBegin = dateInput.value + " " + beginTime.value,
+		scheduleEnd = dateInput.value + " " + endTime.value;
 	
 	if(beginTime.value >= endTime.value) {
 		alert("일정 시작 시간은 종료 시간보다 빨라야 합니다. ");
@@ -190,27 +155,11 @@ function submitModify(groupId) {
 	xhr.onload = function () {
 		if(xhr.status == 200 || xhr.status == 201) {
 			if(Number(xhr.responseText) >= 1) {
+				getSchedule(0);
 				alert("일정이 성공적으로 수정되었습니다. ");
-				if(scheduleModalWrapper.classList.contains("fade-in")) {
-					scheduleModalWrapper.classList.remove("fade-in");
-				}
-				scheduleModalWrapper.classList.add("fade-out");
-				
-				let address = document.querySelectorAll(".scheduleAddress")[clickedIdx],
-					addressStr = "",
-					scheduleDate = document.querySelectorAll(".scheduleDate")[clickedIdx],
-					scheduleBeginTime = document.querySelectorAll(".scheduleBeginTime"),
-					scheduleEndTime = document.querySelectorAll(".scheduleEndTime");
-				
-				scheduleDate.innerText = data.beginTime.substring(0, 10);
-				scheduleBeginTime.innerText = data.beginTime.substring(11);
-				scheduleEndTime.innerText = data.endTime.substring(11);
-				
-				addressStr += (data.building_name == "NULL" ? "" : data.building_name);
-				if(addressStr.length) addressStr += "<br>";
-				addressStr += (data.address == "NULL" ? "" : data.address);
-				
-				address.innerHTML = addressStr;
+				dateInput.readOnly = beginTime.readOnly = endTime.readOnly = true;
+				map.setDraggable(false);
+				map.setZoomable(false);
 			}
 		} else {
 			alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");
@@ -218,9 +167,7 @@ function submitModify(groupId) {
 	}
 }
 
-function deleteSchedule(evt, groupId, scheduleId) {
-	let el = getParentNode(evt).parentNode;
-	
+function deleteSchedule(groupId, scheduleId) {
 	let ret = confirm("일정 삭제 이후 복구가 불가능합니다.\n삭제하시겠습니까?");
 	if(ret) {
 		const xhr = new XMLHttpRequest();
@@ -234,12 +181,12 @@ function deleteSchedule(evt, groupId, scheduleId) {
 		xhr.onload = function () {
 			if(xhr.status == 200 || xhr.status == 201) {
 				if(Number(xhr.responseText) >= 1) {
+					getSchedule(0);
 					alert("일정이 성공적으로 삭제되었습니다. ");
 					if(scheduleModalWrapper.classList.contains("fade-in")) {
 						scheduleModalWrapper.classList.remove("fade-in");
 				}
 				scheduleModalWrapper.classList.add("fade-out");
-				el.parentNode.removeChild(el);
 				}
 			} else {
 				alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");

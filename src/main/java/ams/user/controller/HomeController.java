@@ -42,7 +42,7 @@ public class HomeController {
 		
 		
 		LocalDateTime today = LocalDateTime.now();
-		int day = today.getDayOfWeek().getValue();
+		int day = today.getDayOfWeek().getValue() % 7;
 		LocalDateTime weekStart = today.minusDays(day);
 		LocalDateTime weekEnd = today.plusDays(6-day);
 		
