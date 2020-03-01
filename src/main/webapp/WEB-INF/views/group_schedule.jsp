@@ -37,8 +37,6 @@
 						</c:if>
 							${schedule.placeAddress }
 				</td>
-				<td><button onclick="modifySchedule(this, ${schedule.scheduleId }, ${schedule.placeLatitude }, ${schedule.placeLongitude })">수정 </button></td>
-				<td><button onclick="deleteSchedule(this, ${schedule.groupId }, ${schedule.scheduleId })">삭제</button></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -68,7 +66,11 @@
 	
 	<div class="schedule-modal-wrapper">
 		<div class="schedule-modal-content">
-			<h2>일정 수정하기 </h2>
+			<h2 class="groupName">일정 수정하기 </h2>
+			<c:if test="${isAdmin }">
+				<button class="modify-btn" >수정 </button>
+				<button class="delete-btn">삭제</button>
+			</c:if>
 			<h3>${groupName }</h3>
 			<label for="scheduleDate">일시 </label>
 			<input type="date" id="scheduleDate" name="scheduleDate"  />
@@ -79,7 +81,9 @@
 				<p class="address"></p>
 			</div>
 			<div id="map" style="width:80%;height:50%;margin:24px auto;position:relative;overflow:hidden; box-sizing:border-box;"></div>
-			<button onclick="submitModify(${groupId})">생성 </button>
+			<c:if test="${isAdmin }">
+				<button class="submit-btn">저장 </button>
+			</c:if>
 		</div>
 	</div>
 	<!-- services 라이브러리 불러오기 -->

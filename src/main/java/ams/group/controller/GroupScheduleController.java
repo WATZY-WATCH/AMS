@@ -1,8 +1,8 @@
 package ams.group.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +29,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ams.group.domain.GroupScheduleVO;
 import ams.group.service.GroupService;
+import ams.server.service.CustomAuthorizationHandler;
 
 @Controller
 @RequestMapping("/group/**")
 public class GroupScheduleController {
 
 	@Inject GroupService service;
+	@Inject CustomAuthorizationHandler customAuthorizationHandler;
 	
 	@RequestMapping(value="/schedule", method=RequestMethod.GET)
-	public String manageSchedule(@RequestParam("groupId") int groupId, Model model) throws Exception {
+	public String manageSchedule(@RequestParam("groupId") int groupId, Model model, Principal principal) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		LocalDate today = LocalDate.now();
 		int day = today.getDayOfWeek().getValue();
@@ -60,8 +63,11 @@ public class GroupScheduleController {
 		
 		List<GroupScheduleVO> scheduleList = service.getScheduleList(map);
 		
+		boolean isAdmin = customAuthorizationHandler.isAdmin(groupId, principal.getName());
+		
 		model.addAttribute("groupId", groupId);
 		model.addAttribute("schedules", scheduleList);
+		model.addAttribute("isAdmin", isAdmin);
 		
 		return "group_schedule";
 	}

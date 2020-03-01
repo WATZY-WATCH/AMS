@@ -24,6 +24,7 @@ function getSchedule(term) {
 				firstDateStr,
 				lastDateStr;
 			
+			
 			firstDateStr = ret.firstDate.year + "-"
 						 + ret.firstDate.monthValue.zf(2)+ "-"
 						 + ret.firstDate.dayOfMonth.zf(2);
@@ -46,11 +47,66 @@ function getSchedule(term) {
 				let gap = new Date(day).between(firstDate);
 				
 				dayLabel[gap].innerText = new Date(day).getDate();
+				days[gap].date = day;
 				
 				for(let i=0; i<calendar[day].length; i++) {
 					let schedule = calendar[day][i],
 						p = document.createElement("p"),
 						content = "";
+					
+					p.scheduleId = schedule.scheduleId;
+					p.date = day;
+					p.onclick = function (e) {
+						console.log(e);
+						let target = e.target,
+							date = target.date,
+							id = target.scheduleId,
+							schedules = calendar[date],
+							evt = schedules.filter(v=> {
+								return v.scheduleId == id;
+							})[0];
+						
+						let modifyBtn = document.querySelector(".modify-btn"),
+							deleteBtn = document.querySelector(".delete-btn"),
+							submitBtn = document.querySelector(".submit-btn");
+						
+						if(!!modifyBtn) {
+							modifyBtn.addEventListener('click', modifySchedule());
+						}
+						if(!!deleteBtn) {
+							deleteBtn.addEventListener('click', deleteSchedule(evt.groupId, evt.scheduleId));
+						}
+						if(!!submitBtn) {
+							submitBtn.addEventListener('click',submitModify(evt.groupId, evt.scheduleId));
+						}
+						
+						console.log(evt);
+						
+						let center = new kakao.maps.LatLng(evt.placeLatitude, evt.placeLongitude);
+						initMarker.setPosition(center);
+						panTo(center);
+						map.setDraggable(false);
+						map.setZoomable(false);
+						
+						initMarker.position = {x: evt.placeLongitude, y: evt.placeLatitude};
+						initMarker.building_name = (evt.buildingName !== "NULL") ? evt.buildingName : "";
+						initMarker.address_name = (evt.placeAddress !== "NULL") ? evt.placeAddress : "";
+						
+						if(evt.buildingName && evt.buildingName !== "NULL") buildingName.innerText = evt.buildingName;
+						if(evt.placeAddress && evt.placeAddress !== "NULL") addressName.innerText = evt.placeAddress;
+						
+						groupName.innerText = evt.groupName;
+						dateInput.readOnly = beginTime.readOnly = endTime.readOnly = true;
+						dateInput.value = new Date(evt.beginTime).format("yyyy-MM-dd");
+						beginTime.value = new Date(evt.beginTime).format("HH:mm");
+						endTime.value = new Date(evt.endTime).format("HH:mm");
+						
+						if(scheduleModalWrapper.classList.contains("fade-out")) {
+							scheduleModalWrapper.classList.remove("fade-out");
+						}
+						scheduleModalWrapper.classList.add("fade-in");
+					}
+					
 					content += new Date(schedule.beginTime).format("HH:mm") + "&nbsp;"
 							+ schedule.groupName;
 					
