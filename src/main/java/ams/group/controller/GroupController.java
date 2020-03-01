@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupMemberVO;
@@ -62,7 +62,7 @@ public class GroupController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/listApply", method = RequestMethod.POST)
-	  public int listApply(@RequestBody GroupApplicationsVO vo) throws Exception {
+	  public int listApply(@RequestBody GroupApplicationVO vo) throws Exception {
 		System.out.println("post listApply..............");
 		return service.listApply(vo); 
 	}
@@ -82,7 +82,7 @@ public class GroupController {
 		if(ret>=1) model.addAttribute("memberChk",1);
 		else model.addAttribute("memberChk",0);
 		model.addAttribute("UserVO", userService.getUserInfo(userId));
-		GroupApplicationsVO gavo= new GroupApplicationsVO();
+		GroupApplicationVO gavo= new GroupApplicationVO();
 		gavo.setGroupId(groupId);
 		gavo.setUserId(userId);
 		model.addAttribute("listApplyChk", service.listApplyChk(gavo));

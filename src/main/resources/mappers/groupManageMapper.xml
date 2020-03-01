@@ -152,5 +152,61 @@
  	ORDER BY SG.REG_DATE DESC
  	]]>
    </select>
+   <resultMap id="masterApplication" type="GroupApplicationVO">
+   		<result property="applicationId" column="APPLICATION_ID"/>
+	    <result property="groupId" column="GROUP_ID"/>
+	    <result property="userId" column="USER_ID"/>
+	    <result property="msg" column="MSG"/>
+	    <result property="regDate" column="REG_DATE"/>
+	    <collection property="userVO" resultMap="userName"/>
+   </resultMap>
+   <select id="masterApplicationList" resultMap="masterApplication">
+   	<![CDATA[
+   	select
+   		GA.APPLICATION_ID
+ 		, GA.GROUP_ID
+ 		, GA.USER_ID
+ 		, GA.MSG
+ 		, GA.REG_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		GROUP_APPLICATIONS GA
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		GA.USER_ID = U.USER_ID
+ 	WHERE GA.GROUP_ID=#{groupId}
+ 	ORDER BY GA.REG_DATE DESC
+ 	LIMIT #{cri.pageStart}, 10
+ 	]]>
+   </select>
+   
+   <select id="masterApplicationCount" resultType="int">
+   	select count(*) from group_applications where group_id=#{groupId}
+   </select>
+   
+   <select id="masterApplicationRead" resultMap="masterApplication">
+   	select
+   		GA.APPLICATION_ID
+ 		, GA.GROUP_ID
+ 		, GA.USER_ID
+ 		, GA.MSG
+ 		, GA.REG_DATE
+ 		, U.USER_NAME
+ 	FROM
+ 		GROUP_APPLICATIONS GA
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		GA.USER_ID = U.USER_ID
+ 	WHERE GA.APPLICATION_ID=#{applicationId}
+   </select>
+   <insert id="masterAccept">
+    INSERT INTO GROUP_MEMBERS(GROUP_ID, USER_ID, GROUP_AUTHORITY)
+       					VALUES(#{groupId}, #{userId}, 'MEMBER')
+   </insert>
+   <delete id="applicationDelete">
+   	delete from group_applications where application_id=#{applicationId}
+   </delete>
 </mapper>
 
