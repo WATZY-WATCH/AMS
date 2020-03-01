@@ -2,12 +2,15 @@ package ams.group.domain;
 
 import java.util.Date;
 
-public class GroupApplicationsVO {
+import ams.user.domain.UserVO;
+
+public class GroupApplicationVO {
+	private int applicationId;
 	private int groupId;
 	private String userId;
-	private String userName;
 	private String msg;
 	private Date regDate;
+	private UserVO userVO;
 	
 	public int getGroupId() {
 		return groupId;
@@ -21,12 +24,6 @@ public class GroupApplicationsVO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public String getMsg() {
 		return msg;
 	}
@@ -39,10 +36,23 @@ public class GroupApplicationsVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public UserVO getUserVO() {
+		return userVO;
+	}
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
+	
+	public int getApplicationId() {
+		return applicationId;
+	}
+	public void setApplicationId(int applicationId) {
+		this.applicationId = applicationId;
+	}
 	@Override
 	public String toString() {
-		return "GroupApplicationsVO [groupId=" + groupId + ", userId=" + userId + ", userName=" + userName + ", msg="
-				+ msg + ", regDate=" + regDate + "]";
+		return "GroupApplicationVO [applicationId=" + applicationId + ", groupId=" + groupId + ", userId=" + userId
+				+ ", msg=" + msg + ", regDate=" + regDate + ", userVO=" + userVO + "]";
 	}
 	
 }

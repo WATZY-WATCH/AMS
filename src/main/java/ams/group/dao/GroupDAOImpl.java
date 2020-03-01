@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import ams.group.domain.GroupApplicationsVO;
+import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupAttendanceVO;
 import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupScheduleVO;
@@ -44,11 +44,11 @@ public class GroupDAOImpl implements GroupDAO{
 		return sql.selectOne(ns+".memberChk",vo);
 	}
 	@Override
-	public int listApply(GroupApplicationsVO vo) throws Exception {
+	public int listApply(GroupApplicationVO vo) throws Exception {
 		return sql.insert(ns+".listApply",vo);
 	}
 	@Override
-	public int listApplyChk(GroupApplicationsVO vo) throws Exception {
+	public int listApplyChk(GroupApplicationVO vo) throws Exception {
 		return sql.selectOne(ns+".listApplyChk",vo);
 	}
 	@Override

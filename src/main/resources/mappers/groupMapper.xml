@@ -265,8 +265,8 @@
    </select>
    
    <insert id="listApply">
-    INSERT INTO GROUP_APPLICATIONS(GROUP_ID, USER_ID, USER_NAME, MSG)
-       					VALUES(#{groupId}, #{userId}, #{userName}, #{msg})
+    INSERT INTO GROUP_APPLICATIONS(GROUP_ID, USER_ID, MSG)
+       					VALUES(#{groupId}, #{userId}, #{msg})
    </insert>
    
    <select id="listApplyChk" resultType="int">

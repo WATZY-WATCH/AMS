@@ -62,5 +62,6 @@
    <delete id="commentDelete">
    	delete from group_comment where comment_id=#{commentId}
    </delete>
+   
 </mapper>
 

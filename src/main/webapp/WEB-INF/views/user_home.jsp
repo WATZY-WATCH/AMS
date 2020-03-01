@@ -37,7 +37,7 @@
 <a href="/group/listCri">그룹찾기</a>
 </div>
 <div>
-<a href="/group/manage/home">그룹관리</a>
+<a href="/groupManage/home">그룹관리</a>
 </div>
 <table border="1">
 	<tr class="week-day">

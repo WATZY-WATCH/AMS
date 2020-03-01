@@ -9,17 +9,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import ams.group.domain.GroupApplicationVO;
+import ams.group.domain.GroupCommentVO;
+import ams.group.domain.GroupCriteria;
 import ams.group.domain.GroupVO;
-
+import ams.group.domain.PageMaker;
+import ams.group.domain.SearchCriteria;
 import ams.group.service.GroupManageService;
 
 
 @Controller
-@RequestMapping("group/manage/**")
+@RequestMapping("groupManage/**")
 public class GroupManageController {
 	private static final Logger logger = LoggerFactory.getLogger(GroupManageController.class);
 	
@@ -35,6 +42,42 @@ public class GroupManageController {
 		model.addAttribute("memberList",gvoMemberList);
 		model.addAttribute("applicationList",gvoApplicationList);
 		return "group_manage_home";
+	}
+	
+	@RequestMapping(value="/master", method=RequestMethod.GET)
+	public String master(@RequestParam int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model, Principal principal) throws Exception {
+		System.out.println("get master..............");
+		List<GroupApplicationVO> gavoList = service.masterApplicationList(groupId, cri);
+		model.addAttribute("gavoList",gavoList);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.masterApplicationCount(groupId));
+		model.addAttribute("pageMaker",pageMaker);
+		model.addAttribute("groupId",groupId);
+		return "group_manage_master";
+	}
+	
+	@RequestMapping(value="/masterRead", method=RequestMethod.GET)
+	public String masterRead(@RequestParam int applicationId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
+		System.out.println("get masterRead..............");
+		GroupApplicationVO gavo = service.masterApplicationRead(applicationId);
+		model.addAttribute("gavo",gavo);
+		model.addAttribute("cri",cri);
+		return "group_manage_master_read";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/masterAccept", method = RequestMethod.POST)
+	public int masterAccept(@RequestBody GroupApplicationVO vo){
+		System.out.println("post masterAccept.........");
+		int ret=0;
+		try {
+			service.masterAccept(vo);
+			ret=service.applicationDelete(vo.getApplicationId());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 }
