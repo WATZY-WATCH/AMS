@@ -33,8 +33,11 @@
 		<tr>
 			<td>${GroupApplicationVO.userVO.userName}</td>
 			<td><a class="ellip" href="/groupManage/masterRead${pageMaker.makeQuery(idx)}&applicationId=${GroupApplicationVO.applicationId}">${GroupApplicationVO.msg}</a></td>
-			<td><fmt:setTimeZone value="UTC" />
-			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupApplicationVO.regDate}" /></td>
+			<td>
+				<fmt:timeZone value="Asia/Seoul">
+					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupApplicationVO.regDate}" />
+				</fmt:timeZone>
+			</td>
 		</tr>
 	</c:forEach>
 	</table>

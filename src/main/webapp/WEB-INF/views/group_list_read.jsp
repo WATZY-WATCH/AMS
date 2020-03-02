@@ -41,8 +41,11 @@
 			<td>${GroupVO.groupStatus}</td>
 			<td>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</td>
 			<td>${GroupVO.groupViewCnt}</td>
-			<td><fmt:setTimeZone value="UTC" />
-			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" /></td>
+			<td>
+				<fmt:timeZone value="Asia/Seoul">
+					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
+				</fmt:timeZone>
+			</td>
 		</tr>
 	</table>
 	<h2>스터디 활동 소개 ${memberChk}</h2>

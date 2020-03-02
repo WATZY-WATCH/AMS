@@ -60,7 +60,9 @@
 	<fmt:parseNumber value="${base.time / (1000*60*60*24)}" integerOnly="true" var="baseStr"></fmt:parseNumber>
 	
 	<c:forEach items="${schedules}" var="s">
-		<fmt:formatDate pattern="yyyy-MM-dd" value="${s.beginTime}" var="curr" />
+		<fmt:timeZone value="Asia/Seoul">
+			<fmt:formatDate pattern="yyyy-MM-dd" value="${s.beginTime}" var="curr" />
+		</fmt:timeZone>
 		<fmt:parseDate value="${curr }" var="cmp" pattern="yyyy-MM-dd"/>
 		<fmt:parseNumber value="${cmp.time / (1000*60*60*24)}" integerOnly="true" var="cmpStr"></fmt:parseNumber>
 

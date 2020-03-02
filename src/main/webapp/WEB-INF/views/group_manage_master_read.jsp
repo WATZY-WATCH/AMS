@@ -21,8 +21,11 @@
 		</tr>
 		<tr>
 			<td>${gavo.userVO.userName}</td>
-			<td><fmt:setTimeZone value="UTC" />
-			<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${gavo.regDate}" /></td>
+			<td>
+				<fmt:timeZone value="Asia/Seoul">
+					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${gavo.regDate}" />
+				</fmt:timeZone>
+			</td>
 		</tr>
 	</table>
 	<br>
