@@ -72,15 +72,17 @@ function getSchedule(term) {
 						if(!!modifyBtn) {
 							modifyBtn.addEventListener('click', modifySchedule, false);
 						}
+						
+						//클릭이벤트에 파라미터를 전달해주는 경우 addEventListener를 사용하면 재귀호출로 인해 여러 번 실행되는 문제가 있기 때문에 onclick 사용. 
 						if(!!deleteBtn) {
-							deleteBtn.addEventListener('click', function() {
+							deleteBtn.onclick = function(e) {
 								deleteSchedule(evt.groupId, evt.scheduleId);
-							}, false);
+							};
 						}
 						if(!!submitBtn) {
-							submitBtn.addEventListener('click', function() {
+							submitBtn.onclick = function(e) {
 								submitModify(evt.groupId, evt.scheduleId);
-							}, false);
+							};
 						}
 						
 						console.log(evt);
