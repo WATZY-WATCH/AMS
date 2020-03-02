@@ -22,6 +22,7 @@
 </style>
 </head>
 <body>
+	<a href="/groupManage/home">[관리 홈으로] </a>
 	<h2> 스터디를 신청한 인원 목록입니다.</h2>
 	<table border="1">
 		<tr>
@@ -32,6 +33,7 @@
 	<c:forEach items="${gavoList}" var="GroupApplicationVO">
 		<tr>
 			<td>${GroupApplicationVO.userVO.userName}</td>
+			<!-- idx 부분 해결 필요  -->
 			<td><a class="ellip" href="/groupManage/masterRead${pageMaker.makeQuery(idx)}&applicationId=${GroupApplicationVO.applicationId}">${GroupApplicationVO.msg}</a></td>
 			<td>
 				<fmt:timeZone value="Asia/Seoul">

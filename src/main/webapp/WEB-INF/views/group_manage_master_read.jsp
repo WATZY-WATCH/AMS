@@ -31,9 +31,9 @@
 	<br>
 	<textarea id="msg" cols="80" rows="5" readonly="readonly">${gavo.msg }</textarea>
 	<br>
-	<button type="button" id="acceptBtn" onclick="acceptApplication(${cri.page},${cri.perPageNum }, ${gavo.groupId},'${gavo.userId }',${gavo.applicationId })">수락하기</button> &nbsp;
-	<button type="button" id="rejectBtn" onclick="rejectApplication()">거절하기</button> &nbsp;
-	<button type="button" id="listBtn" onclick="listMaster()">목록으로</button> &nbsp;
+	<button type="button" id="acceptBtn" onclick="acceptApplication(${gavo.groupId},'${gavo.userId }')">수락하기</button> &nbsp;
+	<button type="button" id="rejectBtn" onclick="rejectApplication(${gavo.groupId},'${gavo.userId }')">거절하기</button> &nbsp;
+	<button type="button" id="listBtn" onclick="listMaster(${gavo.groupId})">목록으로</button> &nbsp;
 	<script type="text/javascript" src="/js/group_manage_master_read.js"></script>
 </body>
 
