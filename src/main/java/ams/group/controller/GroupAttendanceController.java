@@ -59,16 +59,13 @@ public class GroupAttendanceController {
 		boolean finished = (now.getTime() > end.getTime());
 		String attendanceStr = service.chkAttendanceStatus(ga);
 		
+		model.addAttribute("schedule", schedule);
 		model.addAttribute("userId", userId);
-		model.addAttribute("groupId", groupId);
-		model.addAttribute("scheduleId", schedule.getScheduleId());
 		model.addAttribute("attendanceStatus", attendanceStr);
 		model.addAttribute("isTimeOn", isTimeOn);
 		model.addAttribute("finished", finished);
 		model.addAttribute("start", format.format(start));
 		model.addAttribute("end", format.format(end));
-		
-		System.out.println(format.format(start) + " " + format.format(end));
 		
 		return "group_attend";
 	}
@@ -85,9 +82,8 @@ public class GroupAttendanceController {
 		int scheduleId = reqInfo.get("scheduleId").asInt();
 		String inputId = reqInfo.get("userId").asText();
 		String userId = principal.getName();
-		
 	
-		if(!userId.equals(inputId)) {
+		if(userId == null || !userId.equals(inputId)) {
 			retObj.put("error", "잘못된 요청입니다. ");
 			return mapper.writeValueAsString(retObj);
 		}

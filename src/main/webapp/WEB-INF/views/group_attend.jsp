@@ -16,7 +16,7 @@
 		<c:when test="${finished eq false && attendanceStatus eq null }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
-				<button class="attendBtn" type="button" onclick="attend(${scheduleId}, ${groupId}, '${userId }', '${start }')">출석하기 </button>
+				<button class="attendBtn" type="button" onclick="attend('${userId }', '${start }')">출석하기 </button>
 			</form>
 		</c:when>
 		<c:when test="${attendanceStatus ne null }">
@@ -30,7 +30,14 @@
 		</c:otherwise>
 	</c:choose>
 </body>
-<script>var startTime = "${start}", endTime = "${end}";</script>
+<script>
+	var startTime = "${start}",
+			endTime = "${end}",
+			scheduleId = ${schedule.scheduleId},
+			groupId = ${schedule.groupId},
+			plat = ${schedule.placeLatitude},
+			plon = ${schedule.placeLongitude};
+</script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/group_attend.js"></script>
 </html>
