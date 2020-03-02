@@ -14,33 +14,7 @@
 <body>
 	<sec:csrfInput />
 	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
-	<table>
 		
-		<tr>
-			<th>그룹명 </th>
-			<th>날짜 </th>
-			<th>시작시간 </th>
-			<th>종료시간 </th>
-			<th>장소 </th>
-			<th>수정 </th>
-			<th>삭제 </th>
-		</tr>
-		<c:forEach items="${schedules }" var="schedule">
-			<tr class="schedule" schedule-id = "${schedule.scheduleId }">
-				<td>${schedule.groupName }</td>
-				<td class="scheduleDate"><fmt:formatDate pattern="yyyy-MM-dd" value="${schedule.beginTime}" /></td>
-				<td class="scheduleBeginTime"><fmt:formatDate pattern="HH:mm" value="${schedule.beginTime}" /></td>
-				<td class="scheduleEndTime"><fmt:formatDate pattern="HH:mm" value="${schedule.endTime}" /></td>
-				<td class="scheduleAddress">
-						<c:if test="${schedule.buildingName ne 'NULL' }">
-							${schedule.buildingName }<br/>
-						</c:if>
-							${schedule.placeAddress }
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
 	<table>
 		<thead>
 			<tr class="calendar-month">

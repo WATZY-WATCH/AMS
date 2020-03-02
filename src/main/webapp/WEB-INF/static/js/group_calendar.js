@@ -57,7 +57,6 @@ function getSchedule(term) {
 					p.scheduleId = schedule.scheduleId;
 					p.date = day;
 					p.onclick = function (e) {
-						console.log(e);
 						let target = e.target,
 							date = target.date,
 							id = target.scheduleId,
@@ -71,13 +70,17 @@ function getSchedule(term) {
 							submitBtn = document.querySelector(".submit-btn");
 						
 						if(!!modifyBtn) {
-							modifyBtn.addEventListener('click', modifySchedule());
+							modifyBtn.addEventListener('click', modifySchedule, false);
 						}
 						if(!!deleteBtn) {
-							deleteBtn.addEventListener('click', deleteSchedule(evt.groupId, evt.scheduleId));
+							deleteBtn.addEventListener('click', function() {
+								deleteSchedule(evt.groupId, evt.scheduleId);
+							}, false);
 						}
 						if(!!submitBtn) {
-							submitBtn.addEventListener('click',submitModify(evt.groupId, evt.scheduleId));
+							submitBtn.addEventListener('click', function() {
+								submitModify(evt.groupId, evt.scheduleId);
+							}, false);
 						}
 						
 						console.log(evt);
