@@ -40,7 +40,11 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${GroupVO.groupMemberVO.regDate}" /></td>
+				<td>
+					<fmt:timeZone value="Asia/Seoul">
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${GroupVO.groupMemberVO.regDate}" />
+					</fmt:timeZone>
+				</td>
 				<c:if test="${GroupVO.groupMemberVO.groupAuthority == 'MASTER' }">
 					<td><a href="/group/schedule?groupId=${GroupVO.groupId }">일정관리</a></td>
 				</c:if>

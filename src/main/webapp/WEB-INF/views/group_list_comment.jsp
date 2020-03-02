@@ -23,12 +23,12 @@
 			<li>
 				<p>
 					${c.userVO.userName }
-					<span>&nbsp; (<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${c.regDate}" />)</span>
+					<span>&nbsp; (<fmt:timeZone value="Asia/Seoul"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${c.regDate}" /></fmt:timeZone>)</span>
 				</p>
 				<div id="divCommentId${c.commentId}">
 				<p id="pCommentId${c.commentId}">${c.commentMsg }</p>
 				<c:if test = "${c.regDate ne c.modDate }">
-					<span>최종수정날짜 &nbsp; (<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${c.modDate}" />)</span>
+					<span>최종수정날짜 &nbsp; (<fmt:timeZone value="Asia/Seoul"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${c.modDate}" /></fmt:timeZone>)</span>
 				</c:if>
 				<c:if test = "${c.userId eq userId }">
 					<button type="button" id="updateBtn" onclick="updateComment(${c.commentId}, ${curPage})">수정하기</button>
