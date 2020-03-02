@@ -33,6 +33,7 @@
 	<c:forEach items="${gavoList}" var="GroupApplicationVO">
 		<tr>
 			<td>${GroupApplicationVO.userVO.userName}</td>
+			<!-- idx 부분 해결 필요  -->
 			<td><a class="ellip" href="/groupManage/masterRead${pageMaker.makeQuery(idx)}&applicationId=${GroupApplicationVO.applicationId}">${GroupApplicationVO.msg}</a></td>
 			<td>
 				<fmt:timeZone value="Asia/Seoul">
