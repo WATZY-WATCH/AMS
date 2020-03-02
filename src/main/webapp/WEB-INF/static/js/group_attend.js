@@ -28,7 +28,7 @@ let timer = setInterval(function() {
 	}
 }, 1000);
 
-function attend(scheduleId, groupId, userId, base) {
+function attend(userId, base) {
 	if(dist === -1) {
 		alert("현재 위치 정보를 사용할 수 없습니다. ");
 		return;
@@ -77,12 +77,10 @@ function getCurrLocation() {
 			    var lat = position.coords.latitude, // 위도
 			    	lon = position.coords.longitude; // 경도
 			    let currLoc = new kakao.maps.LatLng(lat, lon);
-			    base = currLoc;
+			    base = new kakao.maps.LatLng(plat, plon);
 			    clickLine = new kakao.maps.Polyline({
 		            path: [base, currLoc] // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
 		        });
-			    console.log("기준점: ", base, "현재위치: ", currLoc);
-			    console.log("거리 ", Math.round(clickLine.getLength()));
 			    dist = Math.round(clickLine.getLength());
 			    resolve();
 			});
