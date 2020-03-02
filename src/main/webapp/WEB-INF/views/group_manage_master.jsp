@@ -22,6 +22,7 @@
 </style>
 </head>
 <body>
+	<a href="/groupManage/home">[관리 홈으로] </a>
 	<h2> 스터디를 신청한 인원 목록입니다.</h2>
 	<table border="1">
 		<tr>
