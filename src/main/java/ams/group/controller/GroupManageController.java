@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
+import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 import ams.group.domain.PageMaker;
 import ams.group.domain.SearchCriteria;
@@ -95,5 +96,15 @@ public class GroupManageController {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+	
+	@RequestMapping(value="/memberRead", method=RequestMethod.GET)
+	public String memberRead(@RequestParam int groupId, Model model, Principal principal) throws Exception {
+		System.out.println("get memberRead..............");
+		GroupMemberVO gmvo = service.selectMember(groupId, principal.getName());
+		GroupVO gvo =service.selectGroup(groupId);
+		model.addAttribute("GroupMemberVO",gmvo);
+		model.addAttribute("GroupVO",gvo);
+		return "group_manage_member_read";
 	}
 }

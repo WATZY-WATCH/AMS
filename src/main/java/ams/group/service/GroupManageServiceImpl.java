@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ams.group.dao.GroupManageDAO;
 import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupCriteria;
+import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 
 @Service
@@ -48,4 +49,13 @@ public class GroupManageServiceImpl implements GroupManageService{
 	public int applicationDelete(int applicationId)throws Exception{
 		return dao.applicationDelete(applicationId);
 	}
+	@Override
+	public GroupMemberVO selectMember(int groupId, String userId)throws Exception{
+		return dao.selectMember(groupId, userId);
+	}
+	@Override
+	public GroupVO selectGroup(int groupId)throws Exception{
+		return dao.selectGroup(groupId);
+	}
+	
 }

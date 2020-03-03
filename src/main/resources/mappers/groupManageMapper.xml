@@ -208,5 +208,20 @@
    <delete id="applicationDelete">
    	delete from group_applications where application_id=#{applicationId}
    </delete>
+   <select id="selectGroup" resultType="GroupVO">
+   	select
+   		*
+ 	FROM
+ 		STUDY_GROUPS
+ 	WHERE GROUP_ID=#{groupId}
+   </select>
+   <select id="selectMember" resultType="GroupMemberVO">
+   	select
+   		*
+ 	FROM
+ 		GROUP_MEMBERS
+ 	WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
+   </select>
+   
 </mapper>
 

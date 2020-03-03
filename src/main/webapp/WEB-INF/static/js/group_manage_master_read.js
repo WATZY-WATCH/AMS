@@ -26,7 +26,7 @@ function acceptApplication(groupId, userId) {
 				console.log(xhr.responseText);
 				if(xhr.responseText != 0) {
 					alert("해당 회원을 스터디 멤버로 수락하였습니다! ");
-					document.location.href="/groupManage/master?page="+page+"&perPageNum="+perPageNum+"&groupId="+groupId;
+					document.location.href="/groupManage/master?groupId="+groupId;
 				} else {
 					alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");
 				}
@@ -58,7 +58,7 @@ function rejectApplication(groupId, userId) {
 				console.log(xhr.responseText);
 				if(xhr.responseText != 0) {
 					alert("해당 회원을 거절하였습니다! ");
-					document.location.href="/groupManage/master?page="+page+"&perPageNum="+perPageNum+"&groupId="+groupId;
+					document.location.href="/groupManage/master?groupId="+groupId;
 				} else {
 					alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");
 				}
