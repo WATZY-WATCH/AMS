@@ -4,6 +4,7 @@ import java.util.List;
 
 import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupCriteria;
+import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 
 public interface GroupManageDAO {
@@ -15,5 +16,7 @@ public interface GroupManageDAO {
 	public GroupApplicationVO masterApplicationRead(int applicationId)throws Exception;
 	public int masterAccept(GroupApplicationVO vo)throws Exception;
 	public int applicationDelete(int applicationId)throws Exception;
-
+	public GroupMemberVO selectMember(int groupId, String userId)throws Exception;
+	public GroupVO selectGroup(int groupId)throws Exception;
+	
 }

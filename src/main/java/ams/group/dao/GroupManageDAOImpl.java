@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import ams.group.domain.GroupApplicationVO;
 import ams.group.domain.GroupCriteria;
+import ams.group.domain.GroupMemberVO;
 import ams.group.domain.GroupVO;
 
 @Repository
@@ -53,5 +54,16 @@ public class GroupManageDAOImpl implements GroupManageDAO {
 	@Override
 	public int applicationDelete(int applicationId)throws Exception{
 		return sql.delete(ns+".applicationDelete", applicationId);
+	}
+	@Override
+	public GroupMemberVO selectMember(int groupId, String userId)throws Exception{
+		Map<String, Object> paramMap=new HashMap<>();
+		paramMap.put("groupId", groupId);
+		paramMap.put("userId", userId);
+		return sql.selectOne(ns+".selectMember", paramMap);
+	}
+	@Override
+	public GroupVO selectGroup(int groupId)throws Exception{
+		return sql.selectOne(ns+".selectGroup", groupId);
 	}
 }
