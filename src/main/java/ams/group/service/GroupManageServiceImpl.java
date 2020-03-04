@@ -57,5 +57,29 @@ public class GroupManageServiceImpl implements GroupManageService{
 	public GroupVO selectGroup(int groupId)throws Exception{
 		return dao.selectGroup(groupId);
 	}
-	
+	@Override
+	public int deleteMember(GroupMemberVO vo)throws Exception{
+		return dao.deleteMember(vo);
+	}
+	@Override
+	public int deleteApplication(GroupApplicationVO vo)throws Exception{
+		return dao.deleteApplication(vo);
+	}
+	@Override
+	public GroupApplicationVO seleteApplication(int groupId, String userId)throws Exception{
+		return dao.seleteApplication(groupId, userId);
+	}
+	@Override
+	public int masterDelete(GroupMemberVO vo)throws Exception{
+		int ret=dao.nextMasterCheck(vo.getGroupId());
+		if(ret>0) {
+			dao.updateMaster(vo.getGroupId());
+			dao.deleteMember(vo);
+			return dao.updateGroup(vo.getGroupId());
+		}else {
+			dao.deleteMember(vo);
+			return dao.deleteGroup(vo.getGroupId());
+		}
+	}
+
 }

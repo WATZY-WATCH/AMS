@@ -100,7 +100,7 @@
 			<td>${GroupVO.groupId}</td>
 			<td>${GroupVO.groupCategory}</td>
 			<td>${GroupVO.userVO.userName}</td>
-			<td><a href="./listRead?groupId=${GroupVO.groupId}">${GroupVO.groupName}</a></td>
+			<td><a href="applicationRead?groupId=${GroupVO.groupId}">${GroupVO.groupName}</a></td>
 			<td>${GroupVO.groupMemberLimit}</td>
 			<td>${GroupVO.groupPeriod}</td>
 			<td>${GroupVO.groupArea}</td>

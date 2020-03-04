@@ -18,5 +18,12 @@ public interface GroupManageDAO {
 	public int applicationDelete(int applicationId)throws Exception;
 	public GroupMemberVO selectMember(int groupId, String userId)throws Exception;
 	public GroupVO selectGroup(int groupId)throws Exception;
+	public int deleteMember(GroupMemberVO vo)throws Exception;
+	public int deleteApplication(GroupApplicationVO vo)throws Exception;
+	public GroupApplicationVO seleteApplication(int groupId, String userId)throws Exception;
+	public int updateMaster(int groupId)throws Exception;
+	public int updateGroup(int groupId)throws Exception;
+	public int nextMasterCheck(int groupId)throws Exception;
+	public int deleteGroup(int groupId)throws Exception;
 	
 }
