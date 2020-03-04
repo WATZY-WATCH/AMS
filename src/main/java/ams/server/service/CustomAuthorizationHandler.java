@@ -25,7 +25,7 @@ public class CustomAuthorizationHandler {
 		vo.setUserId(userId);
 		
 		String authority = service.authorityChk(vo);
-		
+
 		//authority.equals("MASTER")의 경우 authority가 Null이면 NullPointerException 발생 
 		return "MASTER".equals(authority);
 	}
