@@ -13,6 +13,7 @@
 </head>
 <body>
 	<sec:csrfInput />
+	<div id="calendar"></div>
 	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
 		
 	<table>
@@ -65,5 +66,6 @@
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/group_calendar.js"></script>
 	<script type="text/javascript" src="/js/group_schedule_management.js"></script>
+	<script src="/js/react/calendar.bundle.js"></script>
 </body>
 </html>

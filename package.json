@@ -18,7 +18,9 @@
   "homepage": "https://github.com/WATZY-WATCH/AMS#readme",
   "dependencies": {
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "superagent": "^5.2.2",
+    "superagent-csrf": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
