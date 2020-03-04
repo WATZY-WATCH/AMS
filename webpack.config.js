@@ -3,10 +3,11 @@ var path = require('path')
 module.exports =  {
     context: path.resolve(__dirname, 'src/main/resources/jsx'),
     entry: {
-        user_home: './user_home.jsx'
+        user_home: './user_home.jsx',
+        calendar: './calendar.jsx'
     },
     devtool: 'sourcemaps',
-    cache: true,
+    cache: false,
     output: {
         path: __dirname,
         filename: './src/main/webapp/WEB-INF/static/js/react/[name].bundle.js'
