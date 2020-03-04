@@ -37,6 +37,7 @@ public class GroupManageController {
 	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home(Principal principal, Model model) throws Exception {
+		System.out.println("get groupManage/home..............");
 		List<GroupVO> gvoMasterList = service.masterList(principal.getName());
 		List<GroupVO> gvoMemberList = service.memberList(principal.getName());
 		List<GroupVO> gvoApplicationList = service.applicationList(principal.getName());
@@ -57,7 +58,21 @@ public class GroupManageController {
 		pageMaker.setTotalCount(service.masterApplicationCount(groupId));
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("groupId",groupId);
+		model.addAttribute("userId",principal.getName());
 		return "group_manage_master";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/masterDelete", method = RequestMethod.POST)
+	public int masterDelete(@RequestBody GroupMemberVO vo, Principal principal){
+		System.out.println("post masterDelete.........");
+		int ret=0;
+		try {
+			ret=service.masterDelete(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	@RequestMapping(value="/masterRead", method=RequestMethod.GET)
@@ -107,4 +122,41 @@ public class GroupManageController {
 		model.addAttribute("GroupVO",gvo);
 		return "group_manage_member_read";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/leaveGroup", method = RequestMethod.POST)
+	public int leaveGroup(@RequestBody GroupMemberVO vo){
+		System.out.println("post leaveGroup.........");
+		int ret=0;
+		try {
+			ret=service.deleteMember(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@RequestMapping(value="/applicationRead", method=RequestMethod.GET)
+	public String applicationRead(@RequestParam int groupId, Model model, Principal principal) throws Exception {
+		System.out.println("get applicationRead..............");
+		GroupApplicationVO avo = service.seleteApplication(groupId, principal.getName());
+		GroupVO gvo =service.selectGroup(groupId);
+		model.addAttribute("GroupApplicationVO",avo);
+		model.addAttribute("GroupVO",gvo);
+		return "group_manage_application_read";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/applicationDelete", method = RequestMethod.POST)
+	public int applicationDelete(@RequestBody GroupApplicationVO vo){
+		System.out.println("post applicationDelete.........");
+		int ret=0;
+		try {
+			ret=service.deleteApplication(vo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 }

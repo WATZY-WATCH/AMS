@@ -70,6 +70,7 @@
 	    <result property="groupCategory" column="GROUP_CATEGORY"/>
 	    <result property="groupMasterId" column="GROUP_MASTER_ID"/>
 	    <result property="groupName" column="GROUP_NAME"/>
+	    <result property="groupDetail" column="GROUP_DETAIL"/>
 	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
 	    <result property="groupPeriod" column="GROUP_PERIOD"/>
 	    <result property="groupArea" column="GROUP_AREA"/>
@@ -208,12 +209,33 @@
    <delete id="applicationDelete">
    	delete from group_applications where application_id=#{applicationId}
    </delete>
-   <select id="selectGroup" resultType="GroupVO">
+   
+   <select id="selectGroup" resultMap="masterListGroupVO">
+   <![CDATA[
    	select
-   		*
+ 		SG.GROUP_ID
+ 		,SG.GROUP_CATEGORY
+ 		,SG.GROUP_MASTER_ID
+ 		,SG.GROUP_NAME
+ 		,SG.GROUP_DETAIL
+ 		,SG.GROUP_MEMBER_LIMIT
+ 		,SG.GROUP_PERIOD
+ 		,SG.GROUP_AREA
+ 		,SG.GROUP_STATUS
+ 		,SG.GROUP_START_AGE
+ 		,SG.GROUP_END_AGE
+ 		,SG.REG_DATE
+ 		,SG.MOD_DATE
+ 		, U.USER_NAME
  	FROM
- 		STUDY_GROUPS
- 	WHERE GROUP_ID=#{groupId}
+ 		STUDY_GROUPS SG
+ 	LEFT JOIN
+ 		USERS U
+ 	ON
+ 		SG.GROUP_MASTER_ID = U.USER_ID
+ 	WHERE SG.GROUP_ID=#{groupId}
+ 	ORDER BY SG.REG_DATE DESC
+ 	]]>
    </select>
    <select id="selectMember" resultType="GroupMemberVO">
    	select
@@ -222,6 +244,44 @@
  		GROUP_MEMBERS
  	WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
    </select>
-   
+   <delete id="deleteMember">
+    delete from group_members where group_id=#{groupId} and user_id=#{userId}
+   </delete>
+   <delete id="deleteApplication">
+    delete from group_applications where group_id=#{groupId} and user_id=#{userId}
+   </delete>
+   <select id="seleteApplication" resultType="GroupApplicationVO">
+    select 
+    	GROUP_ID
+    	,USER_ID
+    	,MSG
+     from group_applications where group_id=#{groupId} and user_id=#{userId}
+   </select>
+   <update id="updateMaster">
+   	update group_members set group_authority = 'MASTER' 
+   	where group_id = #{groupId} and group_authority='MEMBER'
+   	order by reg_date ASC
+   	limit 1
+   </update>
+   <select id="nextMasterCheck" resultType="int">
+   	select
+   		count(*)
+   	from
+   		group_members
+   	where group_id=#{groupId} and group_authority='MEMBER'
+   	order by reg_date ASC
+   	limit 1
+   </select>
+   <update id="updateGroup">
+   	update study_groups set group_master_id = (
+   		select user_id 
+   		from group_members
+   		where group_id=#{groupId} and group_authority='MASTER'
+   	) 
+   	where group_id = #{groupId}
+   </update>
+   <delete id="deleteGroup">
+   	delete from study_groups where group_id=#{groupId}
+   </delete>
 </mapper>
 

@@ -66,4 +66,35 @@ public class GroupManageDAOImpl implements GroupManageDAO {
 	public GroupVO selectGroup(int groupId)throws Exception{
 		return sql.selectOne(ns+".selectGroup", groupId);
 	}
+	@Override
+	public int deleteMember(GroupMemberVO vo)throws Exception{
+		return sql.delete(ns+".deleteMember", vo);
+	}
+	@Override
+	public int deleteApplication(GroupApplicationVO vo)throws Exception{
+		return sql.delete(ns+".deleteApplication",vo);
+	}
+	@Override
+	public GroupApplicationVO seleteApplication(int groupId, String userId)throws Exception{
+		Map<String, Object> paramMap=new HashMap<>();
+		paramMap.put("groupId", groupId);
+		paramMap.put("userId", userId);
+		return sql.selectOne(ns+".seleteApplication",paramMap);
+	}
+	@Override
+	public int updateMaster(int groupId)throws Exception{
+		return sql.update(ns+".updateMaster", groupId);
+	}
+	@Override
+	public int updateGroup(int groupId)throws Exception{
+		return sql.update(ns+".updateGroup", groupId);
+	}
+	@Override
+	public int nextMasterCheck(int groupId)throws Exception{
+		return sql.selectOne(ns+".nextMasterCheck", groupId);
+	}
+	@Override
+	public int deleteGroup(int groupId)throws Exception{
+		return sql.delete(ns+".deleteGroup", groupId);
+	}
 }

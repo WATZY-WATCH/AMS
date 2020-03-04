@@ -60,5 +60,10 @@
 		</c:if>
 	</ul>
 	<br>
+	<br>
+	<button type="button" id="leaveGroupBtn" onclick="leaveGroup(${groupId },'${userId }')">그룹 나가기</button> &nbsp;
+	<button type="button" id="listHome" onclick="listHome()">목록으로</button> &nbsp;
+	<script type="text/javascript" src="/js/group_manage_master.js"></script>
+	
 </body>
 </html>

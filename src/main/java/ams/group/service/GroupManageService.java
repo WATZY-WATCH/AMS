@@ -18,5 +18,9 @@ public interface GroupManageService {
 	public int applicationDelete(int applicationId)throws Exception;
 	public GroupMemberVO selectMember(int groupId, String userId)throws Exception;
 	public GroupVO selectGroup(int groupId)throws Exception;
-	
+	public int deleteMember(GroupMemberVO vo)throws Exception;
+	public int deleteApplication(GroupApplicationVO vo)throws Exception;
+	public GroupApplicationVO seleteApplication(int groupId, String userId)throws Exception;
+	public int masterDelete(GroupMemberVO vo)throws Exception;
+
 }

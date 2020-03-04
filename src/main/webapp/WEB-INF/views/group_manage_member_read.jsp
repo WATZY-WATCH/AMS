@@ -47,11 +47,30 @@
 		</tr>
 	</table>
 	<br>
-	<textarea id="msg" cols="80" rows="5" readonly="readonly">${gavo.msg }</textarea>
+	<h2>그룹 소개글</h2>
+	<textarea id="msg" cols="80" rows="5" readonly="readonly">${GroupVO.groupDetail }</textarea>
 	<br>
-	<button type="button" id="acceptBtn" onclick="acceptApplication()">수락하기</button> &nbsp;
-	<button type="button" id="rejectBtn" onclick="rejectApplication()">거절하기</button> &nbsp;
-	<button type="button" id="listBtn" onclick="listMaster()">목록으로</button> &nbsp;
+	<h2>이 그룹에 대한 회원님의 정보입니다.</h2>
+	<table border="1">
+		<tr>
+			<th>권한</th>
+			<th>경고 점수</th>
+			<th>가입 날짜</th>
+		</tr>
+		<tr>
+			<td>${GroupMemberVO.groupAuthority}</td>
+			<td>${GroupMemberVO.demeritCnt}</td>
+			<td>
+				<fmt:timeZone value="Asia/Seoul">
+					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupMemberVO.regDate}" />
+				</fmt:timeZone>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<button type="button" id="leaveGroupBtn" onclick="leaveGroup('${GroupMemberVO.groupId}','${GroupMemberVO.userId}')">그룹 나가기</button> &nbsp;
+	<button type="button" id="listHomeBtn" onclick="listHome()">목록으로</button> &nbsp;
 	<script type="text/javascript" src="/js/group_manage_member_read.js"></script>
 </body>
 
