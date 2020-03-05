@@ -74,7 +74,7 @@ public class GroupManageController {
 		}
 		return ret;
 	}
-	
+
 	@RequestMapping(value="/masterRead", method=RequestMethod.GET)
 	public String masterRead(@RequestParam int applicationId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
 		System.out.println("get masterRead..............");
