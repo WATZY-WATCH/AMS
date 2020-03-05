@@ -1,3 +1,7 @@
+html,body {
+	margin: 0;
+	padding: 0;
+}
 .clearfix::after {
 	display: block;
 	content: "";
@@ -38,17 +42,13 @@
   z-index: 0;
 }
 
-#calendar {
-	width: 80%;
-	margin: 0 auto;
-}
-
 .weeks {
 	width: 100%;
 }
-.day, .day-name {
+
+[class*="day-"], .day-name {
 	width: 14.28%;
-	display: inline-block;
+	float: left;
 }
 
 .day-label {
