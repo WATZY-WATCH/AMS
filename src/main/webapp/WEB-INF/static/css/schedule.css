@@ -1,3 +1,13 @@
+html,body {
+	margin: 0;
+	padding: 0;
+}
+.clearfix::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
 .schedule-modal-wrapper {
 	position: absolute;
 	opacity: 0;
@@ -30,4 +40,26 @@
   opacity: 0 !important;
   pointer-events: none;
   z-index: 0;
+}
+
+.weeks {
+	width: 100%;
+}
+
+[class*="day-"], .day-name {
+	width: 14.28%;
+	float: left;
+}
+
+.day-label {
+	height: 16px;
+	padding: 4px;
+	font-weight: 600;
+}
+
+.days {
+	box-sizing: border-box;
+	padding: 4px;
+	height: 96px;
+	overflow-y: scroll;
 }

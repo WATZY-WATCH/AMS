@@ -8,12 +8,12 @@
 <html>
 <head>
 	<title>Home</title>
+	<sec:csrfMetaTags />
 </head>
 <body>
 <h1>
 	Hello world2!  
 </h1>
-<div id="root"></div>
 
 <p id="userName"> ${userName } 님 환영합니다! </p>
 <a href="/user/myPage">마이페이지 </a>
@@ -86,6 +86,5 @@
 	}
 </script>
 <script type="text/javascript" src="/js/user_schedule.js"></script>
-<script type="text/javascript" src="/js/react/user_home.bundle.js"></script>
 </body>
 </html>

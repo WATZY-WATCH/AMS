@@ -12,8 +12,8 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${finished eq false && attendanceStatus eq null }">
+	<c:choose>"src/main/java/ams/group/service"
+		<c:when test="${isTimeOn eq true && finished eq false && attendanceStatus eq null }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
 				<button class="attendBtn" type="button" onclick="attend('${userId }', '${start }')">출석하기 </button>

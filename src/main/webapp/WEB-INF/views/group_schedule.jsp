@@ -14,30 +14,30 @@
 <body>
 	<sec:csrfInput />
 	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
-		
-	<table>
-		<thead>
-			<tr class="calendar-month">
-				<td colspan="7">
+
+	<section id="calendar">
+		<div>
+			<div class="calendar-month">
+				<div>
 					<button onclick="getSchedule(-1)">&laquo;</button>
 					<span class="year-name">2020</span> - <span class="month-name">3</span>
 					<button onclick="getSchedule(1)">&raquo;</button>
-				</td>
-			</tr>
-			<tr class="calendar-day">
-				<td class="day-name">일</td>
-				<td class="day-name">월</td>
-				<td class="day-name">화</td>
-				<td class="day-name">수</td>
-				<td class="day-name">목</td>
-				<td class="day-name">금</td>
-				<td class="day-name">토</td>
-			</tr>
-		</thead>
-		<tbody class="calendar-body">
-		</tbody>
-	</table>
-	
+				</div>
+			</div>
+			<div class="calendar-day clearfix">
+				<div class="day-name">일</div>
+				<div class="day-name">월</div>
+				<div class="day-name">화</div>
+				<div class="day-name">수</div>
+				<div class="day-name">목</div>
+				<div class="day-name">금</div>
+				<div class="day-name">토</div>
+			</div>
+		</div>
+		<div class="calendar-body">
+		</div>
+	</section>
+
 	<div class="schedule-modal-wrapper">
 		<div class="schedule-modal-content">
 			<h2 class="groupName">일정 수정하기 </h2>

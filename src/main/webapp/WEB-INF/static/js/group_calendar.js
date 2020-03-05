@@ -131,14 +131,14 @@ function setCalendar(weeks) {
 	let daysStr = "";
 	return new Promise(function (resolve, reject) {
 		for(let i=0; i<weeks; i++) {
-			daysStr += "<tr class='weeks week-" + (i+1) + "'>"
+			daysStr += "<div class='weeks week-" + (i+1) + " clearfix'>"
 			for(let j=0; j<7; j++) {
-				daysStr += "<td class='day-" + (j+1) + "'>" +
+				daysStr += "<div class='day-" + (j+1) + "'>" +
 						"<div class='day-label'></div>" +
 						"<div class='days'></div>" +
-						"</td>";
+						"</div>";
 			}
-			daysStr += "</tr>";
+			daysStr += "</div>";
 		}
 		calendarBody.innerHTML = daysStr;
 		resolve();
