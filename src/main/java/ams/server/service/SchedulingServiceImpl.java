@@ -26,7 +26,7 @@ public class SchedulingServiceImpl implements SchedulingService {
 		return dao.addDemerit(list);
 	}
 	@Override
-	public int deleteDemeritUser() throws Exception {
+	public int deleteDemeritUser() throws Exception {		
 		return dao.deleteDemeritUser();
 	}
 }

@@ -74,6 +74,7 @@ public class GroupManageController {
 		}
 		return ret;
 	}
+
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#groupId, principal.username)")
 	@RequestMapping(value="/masterRead", method=RequestMethod.GET)

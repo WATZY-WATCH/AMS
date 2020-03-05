@@ -17,7 +17,7 @@ public class SchedulingController {
 	
 	@Scheduled(cron="0 0 0/1 * * *")
 	public void chkAbsent() throws Exception {
-		System.out.println("ë§¤ ì‹œê°„ë§ˆë‹¤ ê²°ì„ ì²´í¬....");
+		System.out.println("¸Å ½Ã°£¸¶´Ù °á¼® Ã¼Å©....");
 		
 		List<GroupAttendanceVO> list = service.getAbsentList();
 		
