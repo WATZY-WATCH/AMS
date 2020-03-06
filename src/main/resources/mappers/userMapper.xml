@@ -136,5 +136,43 @@
    <update id="updateOAuthToken" parameterType="ams.user.domain.OAuthUserVO">
    		UPDATE OAUTH_USERS SET ACCESS_TOKEN = #{accessToken}, REFRESH_TOKEN = #{refreshToken} WHERE USER_ID = #{userId}
    </update>
+   
+   <update id="signoutComment">
+      UPDATE GROUP_COMMENT SET USER_ID = '탈퇴한 사용자' WHERE USER_ID=#{userId}
+   </update>
+   <delete id="signoutStudyGroup">
+   		DELETE FROM STUDY_GROUPS WHERE GROUP_ID IN 
+		(SELECT GROUP_ID
+		FROM (SELECT DISTINCT SG.GROUP_ID
+			FROM STUDY_GROUPS SG
+			LEFT JOIN GROUP_MEMBERS GM
+			ON SG.GROUP_ID = GM.GROUP_ID
+			GROUP BY SG.GROUP_ID
+			HAVING COUNT(IF (GM.GROUP_AUTHORITY = 'MASTER', GM.GROUP_AUTHORITY, null)) = 0
+			AND COUNT(IF (GM.GROUP_AUTHORITY = 'MEMBER', GM.GROUP_AUTHORITY, null)) = 0) TMP) AND group_master_id =#{userId}
+   </delete>
+   
+   <update id="updateMemberMaster">
+		UPDATE GROUP_MEMBERS SET GROUP_AUTHORITY = 'MASTER'
+		WHERE GROUP_ID IN (
+			SELECT GROUP_ID
+			FROM (
+				SELECT GROUP_ID
+				FROM GROUP_MEMBERS
+				GROUP BY GROUP_ID
+				HAVING COUNT(IF (GROUP_AUTHORITY = 'MASTER', GROUP_AUTHORITY, null)) = 0) TMP)
+		ORDER BY REG_DATE ASC
+		limit 1;
+	</update>
+	
+	<update id="updateMaster">
+		UPDATE STUDY_GROUPS SG
+		JOIN GROUP_MEMBERS GM
+		ON SG.GROUP_ID = GM.GROUP_ID
+		AND GM.GROUP_AUTHORITY = 'MASTER'
+		AND SG.GROUP_MASTER_ID != GM.USER_ID
+		SET SG.GROUP_MASTER_ID = GM.USER_ID
+	</update>
+   
 </mapper>
   

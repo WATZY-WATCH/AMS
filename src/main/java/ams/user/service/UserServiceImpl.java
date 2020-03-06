@@ -5,7 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
+import ams.group.dao.GroupManageDAO;
 import ams.group.domain.GroupScheduleVO;
 import ams.group.domain.GroupVO;
 import ams.user.dao.UserDAO;
@@ -14,6 +17,7 @@ import ams.user.domain.UserVO;
 @Service
 public class UserServiceImpl implements UserService {
 	@Inject UserDAO dao;
+	@Inject GroupManageDAO gmdao;
 	
 	@Override
 	public void signup(UserVO vo) throws Exception {
@@ -42,10 +46,16 @@ public class UserServiceImpl implements UserService {
 	public int pwChk(UserVO vo) throws Exception {
 		return dao.pwChk(vo);
 	}
-	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public int signout(String userId) throws Exception {
-		return dao.signout(userId);
+		int ret=0;
+		ret=dao.signout(userId);
+		dao.signoutComment(userId);
+		dao.signoutStudyGroup(userId);
+		dao.updateMemberMaster();
+		dao.updateMaster();
+		return ret;
 	}
 	
 	@Override
