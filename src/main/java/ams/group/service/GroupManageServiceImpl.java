@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupManageDAO;
 import ams.group.domain.GroupApplicationVO;
@@ -69,6 +71,7 @@ public class GroupManageServiceImpl implements GroupManageService{
 	public GroupApplicationVO seleteApplication(int groupId, String userId)throws Exception{
 		return dao.seleteApplication(groupId, userId);
 	}
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public int masterDelete(GroupMemberVO vo)throws Exception{
 		int ret=dao.nextMasterCheck(vo.getGroupId());
