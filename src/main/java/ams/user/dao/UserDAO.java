@@ -19,4 +19,9 @@ public interface UserDAO {
 	public String findUser(String userId) throws Exception;
 	public List<GroupVO> findJoinedGroup(String userId) throws Exception;
 	public List<GroupScheduleVO> showWeekSchedule(UserVO vo) throws Exception;
+	public int signoutComment(String userId) throws Exception;
+	public int signoutStudyGroup(String userId) throws Exception;
+	public int updateMemberMaster() throws Exception;
+	public int updateMaster() throws Exception;
+	
 }

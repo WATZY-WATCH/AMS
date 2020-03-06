@@ -8,7 +8,9 @@ public interface SchedulingDAO {
 	public List<GroupAttendanceVO> getAbsentList() throws Exception;
 	public int insertAbsentList(List<GroupAttendanceVO> list) throws Exception;
 	public int addDemerit(List<GroupAttendanceVO> list) throws Exception;
+	public int updateMemberMaster() throws Exception;
 	public int updateMaster() throws Exception;
 	public int deleteDemeritUser() throws Exception;
 	public int deleteStudyGroup() throws Exception;
+
 }

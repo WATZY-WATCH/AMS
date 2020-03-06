@@ -81,4 +81,23 @@ public class UserDAOImpl implements UserDAO {
 	public List<GroupScheduleVO> showWeekSchedule(UserVO vo) throws Exception {
 		return sql.selectList(ns+".showWeekSchedule", vo);
 	}
+	
+	@Override 
+	public int signoutComment(String userId) throws Exception{
+		return sql.update(ns+".signoutComment", userId);
+	}
+	
+	@Override
+	public int signoutStudyGroup(String userId) throws Exception{
+		return sql.delete(ns+".signoutStudyGroup", userId);
+	}
+	
+	@Override
+	public int updateMemberMaster() throws Exception {
+		return sql.update(ns+".updateMemberMaster");
+	}
+	@Override
+	public int updateMaster() throws Exception {
+		return sql.update(ns+".updateMaster");
+	}
 }

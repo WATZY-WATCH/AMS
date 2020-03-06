@@ -29,6 +29,10 @@ public class SchedulingDAOImpl implements SchedulingDAO {
 		return sql.update(ns+".addDemerit", list);
 	}
 	@Override
+	public int updateMemberMaster() throws Exception {
+		return sql.update(ns+".updateMemberMaster");
+	}
+	@Override
 	public int updateMaster() throws Exception {
 		return sql.update(ns+".updateMaster");
 	}
