@@ -9,6 +9,7 @@
 <sec:csrfMetaTags />
 <title>스터디 그룹 생성 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <h2>스터디 그룹을 생성합니다. 정보를 입력해주세요.</h2>
 <section id="container">

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<% session.invalidate(); %>
 	<script type="text/javascript">

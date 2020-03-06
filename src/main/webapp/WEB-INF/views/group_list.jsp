@@ -12,6 +12,7 @@
 <sec:csrfMetaTags />
 <title>스터디 그룹 리스트 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <h2>신청가능 스터디 목록입니다.</h2>
 <section id="container">

@@ -12,6 +12,7 @@
 <sec:csrfMetaTags />
 <title>스터디 그룹 관리 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<h2> 운영중인 스터디 목록입니다.</h2>
 	<table border="1">

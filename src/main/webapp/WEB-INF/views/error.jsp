@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>ERROR ${error.STATUS_CODE }</title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<div class="row">
     <div class="col-md-12">

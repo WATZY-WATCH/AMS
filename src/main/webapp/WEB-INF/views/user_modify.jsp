@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
-<title>회원가입 </title>
+<title>정보 수정 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<section id="container">
 		<form>

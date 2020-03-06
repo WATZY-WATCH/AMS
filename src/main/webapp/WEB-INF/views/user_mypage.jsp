@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>마이 페이지 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 
 	<h2>가입한 그룹 목록 </h2>

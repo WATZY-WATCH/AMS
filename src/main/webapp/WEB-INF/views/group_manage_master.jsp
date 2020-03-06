@@ -11,16 +11,8 @@
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
 <title>스터디 그룹 운영 </title>
-<style type="text/css">
-	.ellip {
-		width        : 100px;    
-  		text-overflow: ellipsis;  
-  		white-space  : nowrap;   
-  		overflow     : hidden;    
-  		display      : block;     
-	}
-</style>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<a href="/groupManage/home">[관리 홈으로] </a>
 	<h2> 스터디를 신청한 인원 목록입니다.</h2>

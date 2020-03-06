@@ -11,7 +11,9 @@
 <sec:csrfMetaTags />
 <link rel="stylesheet" href="/css/schedule.css" />
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
+	
 	<sec:csrfInput />
 	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
 

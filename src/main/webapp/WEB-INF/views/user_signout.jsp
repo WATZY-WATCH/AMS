@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
-<title>회원가입 </title>
+<title>회원탈퇴 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <h2>기존 비밀번호를 다시 입력해주세요.</h2>
 <section id="container">

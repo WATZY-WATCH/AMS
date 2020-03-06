@@ -12,6 +12,7 @@
 <sec:csrfMetaTags />
 <title>스터디 신청서 내용 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<h2> 스터디 신청서 내용입니다.</h2>
 	<table border="1">
