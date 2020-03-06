@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="/css/common.css">
 </head>
-<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	SUCCESS LOGOUT
+	<header>
+		<h1><a href="/">AMS </a></h1>
+	</header>
 </body>
 </html>

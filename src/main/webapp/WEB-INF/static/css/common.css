@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap');
+
+* {
+	padding: 0;
+/* 	border: 0; */
+	margin: 0;
+	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+}
+a {text-decoration: none;}
+li {list-style: none;}
+button {cursor: pointer;}
+
+/* 공통요소 */
+.clearfix::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.ellip {
+	width: 100px;    
+ 	text-overflow: ellipsis;  
+ 	white-space: nowrap;   
+ 	overflow: hidden;    
+ 	display: block;     
+}
+/* ------------------------------------ */
+
+/* 그리드 시스템 */
+[class*="col-"] {
+  float: left;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.col-1  {width: 8.33%;}
+.col-2  {width: 16.66%;}
+.col-3  {width: 25%;}
+.col-4  {width: 33.33%;}
+.col-5  {width: 41.66%;}
+.col-6  {width: 50%;}
+.col-7  {width: 58.33%;}
+.col-8  {width: 66.66%;}
+.col-9  {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+/* ------------------------------------ */

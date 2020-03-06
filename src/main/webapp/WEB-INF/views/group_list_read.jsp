@@ -10,10 +10,8 @@
 <sec:csrfMetaTags />
 <title>스터디 그룹 리스트 조회 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
 <h2>신청가능 스터디 목록입니다.</h2>
 <section id="container">
 	<table border="1">

@@ -10,11 +10,8 @@
 	<title>Home</title>
 	<sec:csrfMetaTags />
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<h1>
-	Hello world2!  
-</h1>
-
 <p id="userName"> ${userName } 님 환영합니다! </p>
 <a href="/user/myPage">마이페이지 </a>
 <sec:authorize access="hasAuthority('USER')">

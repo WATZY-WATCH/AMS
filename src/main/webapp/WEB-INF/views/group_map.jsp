@@ -13,6 +13,7 @@
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<sec:csrfInput />
 	<div class="map_wrap">

@@ -15,6 +15,7 @@
 	}
 </style>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <section id="container">
 			<form action="/user/signup" method="post">

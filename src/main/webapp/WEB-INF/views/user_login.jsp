@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>로그인 페이지 </title>
 </head>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<div id="wrapper">
 	<sec:authorize access="isAnonymous()">
