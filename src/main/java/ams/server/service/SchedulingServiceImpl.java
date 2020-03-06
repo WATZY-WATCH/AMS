@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.domain.GroupAttendanceVO;
 import ams.server.dao.SchedulingDAO;
@@ -13,20 +15,20 @@ import ams.server.dao.SchedulingDAO;
 public class SchedulingServiceImpl implements SchedulingService {
 	@Inject SchedulingDAO dao;
 	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
-	public List<GroupAttendanceVO> getAbsentList() throws Exception {
-		return dao.getAbsentList();
+	public void updateAbsent() throws Exception {
+		List<GroupAttendanceVO> list = dao.getAbsentList();
+		dao.insertAbsentList(list);
+		dao.addDemerit(list);
+		return;
 	}
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
-	public int insertAbsentList(List<GroupAttendanceVO> list) throws Exception {
-		return dao.insertAbsentList(list);
-	}
-	@Override
-	public int addDemerit(List<GroupAttendanceVO> list) throws Exception {
-		return dao.addDemerit(list);
-	}
-	@Override
-	public int deleteDemeritUser() throws Exception {
-		return dao.deleteDemeritUser();
+	public void updateStudyGroup() throws Exception {
+		dao.deleteDemeritUser();
+		dao.deleteStudyGroup();
+		dao.updateMaster();
+		return;
 	}
 }
