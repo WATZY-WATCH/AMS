@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import ams.group.dao.GroupCommentDAO;
 import ams.group.dao.GroupDAO;
@@ -17,6 +19,7 @@ public class GroupCommentServiceImpl implements GroupCommentService {
 	@Inject GroupCommentDAO dao;
 	@Inject GroupDAO gdao;
 	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public int createComment(GroupCommentVO vo) throws Exception {
 		int ret= dao.createComment(vo);
@@ -27,6 +30,8 @@ public class GroupCommentServiceImpl implements GroupCommentService {
 	public int updateComment(GroupCommentVO vo) throws Exception {
 		return dao.updateComment(vo);
 	}
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public int deleteComment(GroupCommentVO vo) throws Exception {
 		int ret = dao.deleteComment(vo);
