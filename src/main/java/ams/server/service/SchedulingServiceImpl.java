@@ -25,10 +25,23 @@ public class SchedulingServiceImpl implements SchedulingService {
 	}
 	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
+<<<<<<< HEAD
 	public void updateStudyGroup() throws Exception {
 		dao.deleteDemeritUser();
 		dao.deleteStudyGroup();
 		dao.updateMaster();
 		return;
+=======
+	public int insertAbsentList(List<GroupAttendanceVO> list) throws Exception {
+		return dao.insertAbsentList(list);
+	}
+	@Override
+	public int addDemerit(List<GroupAttendanceVO> list) throws Exception {
+		return dao.addDemerit(list);
+	}
+	@Override
+	public int deleteDemeritUser() throws Exception {		
+		return dao.deleteDemeritUser();
+>>>>>>> 7527d3fc6a7dfc9a7ce0cf124483374344a530f7
 	}
 }

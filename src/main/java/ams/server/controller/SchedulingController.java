@@ -14,7 +14,7 @@ public class SchedulingController {
 	
 	@Scheduled(cron="0 0 0/1 * * *")
 	public void chkAbsent() throws Exception {
-		System.out.println("매 시간마다 결석 체크....");
+		System.out.println("Update Absent every hour....");
 		
 		service.updateAbsent();
 		service.updateStudyGroup();
