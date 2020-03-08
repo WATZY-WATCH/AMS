@@ -11,7 +11,9 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-
+<a href="/user/modify">정보수정</a>
+<a href="/user/modifyPw">비밀번호 변경 </a>
+<a href="/user/signout">회원탈퇴</a>
 	<h2>가입한 그룹 목록 </h2>
 	<table border="1">
 		<tr>

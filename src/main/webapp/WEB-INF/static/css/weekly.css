@@ -1,28 +1,60 @@
 .weekly {
-    margin: 0 auto;
     transition: all 1s;
-    width: 100%;
-    border: 1px solid red;
+    margin: 4px auto;
+    padding: 0 8px;
 }
-.week-day div {
-    text-align: center;
-    float: left;
-    padding: 4px;
-    border: 1px solid green;
+.day-label {
+    background-color: #eee;
+    font-size: 18px;
+    font-weight: 600;
+	text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 4px;
+}
+.schedule-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
 }
 .schedule {
-	float: left;
     width: 100%;
-    height: 200px;
+    height: 300px;
+    overflow-x: scroll;
     overflow-y: scroll;
-    border: 1px solid yellow;
+    font-size: 16px;
 }
-
-@media screen and (min-width: 760px) {
-    .week-day div {width: 10%;}
+.schedule li {padding: 8px;}
+.schedule a:hover {
+	text-shadow: 0 0 1px rgba(0,0,0,0.5);
 }
-
+.schedule-time {
+    text-align: center;
+	color: #696969;
+	font-weight: 600;
+    width: 20%;
+    margin-right: 8px;
+}
+.group-name {
+	color: #333;
+	width: 70%;
+}
+.schedule-time, .group-name {display: inline-block;}
+.group-name:before {
+	content: "📚";
+	padding: 0 8px;
+}
+@media screen and (min-width: 768px) {
+		.week-day {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+    .schedule-wrapper {
+    	width: calc(100% / 7);
+    	display:inline-block;
+   	}
+}
 @media screen and (min-width: 1200px) {
     .weekly {width: 1200px;}
-    .week-day div {width: 150px;}
+    .group-name:before {padding: 0 4px;}
 }

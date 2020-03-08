@@ -13,7 +13,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<c:choose>"src/main/java/ams/group/service"
+	<c:choose>
 		<c:when test="${isTimeOn eq true && finished eq false && attendanceStatus eq null }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
