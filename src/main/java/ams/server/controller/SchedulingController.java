@@ -12,7 +12,7 @@ public class SchedulingController {
 	
 	@Inject SchedulingService service;
 	
-	@Scheduled(cron="0 0/2 0/1 * * *")
+	@Scheduled(cron="0 0 0/1 * * *")
 	public void chkAbsent() throws Exception {
 		System.out.println("Update Absent every hour....");
 		
