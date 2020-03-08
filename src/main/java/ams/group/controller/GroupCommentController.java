@@ -33,7 +33,6 @@ public class GroupCommentController {
 	
 	@Inject private GroupCommentService service;
 	
-	@ResponseBody
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public void create(@RequestBody GroupCommentVO vo){
 		System.out.println("post create.........");
@@ -44,7 +43,6 @@ public class GroupCommentController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/count", method = RequestMethod.POST)
 	public int count(@RequestBody String groupId){
 		System.out.println("post count.........");
@@ -57,7 +55,6 @@ public class GroupCommentController {
 		return ret;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/currentCount", method = RequestMethod.POST)
 	public int currentCount(@RequestBody GroupCommentVO vo){
 		System.out.println("post currentCount.........");
@@ -91,7 +88,6 @@ public class GroupCommentController {
 		}
 		return mav;
 	}
-	@ResponseBody
 	@RequestMapping(value="delete" ,method = RequestMethod.DELETE)
 	public int delete(@RequestBody GroupCommentVO vo) {
 		System.out.println("get delete.........");
@@ -103,7 +99,6 @@ public class GroupCommentController {
 		}
 		return ret;
 	}
-	@ResponseBody
 	@RequestMapping(value="update", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public int update(@RequestBody GroupCommentVO vo) {
 		System.out.println("get update.........");
