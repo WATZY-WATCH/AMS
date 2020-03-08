@@ -9,6 +9,7 @@
 <head>
 	<title>Home</title>
 	<sec:csrfMetaTags />
+	<link rel="stylesheet" href="/css/weekly.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
@@ -37,22 +38,22 @@
 <div>
 <a href="/groupManage/home">그룹관리</a>
 </div>
-<table border="1">
-	<tr class="week-day">
+<section class="weekly">
+	<div class="week-day clearfix">
 		<c:forEach items="${weeks }" var="d">
 			<c:set var="len" value="${fn:length(d) }" />
-			<th class="day-${d }">${fn:substring(d, 5, len) }</th>
+			<div class="day-${d }">${fn:substring(d, 5, len) }</div>
 		</c:forEach>
-	</tr>
-	<tr>
+	</div>
+	<div class="clearfix">
 		<c:forEach items="${weeks }" var="d">
-			<td class="schedule">
+			<div class="schedule">
 				<ul class="schedule-${d }">
 				</ul>
-			</td>
+			</div>
 		</c:forEach>
-	</tr>
-</table>
+	</div>
+</section>
 <div class="schedule-list" style="display:none;">
 	<fmt:parseDate value="${beginDate }" var="base" pattern="yyyy-MM-dd"/>
 	<fmt:parseNumber value="${base.time / (1000*60*60*24)}" integerOnly="true" var="baseStr"></fmt:parseNumber>
