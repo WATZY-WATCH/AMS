@@ -19,8 +19,11 @@ public class SchedulingServiceImpl implements SchedulingService {
 	@Override
 	public void updateAbsent() throws Exception {
 		List<GroupAttendanceVO> list = dao.getAbsentList();
-		dao.insertAbsentList(list);
-		dao.addDemerit(list);
+		if(!list.isEmpty()) {
+			dao.insertAbsentList(list);
+			dao.addDemerit(list);
+		}
+		
 		return;
 	}
 	@Transactional(isolation=Isolation.READ_COMMITTED)
