@@ -8,48 +8,43 @@
 <html>
 <head>
 	<title>Home</title>
-	<sec:csrfMetaTags />
+	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/weekly.css">
+	<sec:csrfMetaTags />
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<p id="userName"> ${userName } 님 환영합니다! </p>
-<a href="/user/myPage">마이페이지 </a>
-<sec:authorize access="hasAuthority('USER')">
-	<form action="<c:url value='/logout' />" method="post">
-		<sec:csrfInput />
-		<button>로그아웃 </button>
-	</form>
-	<a href="/user/modify">정보수정</a>
-	<a href="/user/modifyPw">비밀번호 변경 </a>
-	<a href="/user/signout">회원탈퇴</a>
-</sec:authorize>
-<sec:authorize access="hasAuthority('OAUTH_USER')">
-	<a href="/oauth/user/logout">로그아웃 </a>
-	<a href="/oauth/user/modify">정보수정</a>
-	<button onclick="signoutChk()">회원탈퇴</button>
-</sec:authorize>
-<div>
-<a href="/group/create">그룹생성</a>
+<nav>
+	<sec:authorize access="hasAuthority('USER')">
+		<p id="userName"> <a href="/user/myPage"> ${userName }</a> 님 환영합니다! </p>
+		<form class="logout-btn" action="<c:url value='/logout' />" method="post">
+			<sec:csrfInput />
+			<button>로그아웃 </button>
+		</form>
+	</sec:authorize>
+</nav>
+<div class=clearfix>
+	<div class="main-menu">
+	<a href="/group/create">그룹생성</a>
+	</div>
+	<div class="main-menu">
+	<a href="/group/listCri">그룹찾기</a>
+	</div>
+	<div class="main-menu">
+	<a href="/groupManage/home">그룹관리</a>
+	</div>
 </div>
-<div>
-<a href="/group/listCri">그룹찾기</a>
-</div>
-<div>
-<a href="/groupManage/home">그룹관리</a>
-</div>
+
 <section class="weekly">
-	<div class="week-day clearfix">
+	<div class="week-day">
 		<c:forEach items="${weeks }" var="d">
 			<c:set var="len" value="${fn:length(d) }" />
-			<div class="day-${d }">${fn:substring(d, 5, len) }</div>
-		</c:forEach>
-	</div>
-	<div class="clearfix">
-		<c:forEach items="${weeks }" var="d">
-			<div class="schedule">
-				<ul class="schedule-${d }">
-				</ul>
+			<div class="schedule-wrapper">
+				<div class="day-label day-${d }">${fn:substring(d, 5, len) }</div>
+				<div class="schedule">
+					<ul class="schedule-${d }">
+					</ul>
+				</div>
 			</div>
 		</c:forEach>
 	</div>
@@ -66,10 +61,9 @@
 		<fmt:parseNumber value="${cmp.time / (1000*60*60*24)}" integerOnly="true" var="cmpStr"></fmt:parseNumber>
 
 		<li class="schedule-${cmpStr - baseStr}">
+			<span class="schedule-time"><fmt:formatDate pattern="HH:mm" value="${s.beginTime}" /></span>
 			<a href="/attend?groupId=${s.groupId }&scheduleId=${s.scheduleId}">
-				<span><fmt:formatDate pattern="HH:mm" value="${s.beginTime}" /></span>
-				<span>${s.groupName }</span>&ensp;
-				<span>${s.groupCategory }</span>&ensp;
+				<span class="group-name">${s.groupName }</span>&ensp;
 			</a>
 			
 		</li>
@@ -83,6 +77,7 @@
 		}
 	}
 </script>
+<script type="text/javascript" src="/js/user_home.js"></script>
 <script type="text/javascript" src="/js/user_schedule.js"></script>
 </body>
 </html>

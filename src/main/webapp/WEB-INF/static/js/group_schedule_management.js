@@ -124,9 +124,10 @@ function submitModify(groupId, scheduleId) {
 	
 	let scheduleBegin = dateInput.value + " " + beginTime.value,
 		scheduleEnd = dateInput.value + " " + endTime.value;
-	
+	console.log(endTime.value);
 	if(beginTime.value >= endTime.value) {
 		alert("일정 시작 시간은 종료 시간보다 빨라야 합니다. ");
+		return;
 	}
 	const data = {};
 	data.groupId = groupId;
