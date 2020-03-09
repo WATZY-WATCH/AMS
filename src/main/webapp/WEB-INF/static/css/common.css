@@ -69,7 +69,7 @@ button {cursor: pointer;}
 
 .logo {
 	text-align: center;
-	font-size: 3em;
+	font-size: 2em;
 	padding: 0.5em;
 }
 .logo a {color: #000;}
@@ -79,3 +79,4 @@ button {cursor: pointer;}
 	font-size: 14px;
 	text-decoration: underline;
 }
+.title {text-align: center;}

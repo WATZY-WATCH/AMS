@@ -1,0 +1,44 @@
+input {
+    display: block;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 8px auto;
+    padding: 8px 12px;
+    background-color: #FBFBFD;
+    border-radius: 0.25rem;
+    border: 1px solid #E9ECF3;
+    font-size: 16px;
+    line-height: 24px;
+}
+input:focus {
+    background-color: #fff;
+}
+input, label {width: 100%;}
+#wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+@media screen and (min-width: 768px) {
+	#wrapper {
+		width: 500px;
+	}
+}
+.title {
+    font-size: 24px;
+    color: #333;
+    margin: 8px auto;
+}
+form {
+    margin: 0 auto;
+    width: 80%;
+}
+.login-btn {
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    border: none;
+    background-color: #FFC2AD;
+    border-radius: 0.25rem;
+    transition: all 0.5s ease-in;
+}
+.login-btn:hover {background-color: #EF978F;}
