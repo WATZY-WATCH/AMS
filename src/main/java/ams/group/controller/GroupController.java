@@ -82,6 +82,7 @@ public class GroupController {
 		model.addAttribute("listApplyChk", service.listApplyChk(gavo));
 	    return "group_list_read";
 	}
+	
 
 	@RequestMapping(value="/listCri", method=RequestMethod.GET)
 	public String listCri(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
