@@ -68,8 +68,11 @@ public class GroupCommentController {
 		return ret;
 	}
 	
-	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int groupId, @RequestParam(defaultValue="1") int curPage, ModelAndView mav, Principal principal) throws JsonProcessingException {
+	
+	
+	@RequestMapping(value="/{groupId}/{curPage}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> list(@PathVariable("groupId") int groupId, @PathVariable("curPage") int curPage, Principal principal) throws JsonProcessingException {
+		ResponseEntity<Map<String,Object>> entity=null;
 		try {
 			GroupCriteria cri = new GroupCriteria();
 			cri.setPage(curPage);
@@ -78,15 +81,17 @@ public class GroupCommentController {
 			commentPageMaker.setCri(cri);
 			commentPageMaker.setTotalCount(service.commentCount(groupId));
 			List<GroupCommentVO> gcvoList= service.commentList(groupId, cri);
-			mav.setViewName("group_list_comment");
-			mav.addObject("commentList", gcvoList);
-			mav.addObject("commentPageMaker", commentPageMaker);
-			mav.addObject("userId", principal.getName());
-			mav.addObject("curPage", curPage);
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("commentList", gcvoList);
+			map.put("commentPageMaker", commentPageMaker);
+			map.put("userId", principal.getName());
+			map.put("curPage", curPage);
+			entity=new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+			entity=new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
 		}
-		return mav;
+		return entity;
 	}
 	@RequestMapping(value="delete" ,method = RequestMethod.DELETE)
 	public int delete(@RequestBody GroupCommentVO vo) {

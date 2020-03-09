@@ -66,90 +66,17 @@
 	
 	<h2>댓글 목록입니다.</h2>
 	<div id="listComment"></div>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/group_list_comment.js"></script>
 	<script>
-	const elementToken = document.querySelector('meta[name="_csrf"]');
-	const token = elementToken && elementToken.getAttribute("content");
-	const elementHeader = document.querySelector('meta[name="_csrf_header"]');
-	const header = elementHeader && elementHeader.getAttribute("content");
-	
+		const groupId = ${GroupVO.groupId},
+			userId = "${userId}";
 		listComment(1);
-		function listComment(curPage){
-			const xhr = new XMLHttpRequest();
-			xhr.open("GET", "/comment/list?groupId=${GroupVO.groupId}&curPage="+curPage, true);
-			xhr.setRequestHeader(header, token);
-			
-			xhr.send();
-			xhr.onload = function () {
-				if(xhr.status == 200 || xhr.status == 201) {
-					let ret = xhr.responseText;
-					const listComment = document.getElementById("listComment");
-					listComment.innerHTML = ret;
-				}
-			}
-		}
 		
-		function deleteComment(commentId, curPage){
-			let confirmed = confirm("댓글을 삭제하시겠습니까?");
-			if(confirmed) {
-				const data={ commentId : commentId , groupId: ${GroupVO.groupId } };
-				const xhr = new XMLHttpRequest();
-				xhr.open("DELETE", "/comment/delete", true);
-				xhr.setRequestHeader(header, token);
-				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.send(JSON.stringify(data));
-				xhr.onload = async function () {
-					if(xhr.status == 200 || xhr.status == 201) {
-						if(Number(xhr.responseText) == 1) {
-							alert("삭제되었습니다.")
-							let groupCommentCnt= await currentCommentCount(${GroupVO.groupId }, commentId);
-							listComment(Math.ceil(groupCommentCnt/10));
-						} else {
-							alert("에러가 발생했습니다. 잠시후 다시 시도해주세요.");
-						}
-					}
-				}
-			};
-		}
 		var divCommentId;
 		var tempComment;
-		function updateComment(commentId, curPage){
-			console.log("updatecomment");
-			divCommentId=document.getElementById("divCommentId"+commentId);
-			const pCommentId=document.getElementById("pCommentId"+commentId).innerHTML;
-			console.log("p: "+pCommentId);
-			tempComment=divCommentId.innerHTML;
-			console.log("commentMsg: "+commentMsg);
-			divCommentId.innerHTML="<textarea id='updateCommentMsg' cols="+"'80'"+" rows="+"'2'"+" placeholder='내용을 입력해주세요'></textarea>"
-								+"<br><button type='button' onclick='updateCommentConfirm("+commentId+","+curPage+")'>확인</button>&nbsp;"
-								+"<button type='button' onclick='cancelUpdate()'>취소</button>";
-			document.getElementById("updateCommentMsg").value=pCommentId;			
-		}
-		function cancelUpdate(){
-			divCommentId.innerHTML=tempComment;
-		}
-		function updateCommentConfirm(commentId, curPage){
-			let confirmed = confirm("댓글을 수정하시겠습니까?");
-			if(confirmed) {
-				const commentMsg=document.getElementById("updateCommentMsg").value;	
-				const data={ commentId : commentId , commentMsg : commentMsg };
-				const xhr = new XMLHttpRequest();
-				xhr.open("PUT", "/comment/update", true);
-				xhr.setRequestHeader(header, token);
-				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.send(JSON.stringify(data));
-				xhr.onload = async function () {
-					if(xhr.status == 200 || xhr.status == 201) {
-						if(Number(xhr.responseText) == 1) {
-							alert("수정되었습니다.")
-							let groupCommentCnt= await currentCommentCount(${GroupVO.groupId }, commentId);
-							listComment(Math.ceil(groupCommentCnt/10));
-						} else {
-							alert("에러가 발생했습니다. 잠시후 다시 시도해주세요.");
-						}
-					}
-				}
-			}
-		}
+		
+		
 	</script>
 	<script type="text/javascript" src="/js/group_list_read.js"></script>
 	<script type="text/javascript" src="/js/group_list.js"></script>
