@@ -33,42 +33,53 @@ public class GroupCommentController {
 	
 	@Inject private GroupCommentService service;
 	
-	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public void create(@RequestBody GroupCommentVO vo){
+	@RequestMapping(value="/{groupId}", method = RequestMethod.POST)
+	public ResponseEntity<String> create(@RequestBody GroupCommentVO vo){
 		System.out.println("post create.........");
+		ResponseEntity<String> entity = null;
 		try {
 			service.createComment(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+		return entity;	
 	}
 	
-	@RequestMapping(value="/count", method = RequestMethod.POST)
-	public int count(@RequestBody String groupId){
+	@RequestMapping(value="/count/{groupId}", method = RequestMethod.POST)
+	public ResponseEntity<Integer> count(@PathVariable("groupId") int groupId){
 		System.out.println("post count.........");
+		ResponseEntity<Integer> entity = null;
 		int ret=0;
 		try {
-			ret=service.commentCount(Integer.parseInt(groupId));
+//			ret=service.commentCount(Integer.parseInt(groupId));
+			ret=service.commentCount(groupId);
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(-1, HttpStatus.BAD_REQUEST);
 		}
-		return ret;
+		return entity;
 	}
 	
-	@RequestMapping(value="/currentCount", method = RequestMethod.POST)
-	public int currentCount(@RequestBody GroupCommentVO vo){
+	@RequestMapping(value="/count/{groupId}/{commentId}", method = RequestMethod.POST)
+	public ResponseEntity<Integer> currentCount(@PathVariable("groupId") int groupId, @PathVariable("commentId") int commentId){
 		System.out.println("post currentCount.........");
+		ResponseEntity<Integer> entity = null;
 		int ret=0;
 		try {
+			GroupCommentVO vo=new GroupCommentVO();
+			vo.setCommentId(commentId);
+			vo.setGroupId(groupId);
 			ret=service.currentCommentCount(vo);
-			System.out.println("ret: "+ret);
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(-1, HttpStatus.BAD_REQUEST);
 		}
-		return ret;
+		return entity;
 	}
-	
-	
 	
 	@RequestMapping(value="/{groupId}/{curPage}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> list(@PathVariable("groupId") int groupId, @PathVariable("curPage") int curPage, Principal principal) throws JsonProcessingException {
@@ -93,27 +104,37 @@ public class GroupCommentController {
 		}
 		return entity;
 	}
-	@RequestMapping(value="delete" ,method = RequestMethod.DELETE)
-	public int delete(@RequestBody GroupCommentVO vo) {
-		System.out.println("get delete.........");
-		int ret=0;
+	@RequestMapping(value="/{commentId}/{groupId}" ,method = RequestMethod.DELETE)
+	public ResponseEntity<String> delete(@PathVariable("commentId") int commentId, @PathVariable("groupId") int groupId) {
+		System.out.println("DELETE comment delete.........");
+		ResponseEntity<String> entity = null;
 		try {
-			ret=service.deleteComment(vo);
+			GroupCommentVO vo =new GroupCommentVO();
+			vo.setGroupId(groupId);
+			vo.setCommentId(commentId);
+			service.deleteComment(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return ret;
+		return entity;
 	}
-	@RequestMapping(value="update", method = {RequestMethod.PUT, RequestMethod.PATCH})
-	public int update(@RequestBody GroupCommentVO vo) {
-		System.out.println("get update.........");
-		int ret=0;
+	@RequestMapping(value="/{commentId}/{commentMsg}", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	public ResponseEntity<String> update(@PathVariable("commentId") int commentId, @PathVariable("commentMsg") String commentMsg) {
+		System.out.println("put comment update.........");
+		ResponseEntity<String> entity = null;
 		try {
-			ret=service.updateComment(vo);
+			GroupCommentVO vo= new GroupCommentVO();
+			vo.setCommentId(commentId);
+			vo.setCommentMsg(commentMsg);
+			service.updateComment(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
+		    entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return ret;
+		return entity;
 	}
 	
 }

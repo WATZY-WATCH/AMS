@@ -15,13 +15,13 @@ function commentCount(groupId) {
 	return new Promise(resolve=> { 
 			let ret=0;
 			const xhr = new XMLHttpRequest();
-			xhr.open("POST", "/comment/count", true);
+			xhr.open("POST", "/comment/count/"+groupId, true);
 			xhr.setRequestHeader(header, token);
-			xhr.setRequestHeader("Content-Type", "text/plain");
-			xhr.send(groupId);
+			xhr.send();
 			xhr.onload = function () {
 				if(xhr.status == 200 || xhr.status == 201) {
 					ret=Number(xhr.responseText);
+					console.log("bbb"+ret);
 					resolve(ret);
 				}
 			}
@@ -34,13 +34,13 @@ function currentCommentCount(groupId, commentId) {
 			let ret=0;
 			const data = { groupId : groupId , commentId : commentId};
 			const xhr = new XMLHttpRequest();
-			xhr.open("POST", "/comment/currentCount", true);
+			xhr.open("POST", "/comment/count/"+groupId+"/"+commentId, true);
 			xhr.setRequestHeader(header, token);
-			xhr.setRequestHeader("Content-Type", "application/json");
-			xhr.send(JSON.stringify(data));
+			xhr.send();
 			xhr.onload = function () {
 				if(xhr.status == 200 || xhr.status == 201) {
 					ret=Number(xhr.responseText);
+					console.log("ccc"+ret);
 					resolve(ret);
 				}
 			}
@@ -96,7 +96,7 @@ function commentCreate(groupId, userId) {
 		alert("댓글 내용을 입력해주세요.");
 	} else {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "/comment/create", true);
+		xhr.open("POST", "/comment/"+groupId, true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

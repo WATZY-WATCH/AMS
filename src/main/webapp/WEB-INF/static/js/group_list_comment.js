@@ -126,13 +126,12 @@ function updateCommentConfirm(e, commentId, curPage){
 		const commentMsg=document.getElementById("updateCommentMsg").value;	
 		const data={ commentId : commentId , commentMsg : commentMsg };
 		const xhr = new XMLHttpRequest();
-		xhr.open("PUT", "/comment/update", true);
+		xhr.open("PUT", "/comment/"+commentId+"/"+commentMsg, true);
 		xhr.setRequestHeader(header, token);
-		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.send(JSON.stringify(data));
+		xhr.send();
 		xhr.onload = async function () {
 			if(xhr.status == 200 || xhr.status == 201) {
-				if(Number(xhr.responseText) == 1) {
+				if(xhr.responseText == 'SUCCESS') {
 					alert("수정되었습니다.");
 					let groupCommentCnt= await currentCommentCount(groupId, commentId);
 					listComment(Math.ceil(groupCommentCnt/10));
@@ -149,13 +148,12 @@ function deleteComment(commentId, curPage){
 	if(confirmed) {
 		const data={ commentId : commentId , groupId: groupId };
 		const xhr = new XMLHttpRequest();
-		xhr.open("DELETE", "/comment/delete", true);
+		xhr.open("DELETE", "/comment/"+commentId+"/"+groupId, true);
 		xhr.setRequestHeader(header, token);
-		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.send(JSON.stringify(data));
+		xhr.send();
 		xhr.onload = async function () {
 			if(xhr.status == 200 || xhr.status == 201) {
-				if(Number(xhr.responseText) == 1) {
+				if(xhr.responseText == 'SUCCESS') {
 					alert("삭제되었습니다.")
 					let groupCommentCnt= await currentCommentCount(groupId, commentId);
 					listComment(Math.ceil(groupCommentCnt/10));
