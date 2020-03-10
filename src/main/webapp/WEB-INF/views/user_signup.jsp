@@ -18,7 +18,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <section id="container">
-			<form action="/user/signup" method="post">
+			<form action="/user/" method="post">
 			<sec:csrfInput />
 				<div>
 					<label for="userId">아이디</label>

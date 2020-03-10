@@ -10,10 +10,9 @@ function idCheck() {
 	const submitBtn = document.getElementById("submitBtn");
 	const xhr = new XMLHttpRequest();
 	
-	xhr.open("POST", "./idChk", true);
+	xhr.open("GET", "./id/"+userId, true);
 	xhr.setRequestHeader(header, token);
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.send(JSON.stringify(data));
+	xhr.send();
 	
 	xhr.onload = function () {
 		if(xhr.status == 200 || xhr.status == 201) {

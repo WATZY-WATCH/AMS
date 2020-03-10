@@ -53,7 +53,6 @@ public class GroupCommentController {
 		ResponseEntity<Integer> entity = null;
 		int ret=0;
 		try {
-//			ret=service.commentCount(Integer.parseInt(groupId));
 			ret=service.commentCount(groupId);
 			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
 		} catch(Exception e) {
@@ -62,7 +61,7 @@ public class GroupCommentController {
 		}
 		return entity;
 	}
-	
+
 	@RequestMapping(value="/count/{groupId}/{commentId}", method = RequestMethod.POST)
 	public ResponseEntity<Integer> currentCount(@PathVariable("groupId") int groupId, @PathVariable("commentId") int commentId){
 		System.out.println("post currentCount.........");
