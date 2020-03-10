@@ -33,7 +33,7 @@ form {
     margin: 0 auto;
     text-align: left;
 }
-.login-btn {
+button {
     width: 100%;
     height: 40px;
     color: #fff;
@@ -44,7 +44,10 @@ form {
     font-size: 14px;
     transition: 0.3s all ease-in;
 }
-.login-btn:hover {background-color: #EF978F;}
+button:hover:not([disabled]) {background-color: #EF978F;} /* :button:hover:enabled 로 대체 가능 */
+button:disabled {
+    cursor: url("/img/block.svg") 5 5, not-allowed;
+}
 .kakao-login {
     margin: 8px auto;
     display: block;
@@ -79,7 +82,3 @@ form {
 }
 .sign-up-btn:hover {color: #EF978F;}
 .sign-up-btn:hover::after {padding-left: 0.75rem;}
-
-/* tablet or desktop */
-@media screen and (min-width: 768px) {
-}
