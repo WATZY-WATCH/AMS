@@ -42,11 +42,17 @@ nav a {
 
 @media (max-width: 768px) {
 	.main-menu {
-		width: 100%;
-		height: 24vh;
+			width: 100%;
+			height: 24vh;
     }
     nav {
-        top: 8px;
-        right: 8px;
+      top: 4px;
+      right: 8px;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        width: 480px;
+        position: relative;
     }
 }
