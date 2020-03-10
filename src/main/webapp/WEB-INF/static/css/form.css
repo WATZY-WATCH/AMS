@@ -1,27 +1,28 @@
+/* mobile or default */
 input {
     display: block;
     box-sizing: border-box;
     height: 40px;
     margin: 8px auto;
-    padding: 8px 12px;
+    padding: 4px 12px;
     background-color: #FBFBFD;
     border-radius: 0.25rem;
     border: 1px solid #E9ECF3;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
+    outline: none;
 }
-input:focus {
+input:focus, input:hover {
     background-color: #fff;
+    border: 0.125rem solid #EF978F;
+    border-radius: 0.25rem;
 }
 input, label {width: 100%;}
 #wrapper {
-    width: 80%;
+    width: 300px;
     margin: 0 auto;
-}
-@media screen and (min-width: 768px) {
-	#wrapper {
-		width: 500px;
-	}
+    text-align: center;
+    font-size: 14px;
 }
 .title {
     font-size: 24px;
@@ -30,7 +31,7 @@ input, label {width: 100%;}
 }
 form {
     margin: 0 auto;
-    width: 80%;
+    text-align: left;
 }
 .login-btn {
     width: 100%;
@@ -39,6 +40,46 @@ form {
     border: none;
     background-color: #FFC2AD;
     border-radius: 0.25rem;
-    transition: all 0.5s ease-in;
+    margin: 0.5rem 0 1rem;
+    font-size: 14px;
+    transition: 0.3s all ease-in;
 }
 .login-btn:hover {background-color: #EF978F;}
+.kakao-login {
+    margin: 8px auto;
+    display: block;
+    width: 300px;
+    height: 49px;
+    background-image: url("/img/kakao_account_login_btn_medium_wide.png");
+}
+.sign-up-msg {color: #B2C0CC;}
+.divider {
+    margin: 2rem auto;
+    width: 100px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 0.5rem;
+    color: #B2C0CC;
+    border-bottom: 1px solid #E9ECF3;
+}
+.divider span {
+    padding: 0 10px;
+    background-color: #fff;
+}
+.sign-up-btn {
+    color: #333;
+}
+.sign-up-btn::after {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 20px;
+    padding-left: 0.5rem;
+    content: "〉";
+    transition: 0.3s all ease-in;
+}
+.sign-up-btn:hover {color: #EF978F;}
+.sign-up-btn:hover::after {padding-left: 0.75rem;}
+
+/* tablet or desktop */
+@media screen and (min-width: 768px) {
+}
