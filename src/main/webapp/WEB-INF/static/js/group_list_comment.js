@@ -1,9 +1,12 @@
 function commentTemplate (userId, commentList) {
 	let commentSection = document.createElement("section");
 	for(let comment of commentList) {
-		let div = document.createElement("div"),
-			userName = comment.userVO.userName,
-			regDate = new Date(comment.regDate),
+		let div = document.createElement("div");
+			
+		let	userName="";
+		if(comment.userVO == undefined) userName="탈퇴한 사용자";
+		else userName = comment.userVO.userName;
+		let	regDate = new Date(comment.regDate),
 			modDate = new Date(comment.modDate),
 			regDateStr = regDate.format("yyyy/MM/dd HH:mm"),
 			modDateStr = modDate.format("yyyy/MM/dd HH:mm"),
