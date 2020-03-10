@@ -1,0 +1,84 @@
+/* mobile or default */
+input {
+    display: block;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 8px auto;
+    padding: 4px 12px;
+    background-color: #FBFBFD;
+    border-radius: 0.25rem;
+    border: 1px solid #E9ECF3;
+    font-size: 14px;
+    line-height: 24px;
+    outline: none;
+}
+input:focus, input:hover {
+    background-color: #fff;
+    border: 0.125rem solid #EF978F;
+    border-radius: 0.25rem;
+}
+input, label {width: 100%;}
+#wrapper {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+}
+.title {
+    font-size: 24px;
+    color: #333;
+    margin: 8px auto;
+}
+form {
+    margin: 0 auto;
+    text-align: left;
+}
+button {
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    border: none;
+    background-color: #FFC2AD;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0 1rem;
+    font-size: 14px;
+    transition: 0.3s all ease-in;
+}
+button:hover:not([disabled]) {background-color: #EF978F;} /* :button:hover:enabled 로 대체 가능 */
+button:disabled {
+    cursor: url("/img/block.svg") 5 5, not-allowed;
+}
+.kakao-login {
+    margin: 8px auto;
+    display: block;
+    width: 300px;
+    height: 49px;
+    background-image: url("/img/kakao_account_login_btn_medium_wide.png");
+}
+.sign-up-msg {color: #B2C0CC;}
+.divider {
+    margin: 2rem auto;
+    width: 100px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 0.5rem;
+    color: #B2C0CC;
+    border-bottom: 1px solid #E9ECF3;
+}
+.divider span {
+    padding: 0 10px;
+    background-color: #fff;
+}
+.sign-up-btn {
+    color: #333;
+}
+.sign-up-btn::after {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 20px;
+    padding-left: 0.5rem;
+    content: "〉";
+    transition: 0.3s all ease-in;
+}
+.sign-up-btn:hover {color: #EF978F;}
+.sign-up-btn:hover::after {padding-left: 0.75rem;}

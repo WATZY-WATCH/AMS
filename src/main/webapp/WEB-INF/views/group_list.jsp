@@ -11,78 +11,171 @@
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
 <title>스터디 그룹 리스트 </title>
+<link rel="stylesheet" href="/css/checkbox.css">
+<link rel="stylesheet" href="/css/table.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 <h2>신청가능 스터디 목록입니다.</h2>
 <section id="container">
-	<div>
-		<table border="1">
-			<tr>
-	            <th>카테고리</th>
-	            <th>지역</th> 
-	            <th>연령대</th>
-	        </tr>
-	        <tr>
-                <td>
-              		<c:set var="categoryStr" value=""/>
-	                <c:forEach items="${cri.category }" var="item">
-	                	<c:set var="categoryStr" value="${categoryStr}${item }"/>
-	                </c:forEach>
+	<table class="filter-table">
+		<tr>
+			<th>카테고리</th>
+			<th>지역</th> 
+			<th>연령대</th>
+		</tr>
+		<tr>
+			<td>
+				<c:set var="categoryStr" value=""/>
+				<c:forEach items="${cri.category }" var="item">
+					<c:set var="categoryStr" value="${categoryStr}${item }"/>
+				</c:forEach>
+				<label>
+					<input type="checkbox" name="category" value="ce" <c:out value="${fn:contains(categoryStr,'ce')?'checked':''}"/>> 자격증
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="co" <c:out value="${fn:contains(categoryStr,'co')?'checked':''}"/>> 건설/설계
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="me" <c:out value="${fn:contains(categoryStr,'me')?'checked':''}"/>> 미디어/디자인
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="ma" <c:out value="${fn:contains(categoryStr,'ma')?'checked':''}"/>> 마케팅/기획/영업
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="ci" <c:out value="${fn:contains(categoryStr,'ci')?'checked':''}"/>> 유통/무역
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="it" <c:out value="${fn:contains(categoryStr,'it')?'checked':''}"/>> IT/연구개발
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="pr" <c:out value="${fn:contains(categoryStr,'pr')?'checked':''}"/>> 생산/제조/기계
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="op" <c:out value="${fn:contains(categoryStr,'op')?'checked':''}"/>> 경영/인사/사무
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="of" <c:out value="${fn:contains(categoryStr,'of')?'checked':''}"/>> 공무원
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="la" <c:out value="${fn:contains(categoryStr,'la')?'checked':''}"/>> 어학
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="category" value="ot" <c:out value="${fn:contains(categoryStr,'ot')?'checked':''}"/>> 기타
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+			</td>
+			<td>
+				<c:set var="areaStr" value=""/>
+				<c:forEach items="${cri.area }" var="item">
+					<c:set var="areaStr" value="${areaStr}${item }"/>
+				</c:forEach>
+				<label>
+					<input type="checkbox" name="area" value="sez" <c:out value="${fn:contains(areaStr,'sez')?'checked':''}"/>> 서울
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="gyz" <c:out value="${fn:contains(areaStr,'gyz')?'checked':''}"/>> 경기
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="inz" <c:out value="${fn:contains(areaStr,'inz')?'checked':''}"/>> 인천
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="gaz" <c:out value="${fn:contains(areaStr,'gaz')?'checked':''}"/>> 강원
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="daz" <c:out value="${fn:contains(areaStr,'daz')?'checked':''}"/>> 대전/충천
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="dgz" <c:out value="${fn:contains(areaStr,'dgz')?'checked':''}"/>> 대구
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="buz" <c:out value="${fn:contains(areaStr,'buz')?'checked':''}"/>> 부산/울산
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="gsz" <c:out value="${fn:contains(areaStr,'gsz')?'checked':''}"/>> 경상
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+				<label>
+					<input type="checkbox" name="area" value="gwz" <c:out value="${fn:contains(areaStr,'gwz')?'checked':''}"/>> 광주/전라/제주
+					<svg viewBox="0 0 14 14" class="ic-checkbox">
+						<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
+					</svg>
+				</label>
+			</td>
+			<td>
+				<select id="startAge">
+						<option value="0">---</option>
+					<c:forEach var="i" begin="10" end="70" step="10">
+						<option value="${i }"<c:out value="${cri.startAge == i ?'selected':''}"/>>${i }</option>
+					</c:forEach>
+				</select>
+					대&nbsp;~&nbsp;
+				<select id="endAge">
+						<option value="0">---</option>
+					<c:forEach var="i" begin="10" end="70" step="10">
+						<option value="${i }" <c:out value="${cri.endAge == i ?'selected':''}"/>>${i }</option>
+					</c:forEach>
+				</select>
+					대	
+			</td>
+		</tr>
 
-                	<label><input type="checkbox" name="category" value="ce" <c:out value="${fn:contains(categoryStr,'ce')?'checked':''}"/>> 자격증</label>&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="category" value="co" <c:out value="${fn:contains(categoryStr,'co')?'checked':''}"/>> 건설/설계</label>&nbsp;&nbsp;
-					<label><input type="checkbox" name="category" value="me" <c:out value="${fn:contains(categoryStr,'me')?'checked':''}"/>> 미디어/디자인</label>&nbsp;
-					<label><input type="checkbox" name="category" value="ma" <c:out value="${fn:contains(categoryStr,'ma')?'checked':''}"/>> 마케팅/기획/영업</label>
-					<br>
-					<label><input type="checkbox" name="category" value="ci" <c:out value="${fn:contains(categoryStr,'ci')?'checked':''}"/>> 유통/무역</label>
-					<label><input type="checkbox" name="category" value="it" <c:out value="${fn:contains(categoryStr,'it')?'checked':''}"/>> IT/연구개발</label>
-					<label><input type="checkbox" name="category" value="pr" <c:out value="${fn:contains(categoryStr,'pr')?'checked':''}"/>> 생산/제조/기계</label>
-					<label><input type="checkbox" name="category" value="op" <c:out value="${fn:contains(categoryStr,'op')?'checked':''}"/>> 경영/인사/사무</label>
-					<br>
-					<label><input type="checkbox" name="category" value="of" <c:out value="${fn:contains(categoryStr,'of')?'checked':''}"/>> 공무원</label>&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="category" value="la" <c:out value="${fn:contains(categoryStr,'la')?'checked':''}"/>> 어학</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="category" value="ot" <c:out value="${fn:contains(categoryStr,'ot')?'checked':''}"/>> 기타</label>
-					<br>
-                </td>
-                <td>
-	                <c:set var="areaStr" value=""/>
-	                <c:forEach items="${cri.area }" var="item">
-	                	<c:set var="areaStr" value="${areaStr}${item }"/>
-	                </c:forEach>
-					<label><input type="checkbox" name="area" value="sez" <c:out value="${fn:contains(areaStr,'sez')?'checked':''}"/>> 서울</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                	<label><input type="checkbox" name="area" value="gyz" <c:out value="${fn:contains(areaStr,'gyz')?'checked':''}"/>> 경기</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="area" value="inz" <c:out value="${fn:contains(areaStr,'inz')?'checked':''}"/>> 인천</label>&nbsp;&nbsp;
-					<br>
-					<label><input type="checkbox" name="area" value="gaz" <c:out value="${fn:contains(areaStr,'gaz')?'checked':''}"/>> 강원</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="area" value="daz" <c:out value="${fn:contains(areaStr,'daz')?'checked':''}"/>> 대전/충천</label>
-					<label><input type="checkbox" name="area" value="dgz" <c:out value="${fn:contains(areaStr,'dgz')?'checked':''}"/>> 대구</label>
-					<br>
-					<label><input type="checkbox" name="area" value="buz" <c:out value="${fn:contains(areaStr,'buz')?'checked':''}"/>> 부산/울산</label>
-					<label><input type="checkbox" name="area" value="gsz" <c:out value="${fn:contains(areaStr,'gsz')?'checked':''}"/>> 경상</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label><input type="checkbox" name="area" value="gwz" <c:out value="${fn:contains(areaStr,'gwz')?'checked':''}"/>> 광주/전라/제주</label>
-					<br>
-                </td>
-                <td>
-                    <select id="startAge">
-                    		<option value="0">---</option>
-                        <c:forEach var="i" begin="10" end="70" step="10">
-                      		<option value="${i }"<c:out value="${cri.startAge == i ?'selected':''}"/>>${i }</option>
-                      	</c:forEach>
-                    </select>
-                    	대&nbsp;~&nbsp;
-                    <select id="endAge">
-                    		<option value="0">---</option>
-                        <c:forEach var="i" begin="10" end="70" step="10">
-                      		<option value="${i }" <c:out value="${cri.endAge == i ?'selected':''}"/>>${i }</option>
-                      	</c:forEach>
-                    </select>
-                    	대	
-                </td>
-           	</tr>
-
-		</table>
-	</div>
+	</table>
 	<br>
 	<div>
 		<select id="searchType">
@@ -111,7 +204,7 @@
 		
 		<input type="text" id="keywordInput" value='${cri.keyword }'>
 		<button id='searchBtn' onclick="searchGroup(${cri.page},${cri.perPageNum})">Search</button>
-		<button id='newBtn' onclick="newGroup()">New Board</button>
+		<button id='newBtn' onclick="newGroup()">초기화</button>
 	</div>
 	<br>
 	<table border="1">

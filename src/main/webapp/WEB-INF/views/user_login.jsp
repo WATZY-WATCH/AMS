@@ -8,37 +8,31 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 페이지 </title>
+<link rel="stylesheet" href="/css/form.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<div id="wrapper">
 	<sec:authorize access="isAnonymous()">
-		<h3>로그인 폼 </h3>
+		<h3 class="title">로그인</h3>
 			<c:if test="${param.containsKey('error') }">
 				<span style="color: red;">
 					<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message }" />
 				</span>
 			</c:if>
-			<c:url var="signUpUrl" value="/user/signup" />
-			<a href="${signUpUrl }" >회원가입 </a>
 			<c:url var="loginUrl" value="/login" />
 			<form:form action="${loginUrl }">
 				<sec:csrfInput />
-				<table>
-					<tr>
-						<td><label for="userId">사용자명 </label></td>
-						<td><input type="text" id="userId" name="userId"></td>
-					</tr>
-					<tr>
-						<td><label for="userPw">패스워드 </label></td>
-						<td><input type="password" id="userPw" name="userPw"></td>
-					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td><button>로그인 </button></td>
-				</table>
+				<label for="userId">아이디</label>
+				<input type="text" id="userId" name="userId" placeholder="아이디">
+				<label for="userPw">비밀번호</label>
+				<input type="password" id="userPw" name="userPw" placeholder="비밀번호">
+				<button class="login-btn">로그인 하기</button>
 		</form:form>
-		<a href="/klogin">카카오 로그인 </a>
+		<c:url var="signUpUrl" value="/user/signup" />
+		<p class="sign-up-msg">아직 계정이 없으신가요? <a href="${signUpUrl }" class="sign-up-btn" >회원가입</a></p>
+		<p class="divider"><span>또는</span></p>
+		<a href="/klogin" class="kakao-login"></a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<script type="text/javascript">

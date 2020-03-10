@@ -1,0 +1,22 @@
+#idMsg, #pwMsg {
+	color: #EF978F;
+	font-size: 14px;
+	transition: 0.3s all;
+	display: none;
+	padding-left: 8px;
+	padding-bottom: 4px;
+}
+#idChk {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0.025rem;
+	border-bottom: 0.5px solid #B2C0CC;
+	transition: 0.3s all;
+	color: #B2C0CC;
+	font-weight: 300;
+}
+#idChk:hover {
+	color: #EF978F;
+	border-bottom: 0.5px solid #EF978F;
+}
