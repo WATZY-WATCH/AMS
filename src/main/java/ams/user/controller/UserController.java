@@ -1,27 +1,27 @@
 package ams.user.controller;
 
-import java.security.Principal;
-import java.util.List;
-
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
 
-@Controller
+@RestController
 @RequestMapping("/user/**")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -29,127 +29,131 @@ public class UserController {
 	@Inject UserService service;
 	@Inject BCryptPasswordEncoder pwdEncoder;
 	
-	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String getSignUp() throws Exception {
-		logger.info("get register");
-		return "user_signup";
-	}
-	
-	@RequestMapping(value="/signup", method=RequestMethod.POST)
-	public String postSignUp(UserVO vo, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value="/", method=RequestMethod.POST)
+	public void postSignUp(UserVO vo, HttpServletResponse response) throws Exception {
 		logger.info("post register");
-		String inputPwd = vo.getUserPw();
-		String pwd = pwdEncoder.encode(inputPwd);
-		vo.setUserPw(pwd);
-		service.signup(vo);
-		return "redirect:/";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/idChk", method=RequestMethod.POST)
-	public int postIdChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post idChk");
-		String userId = vo.getUserId();
-		int res = service.idChk(userId);
-		return res;
-	}
-	
-	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public String getUser_modify(Principal principal, Model model) throws Exception {
-		logger.info("get user_modify");
-		System.out.println("get user_modify");
-		UserVO userInfo=service.getUserInfo(principal.getName());
-		model.addAttribute("setName", userInfo.getUserName());
-		model.addAttribute("setEmail", userInfo.getUserEmail());
-		model.addAttribute("userId",principal.getName());
-		logger.info("user :"+userInfo.getUserName());
-		return "user_modify";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public int postUser_modify(@RequestBody UserVO vo, RedirectAttributes rttr) throws Exception {
-		logger.info("post user_modify");
-		logger.info(vo.getUserName());
-		return service.modifyUser(vo);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/nameChk", method=RequestMethod.POST)
-	public int postNameChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post nameChk");
-		String userName = vo.getUserName();
-		int res = service.nameChk(userName);
-		return res;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/emailChK", method=RequestMethod.POST)
-	public int postEmailChk(@RequestBody UserVO vo) throws Exception {
-		logger.info("post emailChk.....");
-		String userEmail = vo.getUserEmail();
-		int res = service.emailChk(userEmail);
-		return res;
-	}
-	
-	@RequestMapping(value="/signout", method=RequestMethod.GET)
-	public String getSignOut(Principal principal, Model model) throws Exception {
-		logger.info("get signout.....");
-		model.addAttribute("userId",principal.getName());
-		return "user_signout";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/pwChk", method=RequestMethod.POST)
-	public boolean postSignOut(@RequestBody UserVO vo) throws Exception {
-		logger.info("post pwChk......");
-		String userPw = vo.getUserPw();
-		String pwd = pwdEncoder.encode(userPw);
-		vo.setUserPw(pwd);
-		String hashPw=service.getUserInfo(vo.getUserId()).getUserPw();
-		return pwdEncoder.matches(userPw, hashPw);
-	}
-	
-	@RequestMapping(value="/modifyPw", method=RequestMethod.GET)
-	public String getModifyPw(Principal principal, Model model) throws Exception {
-		logger.info("get Modify Password......");
-		model.addAttribute("userId",principal.getName());
-		return "user_modify_pw";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/modifyPw", method=RequestMethod.POST)
-	public int postModifyPw(@RequestBody UserVO vo) throws Exception {
-		logger.info("post Modify Password......");
-		String userPw = vo.getUserPw();
-		String pwd = pwdEncoder.encode(userPw);
-		vo.setUserPw(pwd);
-		return service.modifyUserPw(vo);
-	}
-	
-	@RequestMapping(value="/modifyPwSuccess", method=RequestMethod.GET)
-	public String getModifyPw() throws Exception {
-		logger.info("Success Modify Password......");
-		return "user_modify_pw_success";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/signout", method=RequestMethod.POST)
-	public int postSignout(@RequestBody UserVO vo,HttpSession session) throws Exception {
-		logger.info("post signout......");
-		int ret= service.signout(vo.getUserId());
-		if(ret>0) {
-			session.invalidate();
+		try {
+			String inputPwd = vo.getUserPw();
+			String pwd = pwdEncoder.encode(inputPwd);
+			vo.setUserPw(pwd);
+			service.signup(vo);
+			response.sendRedirect("/");
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		return ret;
 	}
 	
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String getJoinedGroup(Principal principal, Model model) throws Exception {
-		logger.info("get my page.....");
-		String userId = principal.getName();
-		List<GroupVO> myGroups = service.findJoinedGroup(userId);
-		model.addAttribute("gList", myGroups);
-		return "user_mypage";
+	
+	@RequestMapping(value="/id/{userId}", method=RequestMethod.GET)
+	public ResponseEntity<Integer> postIdChk(@PathVariable("userId") String userId) throws Exception {
+		logger.info("post idChk");
+		ResponseEntity<Integer> entity = null;
+		int ret=0;
+		try {
+			ret=service.idChk(userId);
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(-1, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
+	
+	@RequestMapping(value="/", method=RequestMethod.PUT)
+	public ResponseEntity<String> postUser_modify(@RequestBody UserVO vo) throws Exception {
+		logger.info("post user_modify");
+		ResponseEntity<String> entity = null;
+		try {
+			service.modifyUser(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	@RequestMapping(value="/name", method=RequestMethod.POST)
+	public ResponseEntity<Integer> postNameChk(@RequestBody UserVO vo) throws Exception {
+		logger.info("post nameChk");
+		ResponseEntity<Integer> entity = null;
+		int ret=0;
+		try {
+			ret=service.nameChk(vo.getUserName());
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/email", method=RequestMethod.POST)
+	public ResponseEntity<Integer> postEmailChk(@RequestBody UserVO vo) throws Exception {
+		logger.info("post emailChk.....");
+		ResponseEntity<Integer> entity = null;
+		int ret=0;
+		try {
+			ret=service.emailChk(vo.getUserEmail());
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(-1,HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	@RequestMapping(value="/pw", method=RequestMethod.POST)
+	public ResponseEntity<Boolean> pwChk(@RequestBody UserVO vo) throws Exception {
+		logger.info("post pwChk.....");
+		ResponseEntity<Boolean> entity = null;
+		try {
+			String userPw = vo.getUserPw();
+			String pwd = pwdEncoder.encode(userPw);
+			vo.setUserPw(pwd);
+			String hashPw=service.getUserInfo(vo.getUserId()).getUserPw();
+			entity = new ResponseEntity<Boolean>(pwdEncoder.matches(userPw, hashPw), HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	@RequestMapping(value="/pw", method=RequestMethod.PUT)
+	public ResponseEntity<Integer> postModifyPw(@RequestBody UserVO vo) throws Exception {
+		logger.info("post Modify Password......");
+		ResponseEntity<Integer> entity = null;
+		int ret=0;
+		try {
+			String userPw = vo.getUserPw();
+			String pwd = pwdEncoder.encode(userPw);
+			vo.setUserPw(pwd);
+			ret=service.modifyUserPw(vo);
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/", method=RequestMethod.DELETE)
+	public ResponseEntity<Integer> postSignout(@RequestBody UserVO vo,HttpSession session) throws Exception {
+		logger.info("post signout......");
+		ResponseEntity<Integer> entity = null;
+		int ret=0;
+		try {
+			ret= service.signout(vo.getUserId());
+			if(ret>0) {
+				session.invalidate();
+			}
+			entity = new ResponseEntity<Integer>(ret, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 }

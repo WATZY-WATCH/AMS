@@ -16,7 +16,7 @@ function pwChk() {
 		return;
 	}
 	
-	xhr.open("POST", "./pwChk", true);
+	xhr.open("POST", "./pw", true);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -27,7 +27,7 @@ function pwChk() {
 				msg.innerHTML = "";
 				if(newPw === newPwCmp) {
 					data.userPw = newPw;
-					xhr.open("POST", "./modifyPw", true);
+					xhr.open("PUT", "./pw", true);
 					xhr.setRequestHeader(header, token);
 					xhr.setRequestHeader("Content-Type", "application/json");
 					xhr.send(JSON.stringify(data));

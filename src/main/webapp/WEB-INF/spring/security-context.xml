@@ -26,8 +26,9 @@
 			password-parameter="userPw"
 			authentication-success-handler-ref="loginSuccessHandler" />
 		<sec:intercept-url pattern="/oauth/user/**" access="hasAnyAuthority('OAUTH_USER', 'ADMIN')" />
-		<sec:intercept-url pattern="/user/idChk" access="permitAll" />
+		<sec:intercept-url pattern="/user/id/**" access="permitAll" />
 		<sec:intercept-url pattern="/user/signup" access="permitAll"/>
+		<sec:intercept-url pattern="/user/" access="permitAll"/>
 		<sec:intercept-url pattern="/user/**" access="hasAnyAuthority('USER', 'ADMIN')" />
 		<sec:intercept-url pattern="/oauth/**" access="permitAll"/>
 		<sec:intercept-url pattern="/klogin" access="permitAll"/>

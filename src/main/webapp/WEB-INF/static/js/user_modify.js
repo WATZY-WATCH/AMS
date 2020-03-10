@@ -15,7 +15,7 @@ function nameChk() {
 	const msg = document.getElementById("nameMsg");
 	const xhr = new XMLHttpRequest();
 	
-	xhr.open("POST", "./nameChk", true);
+	xhr.open("POST", "./name", true);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -45,7 +45,7 @@ function emailChk() {
 	const msg = document.getElementById("emailMsg");
 	const xhr = new XMLHttpRequest();
 	
-	xhr.open("POST", "./emailChk", true);
+	xhr.open("POST", "./email", true);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -76,7 +76,7 @@ function formChk() {
 	const userEmail = document.getElementById("userEmail").value;
 	const data = {userId:userId, userName: userName, userEmail: userEmail};
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "./modify", true);
+	xhr.open("PUT", "./", true);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	if(userName === "") {
@@ -97,8 +97,7 @@ function formChk() {
 			xhr.send(JSON.stringify(data));
 			xhr.onload = function () {
 				if(xhr.status == 200 || xhr.status == 201) {
-					console.log(xhr.responseText);
-					if(xhr.responseText == 1) {
+					if(xhr.responseText == "SUCCESS") {
 						alert("성공적으로 변경되었습니다. ");
 						document.location.href="/";
 					} else {

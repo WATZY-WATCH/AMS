@@ -10,7 +10,7 @@ function pwChk() {
 	const msg = document.getElementById("pwMsg");
 	const xhr = new XMLHttpRequest();
 	
-	xhr.open("POST", "./pwChk", true);
+	xhr.open("POST", "./pw", true);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -21,7 +21,7 @@ function pwChk() {
 				msg.innerHTML = "";
 				let confirmed = confirm("회원님과 관련된 모든 정보가 소멸됩니다. 정말 회원탈퇴를 하시겠습니까?");
 				if(confirmed) {
-					xhr.open("POST", "./signout", true);
+					xhr.open("DELETE", "./", true);
 					xhr.setRequestHeader(header, token);
 					xhr.setRequestHeader("Content-Type", "application/json");
 					xhr.send(JSON.stringify(data));
