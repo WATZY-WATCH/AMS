@@ -30,8 +30,9 @@
 				<button class="login-btn">로그인 하기</button>
 		</form:form>
 		<c:url var="signUpUrl" value="/user/signup" />
-		<a href="${signUpUrl }" >회원가입 </a>
-		<a href="/klogin">카카오 로그인 </a>
+		<p class="sign-up-msg">아직 계정이 없으신가요? <a href="${signUpUrl }" class="sign-up-btn" >회원가입</a></p>
+		<p class="divider"><span>또는</span></p>
+		<a href="/klogin" class="kakao-login"></a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<script type="text/javascript">
