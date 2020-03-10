@@ -24,6 +24,10 @@
     font-size: 16px;
 }
 .schedule li {padding: 8px;}
+.schedule a {
+    display: inline-block;
+    padding: 0.25rem;
+}
 .schedule a:hover {
 	text-shadow: 0 0 1px rgba(0,0,0,0.5);
 }
@@ -36,7 +40,6 @@
 }
 .group-name {
 	color: #333;
-	width: 70%;
 }
 .schedule-time, .group-name {display: inline-block;}
 .group-name:before {

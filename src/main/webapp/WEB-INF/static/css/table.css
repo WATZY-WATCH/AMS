@@ -1,0 +1,3 @@
+.filter-table th:first-child, .filter-table td:first-child {
+    width: 50%;
+}
