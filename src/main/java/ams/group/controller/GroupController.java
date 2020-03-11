@@ -105,5 +105,4 @@ public class GroupController {
 		model.addAttribute("groupName", groupName);
 		return "group_map";
 	}
-	
 }

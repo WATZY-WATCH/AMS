@@ -36,6 +36,8 @@ public class GroupAttendanceController {
 	@PreAuthorize("@customAuthorizationHandler.isMember(#groupId, principal.username)")
 	@RequestMapping(path="/attend", method=RequestMethod.GET)
 	public String getAttendance(@RequestParam("groupId") int groupId, @RequestParam("scheduleId") int scheduleId, Principal principal, Model model) throws Exception {
+		System.out.println("get attendance page...");
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		Date now = new Date();
 		String userId = principal.getName();
@@ -57,7 +59,7 @@ public class GroupAttendanceController {
 		ga.setScheduleId(scheduleId);
 		ga.setUserId(principal.getName());
 		
-		boolean isTimeOn = Math.abs((now.getTime() - start.getTime())) / 60000L <= 10L;
+		long isTimeOn = Math.abs((now.getTime() - start.getTime())) / 60000L;
 		boolean finished = (now.getTime() > end.getTime());
 		String attendanceStr = service.chkAttendanceStatus(ga);
 		
@@ -114,8 +116,6 @@ public class GroupAttendanceController {
 		ga.setUserId(userId);
 		ga.setScheduleId(scheduleId);
 		ga.setAttendaceStatus(isTimeout ? "출석" : "지각");
-		
-		System.out.println(isTimeout + " " + ga.getAttendaceStatus());
 		
 		service.requestAttend(ga, member, isTimeout);	
 		
