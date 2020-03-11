@@ -54,7 +54,7 @@ function formChk(userId) {
 		alert("연령대의 범위를 확인해주세요.");
 	} else {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./create", true);
+		xhr.open("POST", "./", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		if(groupPeriodValue=='월') data.groupPeriod="월_"+ groupMonthValue;
