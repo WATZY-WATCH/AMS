@@ -1,3 +1,26 @@
-.filter-table th:first-child, .filter-table td:first-child {
-    width: 50%;
+[class*="-section"] {
+    box-sizing: border-box;
+    padding: 8px;
+    float: left;
+}
+.section-title {
+    text-align: center;
+}
+.category-section {
+    width: 45%;
+}
+.region-section {
+    width: 35%;
+    border-left: 1.5px solid #FDDFAC;
+    border-right: 1.5px solid #FDDFAC;
+    border-radius: 0.25rem;
+}
+.age-section {
+    width: 20%;
+    height: inherit;
+}
+.filter-table {height: 100%;}
+@media (max-width: 320px) {
+    body {width: 320px;}
+    [class*="-section"] {width: 100%;}
 }
