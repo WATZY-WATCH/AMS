@@ -11,7 +11,7 @@ function leaveGroup(groupId, userId) {
 	let confirmed = confirm("그룹을 나가면 다시 신청해 그룹장의 신청을 받아야만 합니다. 정말 나가시겠습니까?");
 	if(confirmed) {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./leaveGroup", true);
+		xhr.open("DELETE", "./member", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

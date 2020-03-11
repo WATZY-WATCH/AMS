@@ -11,7 +11,7 @@ function applicationDelete(groupId, userId) {
 	let confirmed = confirm("신청서를 삭제하시겠습니까?");
 	if(confirmed) {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./applicationDelete", true);
+		xhr.open("DELETE", "./application", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

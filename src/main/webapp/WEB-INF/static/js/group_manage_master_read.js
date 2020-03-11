@@ -17,7 +17,7 @@ function acceptApplication(groupId, userId) {
 	let confirmed = confirm("해당 회원을 스터디 멤버로 영입합니다.");
 	if(confirmed) {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./masterAccept", true);
+		xhr.open("POST", "./master", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));
@@ -49,7 +49,7 @@ function rejectApplication(groupId, userId) {
 	let confirmed = confirm("해당 회원의 신청을 거절합니다.");
 	if(confirmed) {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./masterReject", true);
+		xhr.open("DELETE", "./master/application", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

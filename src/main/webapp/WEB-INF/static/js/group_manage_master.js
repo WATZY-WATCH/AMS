@@ -11,7 +11,7 @@ function leaveGroup(groupId, userId) {
 	let confirmed = confirm("그룹을 나갈 경우 가장 오래된 멤버에게 그룹장의 권한을 양도하게 됩니다.그룹을 나가시겠습니까?");
 	if(confirmed) {
 		const xhr = new XMLHttpRequest();
-		xhr.open("POST", "./masterDelete", true);
+		xhr.open("DELETE", "./master", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));
