@@ -14,7 +14,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<c:choose>
-		<c:when test="${isTimeOn eq true && finished eq false && attendanceStatus eq null }">
+		<c:when test="${isTimeOn >= -10 && finished eq false && attendanceStatus eq null }">
 			<form action="./attend" method="post">
 				<sec:csrfInput />
 				<button class="attendBtn" type="button" onclick="attend('${userId }', '${start }')">출석하기 </button>

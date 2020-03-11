@@ -67,7 +67,7 @@ function applyGroup(groupId, userId, userName, listApplyChk) {
 		data.msg=postMsg;
 	}
 	if(confirmed) {
-		xhr.open("POST", "./listApply", true);
+		xhr.open("POST", "./list", true);
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

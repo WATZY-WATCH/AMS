@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import ams.user.service.Kakaoapi;
 
 @Controller
-@RequestMapping("/groupManage/**")
+@RequestMapping("/group/**")
 public class MapAPIController {
 	@Inject Kakaoapi KakaoAPI;
 	private static final Logger logger = LoggerFactory.getLogger(MapAPIController.class);

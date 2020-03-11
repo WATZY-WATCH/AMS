@@ -33,7 +33,7 @@ import ams.group.service.GroupService;
 import ams.server.service.CustomAuthorizationHandler;
 
 @Controller
-@RequestMapping("/groupManage/**")
+@RequestMapping("/group/**")
 public class GroupScheduleController {
 
 	@Inject GroupService service;
