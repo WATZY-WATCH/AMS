@@ -1,5 +1,6 @@
 package ams.group.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -82,13 +83,11 @@ public class GroupServiceImpl implements GroupService {
 	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception {
 		return dao.getSchedule(vo);
 	}
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
-	public int requestAttend(GroupAttendanceVO vo) throws Exception {
-		return dao.requestAttend(vo);
-	}
-	@Override
-	public int addDemerit(GroupMemberVO vo) throws Exception {
-		return dao.addDemerit(vo);
+	public void requestAttend(GroupAttendanceVO vo, GroupMemberVO member, boolean isTimeout) throws Exception {
+		dao.requestAttend(vo);
+		if(!isTimeout) dao.addDemerit(member);
 	}
 	@Override
 	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception {

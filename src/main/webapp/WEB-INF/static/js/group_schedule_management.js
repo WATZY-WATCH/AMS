@@ -146,7 +146,7 @@ function submitModify(groupId, scheduleId) {
 	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
 	data.endTime = new Date(scheduleEnd).format("yyyy-MM-dd HH:mm");
 	
-	xhr.open("POST", "./modifySchedule");
+	xhr.open("PUT", "./schedule");
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -174,7 +174,7 @@ function deleteSchedule(groupId, scheduleId) {
 		const xhr = new XMLHttpRequest();
 		
 		const data = {groupId: groupId, scheduleId : scheduleId};
-		xhr.open("POST", "./deleteSchedule");
+		xhr.open("DELETE", "./schedule");
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

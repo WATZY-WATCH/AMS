@@ -9,9 +9,9 @@ function getSchedule(term) {
 		year = Number(yearName.innerText);
 		month = Number(monthName.innerText);
 	
-	const data = {groupId : groupId, year:year, month: month, term: term}
+	const data = {year:year, month: month, term: term}
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "./getCalendar");
+	xhr.open("POST", "./calendar/"+groupId);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));

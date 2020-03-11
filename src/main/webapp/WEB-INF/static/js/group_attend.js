@@ -50,19 +50,20 @@ function attend(userId, base) {
 		if(xhr.status == 200 || xhr.status == 201) {
 			let ret = xhr.responseText;
 			let retObj = JSON.parse(ret);
-			if(retObj.error) alert(retObj.error);
-			else {
-				alert(retObj.chkTime+"\n"+userId + "님 " + retObj.status + "처리 되었습니다. ");
-				const body = document.querySelector("body");
-				const form = document.querySelector("form");
-				const attendBtn = document.querySelector(".attendBtn");
-				form.removeChild(attendBtn);
-				let h2 = document.createElement("h2");
-				h2.classList.add("attendanceStatus");
-				let text = document.createTextNode(retObj.status);
-				h2.appendChild(text);
-				body.appendChild(h2);
-			}
+			alert(retObj.chkTime+"\n"+userId + "님 " + retObj.status + "처리 되었습니다. ");
+			const body = document.querySelector("body");
+			const form = document.querySelector("form");
+			const attendBtn = document.querySelector(".attendBtn");
+			form.removeChild(attendBtn);
+			let h2 = document.createElement("h2");
+			h2.classList.add("attendanceStatus");
+			let text = document.createTextNode(retObj.status);
+			h2.appendChild(text);
+			body.appendChild(h2);
+		} else if(xhr.status == 400 || xhr.status == 403) {
+			alert("잘못된 요청입니다.");
+		} else {
+			alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
 		}
 	}
 }
