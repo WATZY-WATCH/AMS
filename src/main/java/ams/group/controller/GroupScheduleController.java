@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,28 +33,25 @@ import ams.group.service.GroupService;
 import ams.server.service.CustomAuthorizationHandler;
 
 @Controller
-@RequestMapping("/group/**")
+@RequestMapping("/groupManage/**")
 public class GroupScheduleController {
 
 	@Inject GroupService service;
 	@Inject CustomAuthorizationHandler customAuthorizationHandler;
 	
 	@RequestMapping(value="/schedule", method=RequestMethod.GET)
-	public String manageSchedule(@RequestParam("groupId") int groupId, Model model, Principal principal) throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	public String groupSchedule(@RequestParam("groupId") int groupId, Model model, Principal principal) throws Exception {
+		System.out.println("get group schedule");
 		LocalDate today = LocalDate.now();
-		int day = today.getDayOfWeek().getValue();
 		
-		LocalDate firstDate = today.with(TemporalAdjusters.firstDayOfMonth()); //이번 달의 첫 날 
-		LocalDate lastDate = today.with(TemporalAdjusters.lastDayOfMonth()); //이번 달의 마지막 날 
+		LocalDate firstDate = today.with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate lastDate = today.with(TemporalAdjusters.lastDayOfMonth());
 		
-		int firstDay = firstDate.getDayOfWeek().getValue(); //첫 날의 요일 
-		int lastDay = lastDate.getDayOfWeek().getValue(); //마지막 날의 요일 
+		int firstDay = firstDate.getDayOfWeek().getValue();
+		int lastDay = lastDate.getDayOfWeek().getValue();
 		
-		LocalDate firstCal = firstDate.minusDays(firstDay); //캘린더에 나타낼 첫 날 
-		LocalDate lastCal = lastDate.plusDays(6-lastDay); //캘린더에 나타낼 마지막 날 
-		
-		long weeks = ChronoUnit.WEEKS.between(firstCal, lastCal.plusDays(1)); //캘린더에 나타나는 주(week)의 수 
+		LocalDate firstCal = firstDate.minusDays(firstDay);
+		LocalDate lastCal = lastDate.plusDays(6-lastDay);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -74,8 +72,8 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/saveSchedule", method=RequestMethod.POST)
-	public int saveLocationInfo(@RequestBody JsonNode info) throws Exception {
+	@RequestMapping(value="/schedule", method=RequestMethod.POST)
+	public int createSchedule(@RequestBody JsonNode info) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		
 		GroupScheduleVO vo = new GroupScheduleVO();
@@ -92,7 +90,7 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/modifySchedule", method=RequestMethod.POST)
+	@RequestMapping(value="/schedule", method=RequestMethod.PUT)
 	public int modifySchedule(@RequestBody JsonNode info) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		
@@ -111,14 +109,14 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/deleteSchedule", method=RequestMethod.POST)
+	@RequestMapping(value="/schedule", method=RequestMethod.DELETE)
 	public int deleteSchedule(@RequestBody JsonNode info) throws Exception {
 		return service.deleteSchedule(info.get("scheduleId").asInt());
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getCalendar",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
-	public String getCalendar(@RequestBody JsonNode info) throws Exception {
+	@RequestMapping(value="/calendar/{groupId}",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
+	public String getCalendar(@PathVariable("groupId") int groupId, @RequestBody JsonNode info) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> retObj = new HashMap<String, Object>();
 		
@@ -128,22 +126,21 @@ public class GroupScheduleController {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		LocalDate today = LocalDate.of(year, month, 1).plusMonths(term);
-		int day = today.getDayOfWeek().getValue();
 		
-		LocalDate firstDate = today.with(TemporalAdjusters.firstDayOfMonth()); //이번 달의 첫 날 
-		LocalDate lastDate = today.with(TemporalAdjusters.lastDayOfMonth()); //이번 달의 마지막 날 
+		LocalDate firstDate = today.with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate lastDate = today.with(TemporalAdjusters.lastDayOfMonth());
 		
-		int firstDay = firstDate.getDayOfWeek().getValue() % 7; //첫 날의 요일 
-		int lastDay = lastDate.getDayOfWeek().getValue() % 7; //마지막 날의 요일 
+		int firstDay = firstDate.getDayOfWeek().getValue() % 7;
+		int lastDay = lastDate.getDayOfWeek().getValue() % 7;
 		
-		LocalDate firstCal = firstDate.minusDays(firstDay); //캘린더에 나타낼 첫 날 
-		LocalDate lastCal = lastDate.plusDays(6-lastDay); //캘린더에 나타낼 마지막 날 
+		LocalDate firstCal = firstDate.minusDays(firstDay);
+		LocalDate lastCal = lastDate.plusDays(6-lastDay);
 		
-		long weeks = ChronoUnit.WEEKS.between(firstCal, lastCal.plusDays(1)); //캘린더에 나타나는 주(week)의 수 
+		long weeks = ChronoUnit.WEEKS.between(firstCal, lastCal.plusDays(1));
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		map.put("groupId", info.get("groupId").asInt());
+		map.put("groupId", groupId);
 		map.put("startDate", firstCal);
 		map.put("endDate", lastCal);
 		

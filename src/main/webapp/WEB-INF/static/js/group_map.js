@@ -449,6 +449,7 @@ function submitSchedule(groupId) {
 	
 	if(beginTime.value >= endTime.value) {
 		alert("일정 시작 시간은 종료 시간보다 빨라야 합니다. ");
+		return;
 	}
 	const data = {};
 	data.groupId = groupId;
@@ -466,7 +467,7 @@ function submitSchedule(groupId) {
 	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
 	data.endTime = new Date(scheduleEnd).format("yyyy-MM-dd HH:mm");
 	
-	xhr.open("POST", "./saveSchedule");
+	xhr.open("POST", "./schedule");
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));

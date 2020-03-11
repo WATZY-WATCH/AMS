@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +75,8 @@ public class GroupAttendanceController {
 	@PreAuthorize("@customAuthorizationHandler.isMember(#reqInfo.get('groupId').asInt(), principal.username)")
 	@ResponseBody
 	@RequestMapping(path="/attend",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
-	public String postAttendace(@RequestBody JsonNode reqInfo, Principal principal) throws Exception {
+	public ResponseEntity<Map<String,Object>> postAttendace(@RequestBody JsonNode reqInfo, Principal principal) throws Exception {
+		ResponseEntity<Map<String,Object>> entity = null;
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> retObj = new HashMap<String, Object>();
 		
@@ -84,8 +87,7 @@ public class GroupAttendanceController {
 		String userId = principal.getName();
 	
 		if(userId == null || !userId.equals(inputId)) {
-			retObj.put("error", "잘못된 요청입니다. ");
-			return mapper.writeValueAsString(retObj);
+			new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		GroupMemberVO member = new GroupMemberVO();
@@ -98,43 +100,30 @@ public class GroupAttendanceController {
 		GroupScheduleVO schedule = service.getSchedule(vo);
 		
 		if(schedule == null) {
-			retObj.put("error", "잘못된 요청입니다. ");
-			return mapper.writeValueAsString(retObj);
+			return new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		Date start = schedule.getBeginTime();
 		Date end = schedule.getEndTime();
 		Date now = format.parse(format.format(new Date()));
 		
-		boolean isTimeout = (now.getTime() - start.getTime()) / 60000L <= 10L; //출석 시간 이내 접근인지 확인 
+		boolean isTimeout = (now.getTime() - start.getTime()) / 60000L <= 10L;
 		
 		GroupAttendanceVO ga = new GroupAttendanceVO();
 		ga.setGroupId(groupId);
 		ga.setUserId(userId);
 		ga.setScheduleId(scheduleId);
-		ga.setAttendaceStatus(isTimeout ? "출석" : "지각");
+		ga.setAttendaceStatus(isTimeout ? "�⼮" : "����");
 		
 		System.out.println(isTimeout + " " + ga.getAttendaceStatus());
 		
-		int ret = service.requestAttend(ga);
-		
-		if(ret == 0) {
-			retObj.put("error", "에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
-			return mapper.writeValueAsString(retObj);
-		}
-		
-		if(!isTimeout) {
-			int demerit = service.addDemerit(member);
-			if(demerit == 0) {
-				retObj.put("error", "에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
-				return mapper.writeValueAsString(retObj);
-			}
-		}
-		
+		service.requestAttend(ga, member, isTimeout);	
 		
 		retObj.put("chkTime", format.format(new Date()));
-		retObj.put("status", (isTimeout ? "출석" : "지각"));
+		retObj.put("status", (isTimeout ? "�⼮" : "����"));
 		
-		return mapper.writeValueAsString(retObj);
+		entity = new ResponseEntity<Map<String,Object>>(retObj, HttpStatus.OK);
+		
+		return entity;
 	}
 }
