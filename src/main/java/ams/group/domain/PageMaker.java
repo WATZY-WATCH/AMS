@@ -2,9 +2,6 @@ package ams.group.domain;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
-
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -15,7 +12,7 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 
-	private int displayPageNum=10;
+	private int displayPageNum=12;
 	private GroupCriteria cri;
 
 	public void setTotalCount(int totalCount) {
