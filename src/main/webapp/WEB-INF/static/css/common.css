@@ -67,10 +67,15 @@ button {cursor: pointer;}
 
 /* ------------------------------------ */
 
+/* scroll bar */
+::-webkit-scrollbar {display: none;}
+
+/* ----------------------------------- */
+
 .logo {
 	text-align: center;
 	font-size: 2em;
-	padding: 0.5em;
+	padding: 0.75em 0 0.5em;
 }
 .logo a {color: #000;}
 .logout-btn, #userName {display: inline;}

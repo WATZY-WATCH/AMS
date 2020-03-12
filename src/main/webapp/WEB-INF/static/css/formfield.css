@@ -1,0 +1,70 @@
+label {
+    box-sizing: border-box;
+    position: relative;
+    padding: 4px 0;
+    padding-left: 1.5rem;
+    line-height: 14px;
+    font-size: 14px;
+    margin: 4px 0;
+    float: left;
+}
+label > svg {cursor: pointer;}
+label + input[type=checkbox] {
+    position: relative;
+    cursor: pointer;
+}
+input[type=checkbox] {
+    display: none;
+    position: absolute;
+    left: 0;
+}
+.ic-checkbox {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    fill: #CDD7E0;
+}
+input:checked + .ic-checkbox {fill: #EF978F;}
+.select-box {
+    height: 28px;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    padding: 0.25rem;
+    padding-left: 0.45rem;
+    padding-right: 0.75rem;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    background: url("/img/toggle-black.png") no-repeat calc(100% - 0.2rem) 49%;
+    background-size: 0.625rem 0.3125rem;
+    outline: none;
+    border-radius: 0.25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select-box:hover, #keywordInput:hover {border-color: #EF978F;}
+select::-ms-expand{display: none;}
+#searchType {width: 20%;}
+#keywordInput {
+    box-sizing: border-box;
+    width: 50%;
+    height: 28px;
+    padding: 0.5rem;
+    outline: none;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+}
+[id*="Btn"] {
+	box-sizing: border-box;
+	border: 0.0625rem solid rgba(20,20,94,0.1);
+	background-color: #fff;
+	width: 12%;
+	height: 28px;
+}
+#searchBtn {background-color: #EF978F;}
+@media (min-width: 786px) {
+	#searchType {width: 110px;}
+	#keywordInput {width: 250px;}
+	[id*="Btn"] {width: 50px;}
+}

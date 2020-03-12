@@ -11,12 +11,13 @@
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
 <title>스터디 그룹 리스트 </title>
-<link rel="stylesheet" href="/css/checkbox.css">
+<link rel="stylesheet" href="/css/formfield.css">
 <link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/card.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<h2>신청가능 스터디 목록입니다.</h2>
+<h2 class="menu-title">STUDY LIST</h2>
 <section id="container">
 	<div class="filter-table clearfix">
 		<div class="category-section clearfix">
@@ -123,7 +124,7 @@
 				</svg>
 			</label>
 			<label class="col-4">
-				<input type="checkbox" name="area" value="daz" <c:out value="${fn:contains(areaStr,'daz')?'checked':''}"/>> 대전/충천
+				<input type="checkbox" name="area" value="daz" <c:out value="${fn:contains(areaStr,'daz')?'checked':''}"/>> 대전/충청
 				<svg viewBox="0 0 14 14" class="ic-checkbox">
 					<path d="M0 7a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7zm6.5 3.5l4.785-5.215-1.257-1.141-3.524 3.524L4.26 5.425 2.846 6.839l2.243 2.243L6.5 10.5z" fill-rule="evenodd"></path>
 				</svg>
@@ -156,14 +157,14 @@
 		<div class="age-section">
 			<p class="section-title">연령</p>
 			<div>
-				<select id="startAge">
+				<select class="select-box" id="startAge" style="width: 40px;">
 						<option value="0">---</option>
 					<c:forEach var="i" begin="10" end="70" step="10">
 						<option value="${i }"<c:out value="${cri.startAge == i ?'selected':''}"/>>${i }</option>
 					</c:forEach>
 				</select>
 					대&nbsp;~&nbsp;
-				<select id="endAge">
+				<select class="select-box" id="endAge" style="width: 40px;">
 						<option value="0">---</option>
 					<c:forEach var="i" begin="10" end="70" step="10">
 						<option value="${i }" <c:out value="${cri.endAge == i ?'selected':''}"/>>${i }</option>
@@ -173,8 +174,8 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<select id="searchType">
+	<div class="search-table">
+		<select class="select-box" id="searchType">
 			<option value="n"
 				<c:out value="${cri.searchType == null?'selected':''}"/>>
 			---</option>
@@ -199,48 +200,36 @@
 		</select>
 		
 		<input type="text" id="keywordInput" value='${cri.keyword }'>
-		<button id='searchBtn' onclick="searchGroup(${cri.page},${cri.perPageNum})">Search</button>
+		<button id='searchBtn' onclick="searchGroup(${cri.page},${cri.perPageNum})">검색</button>
 		<button id='newBtn' onclick="newGroup()">초기화</button>
 	</div>
-	<br>
-	<table border="1">
-		<tr>
-			<th>번호</th>
-			<th>카테고리</th>
-			<th>그룹장</th>
-			<th>제목</th>
-			<th>최대 인원수</th>
-			<th>주기</th>
-			<th>지역</th>
-			<th>진행상황</th>
-			<th>연령대</th>
-			<th>조회수</th>
-			<th>작성 날짜</th>
-		</tr>
+	<div class="board clearfix">
 	<c:forEach items="${list}" var="GroupVO">
-		<tr>
-			<td>${GroupVO.groupId}</td>
-			<td>${GroupVO.groupCategory}</td>
-			<td>${GroupVO.userVO.userName}</td>
-			<td><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
+		<div class="group-card col-4">
+			<div class="clearfix">
+				<span class="group-id">${GroupVO.groupId}</span>
+				<span class="group-category">${GroupVO.groupCategory}</span>
+			</div>
+			<p class="group-status"> — ${GroupVO.groupStatus} — </p>
+			<p class="group-name"><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
 				<c:if test="${GroupVO.groupCommentCnt > 0}">
-					(${GroupVO.groupCommentCnt})
+					<span>(${GroupVO.groupCommentCnt})</span>
 				</c:if>
-			</a></td>
-			<td>${GroupVO.groupMemberLimit}</td>
-			<td>${GroupVO.groupPeriod}</td>
-			<td>${GroupVO.groupArea}</td>
-			<td>${GroupVO.groupStatus}</td>
-			<td>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</td>
-			<td>${GroupVO.groupViewCnt}</td>
-			<td>
+			</a></p>
+			<p class="group-master">${GroupVO.userVO.userName}</p>
+			<p class="group-member-limit">${GroupVO.groupMemberLimit}</p>
+			<p class="group-period">${GroupVO.groupPeriod}</p>
+			<p class="group-area">${GroupVO.groupArea}</p>
+			<p class="group-age">${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
+			<p class="group-view-cnt">${GroupVO.groupViewCnt}</p>
+			<p class="group-reg-date">
 				<fmt:timeZone value="Asia/Seoul">
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
 				</fmt:timeZone>
-			</td>
-		</tr>
+			</p>
+		</div>
 	</c:forEach>
-	</table>
+	</div>
 	<ul>
 		<c:if test="${pageMaker.prev}">
 			<li><a

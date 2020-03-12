@@ -1,30 +1,27 @@
+.menu-wrapper {margin: 0 8px;}
 .main-menu {
 	display: flex;
     text-align: center;
     float: left;
-    width: calc(100% / 3);
+    width: calc((100% - 16px) / 3);
     height: 30vh;
     justify-content: center;
     align-items: center;
     border: 1px solid #fff;
     box-sizing: border-box;
     cursor: pointer;
+    border-radius: 0.75rem;
+    margin-right: 8px;
+    margin-bottom: 0.5rem;
 }
-
-.main-menu a {
-    color: #fff;
-}
-
-.main-menu:nth-child(1) {
-    background-color: #EF978F;
-}
-.main-menu:nth-child(2) {
-    background-color: #FFC2AD;
-}
+.main-menu:hover {box-shadow: 0 0.0625rem 0.1875rem rgba(20,20,94,0.12), 0 0.1875rem 0.4375rem rgba(20,20,94,0.1);}
+.main-menu a {color: #fff;}
+.main-menu:nth-child(1) {background-color: #EF978F;}
+.main-menu:nth-child(2) {background-color: #FFC2AD;}
 .main-menu:nth-child(3) {
     background-color: #FDDFAC;
+    margin-right: 0;
 }
-
 nav {
 	color: #333;
 	font-weight: 400;
@@ -34,13 +31,8 @@ nav {
 	top: 16px;
 	vertical-align: middle;
 }
-
-nav a {
-    color: #EF978F;
-    text-decoration: underline;
-}
-
-@media (min-width: 320px) and(max-width: 768px) {
+nav span {color: #EF978F;}
+@media (max-width: 768px) {
 	.main-menu {
 			width: 100%;
 			height: 24vh;
@@ -54,5 +46,11 @@ nav a {
     body {
         width: 320px;
         position: relative;
+    }
+}
+@media (min-width: 1200px) {
+    .menu-wrapper {
+        width: 1200px;
+        margin: 0 auto;
     }
 }
