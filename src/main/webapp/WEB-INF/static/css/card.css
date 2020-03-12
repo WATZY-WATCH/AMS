@@ -1,0 +1,59 @@
+.board .group-card {
+    width: calc((100% - 3rem) / 3);
+    display: inline-block;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 300;
+    box-sizing: border-box;
+    border-top: 0.0625rem solid #E9ECF3;
+    padding: 1rem;
+    margin: 0.25rem 0.5rem;
+    vertical-align: top;
+}
+.group-card:nth-child(3n+2) {
+    margin: 0.25rem 0;
+}
+.group-card:hover {box-shadow: 0 0.0625rem 0.1875rem rgba(20,20,94,0.12), 0 0.1875rem 0.4375rem rgba(20,20,94,0.1);}
+.group-id {
+    font-weight: 600;
+    float: left;
+}
+.group-category {
+    font-size: 0.75rem;
+    float: right;
+    border-radius: 1rem;
+    background-color: rgba(129, 129, 129, 0.12);
+    padding: 0.125rem 0.5rem;
+}
+.group-name {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+.group-name a {color: #333;}
+.group-name span {
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.group-status {
+    display: inline-block;
+    color: #3e3e3e;
+}
+[class*="running"] {
+    color: #fff;
+    padding: 0.125rem 0.25rem;
+    line-height: 1.25rem;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+.prerunning { background-color: #99de2c;}
+.running {
+    background-color: #ffe499;
+    color: #333;
+}
+.group-master {color: #999;}
+@media (max-width: 768px) {
+    .board .group-card {
+        width: calc(100% - 1rem);
+        margin: 0.25rem 0.5rem;
+    }
+}

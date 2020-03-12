@@ -1,6 +1,5 @@
 package ams.group.domain;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SearchCriteria extends GroupCriteria{
