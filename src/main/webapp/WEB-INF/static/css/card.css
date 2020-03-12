@@ -1,13 +1,14 @@
 .board .group-card {
-    width: calc((100% - 2rem) / 3);
-    float: left;
+    width: calc((100% - 3rem) / 3);
+    display: inline-block;
     color: #333;
     font-size: 0.9rem;
     font-weight: 300;
     box-sizing: border-box;
-    border: 1px solid red;
-    padding: 0.5rem;
+    border-top: 0.0625rem solid #E9ECF3;
+    padding: 1rem;
     margin: 0.25rem 0.5rem;
+    vertical-align: top;
 }
 .group-card:nth-child(3n+2) {
     margin: 0.25rem 0;
@@ -36,6 +37,18 @@
 .group-status {
     display: inline-block;
     color: #3e3e3e;
+}
+[class*="running"] {
+    color: #fff;
+    padding: 0.125rem 0.25rem;
+    line-height: 1.25rem;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+.prerunning { background-color: #99de2c;}
+.running {
+    background-color: #ffe499;
+    color: #333;
 }
 .group-master {color: #999;}
 @media (max-width: 768px) {

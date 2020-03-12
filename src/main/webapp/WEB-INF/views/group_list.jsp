@@ -210,18 +210,19 @@
 				<span class="group-id">${GroupVO.groupId}</span>
 				<span class="group-category">${GroupVO.groupCategory}</span>
 			</div>
-			<p class="group-status"> — ${GroupVO.groupStatus} — </p>
+			<c:set value="모집중" var="status" />
+			<p class="group-status <c:if test='${GroupVO.groupStatus eq status }'>prerunning</c:if><c:if test='${GroupVO.groupStatus ne status }'>running</c:if>">${GroupVO.groupStatus}</p>
 			<p class="group-name"><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
 				<c:if test="${GroupVO.groupCommentCnt > 0}">
 					<span>(${GroupVO.groupCommentCnt})</span>
 				</c:if>
 			</a></p>
 			<p class="group-master">${GroupVO.userVO.userName}</p>
-			<p class="group-member-limit">${GroupVO.groupMemberLimit}</p>
+			<p class="group-member-limit">인원제한 ${GroupVO.groupMemberLimit}명</p>
 			<p class="group-period">${GroupVO.groupPeriod}</p>
 			<p class="group-area">${GroupVO.groupArea}</p>
 			<p class="group-age">${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
-			<p class="group-view-cnt">${GroupVO.groupViewCnt}</p>
+			<p class="group-view-cnt">조회 ${GroupVO.groupViewCnt}</p>
 			<p class="group-reg-date">
 				<fmt:timeZone value="Asia/Seoul">
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
