@@ -178,7 +178,7 @@
  		GA.USER_ID = U.USER_ID
  	WHERE GA.GROUP_ID=#{groupId}
  	ORDER BY GA.REG_DATE DESC
- 	LIMIT #{cri.pageStart}, 10
+ 	LIMIT #{cri.pageStart}, 12
  	]]>
    </select>
    
