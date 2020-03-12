@@ -80,6 +80,7 @@ public class GroupCommentController {
 			cri.setPage(curPage);
 			System.out.println("get list.........");
 			PageMaker commentPageMaker = new PageMaker();
+			cri.setPerPageNum(10);
 			commentPageMaker.setCri(cri);
 			commentPageMaker.setTotalCount(service.commentCount(groupId));
 			List<GroupCommentVO> gcvoList= service.commentList(groupId, cri);
