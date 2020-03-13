@@ -105,7 +105,7 @@ public class GroupManageDAOImpl implements GroupManageDAO {
 		return sql.update(ns+".updateMemberCnt", paramMap);
 	}
 	@Override
-	public GroupVO selectGroupVO(int groupId)throws Exception{
-		return sql.selectOne(ns+".selectGroupVO", groupId);
+	public int groupMemberCntChk(int groupId)throws Exception{
+		return sql.selectOne(ns+".groupMemberCntChk", groupId);
 	}
 }

@@ -296,12 +296,14 @@
   	update STUDY_GROUPS set GROUP_MEMBER_CNT = GROUP_MEMBER_CNT + #{amount} where GROUP_ID = #{groupId}
   	]]>
 	</update>
-	<select id="selectGroupVO" resultType="GroupVO">
+	<select id="groupMemberCntChk" resultType="int">
+	<![CDATA[
    	select
-   		group_member_cnt, group_member_limit
+   		count(*)
    	from
    		study_groups
-   	where group_id=#{groupId}
+   	where group_id=#{groupId} and group_member_limit>group_member_cnt
+   	]]>
    </select>
 </mapper>
 

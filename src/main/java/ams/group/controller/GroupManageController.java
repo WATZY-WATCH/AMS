@@ -54,6 +54,20 @@ public class GroupManageController {
 	}
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#vo.groupId, principal.username)")
+	@RequestMapping(value="/master/application", method = RequestMethod.POST)
+	public ResponseEntity<Integer> masterChk(@RequestBody GroupApplicationVO vo){
+		System.out.println("post masterChk.........");
+		ResponseEntity<Integer> entity = null;
+		try {
+			entity = new ResponseEntity<Integer>(service.groupMemberCntChk(vo.getGroupId()), HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@PreAuthorize("@customAuthorizationHandler.isAdmin(#vo.groupId, principal.username)")
 	@RequestMapping(value="/master/application", method = RequestMethod.DELETE)
 	public ResponseEntity<Integer> masterReject(@RequestBody GroupApplicationVO vo){
 		System.out.println("post masterReject.........");

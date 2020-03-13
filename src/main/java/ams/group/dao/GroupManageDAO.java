@@ -26,5 +26,5 @@ public interface GroupManageDAO {
 	public int nextMasterCheck(int groupId)throws Exception;
 	public int deleteGroup(int groupId)throws Exception;
 	public int updateMemberCnt(int groupId, int amount)throws Exception;
-	public GroupVO selectGroupVO(int groupId)throws Exception;
+	public int groupMemberCntChk(int groupId)throws Exception;
 }
