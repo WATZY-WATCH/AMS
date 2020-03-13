@@ -35,6 +35,10 @@
 	<button type="button" id="acceptBtn" onclick="acceptApplication(${gavo.groupId},'${gavo.userId }')">수락하기</button> &nbsp;
 	<button type="button" id="rejectBtn" onclick="rejectApplication(${gavo.groupId},'${gavo.userId }')">거절하기</button> &nbsp;
 	<button type="button" id="listBtn" onclick="listMaster(${gavo.groupId})">목록으로</button> &nbsp;
+	<script>
+		const groupMemberLimit=${gvo.groupMemberLimit};
+		const groupMemberCnt=${gvo.groupMemberCnt};
+	</script>
 	<script type="text/javascript" src="/js/group_manage_master_read.js"></script>
 </body>
 

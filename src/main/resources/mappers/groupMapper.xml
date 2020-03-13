@@ -33,18 +33,6 @@
    	WHERE GS.GROUP_ID = #{groupId} AND GS.BEGIN_TIME BETWEEN #{startDate} AND #{endDate}
    	ORDER BY BEGIN_TIME ASC
    </select>
-   
-   <select id="listPage" resultType="GroupVO">
- 	<![CDATA[
- 	select
- 		group_id, group_category, group_name, group_detail, group_member_limit, group_period, group_area, group_status, group_start_age, group_end_age, reg_date, mod_date, GROUP_VIEW_CNT, GROUP_COMMENT_CNT
- 	from
- 		study_groups
- 	where group_id > 0 and (group_status='모집중' or group_status='진행중')
- 	order by group_id desc, mod_date desc
- 	limit #{page},10
- 	]]>
- 	</select>
  	
  	<resultMap id="listUserName" type="UserVO">
 	    <result property="userName" column="USER_NAME"/>
@@ -54,6 +42,7 @@
 	    <result property="groupCategory" column="GROUP_CATEGORY"/>
 	    <result property="groupName" column="GROUP_NAME"/>
 	    <result property="groupDetail" column="GROUP_DETAIL"/>
+	    <result property="groupMemberCnt" column="GROUP_MEMBER_CNT"/>
 	    <result property="groupMemberLimit" column="GROUP_MEMBER_LIMIT"/>
 	    <result property="groupPeriod" column="GROUP_PERIOD"/>
 	    <result property="groupArea" column="GROUP_AREA"/>
@@ -73,6 +62,7 @@
  		, SG.GROUP_CATEGORY 
  		, SG.GROUP_NAME
  		, SG.GROUP_DETAIL
+ 		, SG.GROUP_MEMBER_CNT
  		, SG.GROUP_MEMBER_LIMIT
  		, SG.GROUP_PERIOD
  		, SG.GROUP_AREA
@@ -92,119 +82,7 @@
  		SG.GROUP_MASTER_ID = U.USER_ID
  	WHERE SG.GROUP_ID>0 AND (SG.GROUP_STATUS='모집중' OR SG.GROUP_STATUS='진행중')
  	]]>
- 	<if test="searchType != null" >
- 		<if test="searchType=='t'.toString()">
- 			and SG.GROUP_NAME like CONCAT('%', #{keyword}, '%')
- 		</if>
- 		<if test="searchType=='c'.toString()">
- 			and SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%')
- 		</if>
- 		<if test="searchType=='w'.toString()">
- 			and U.USER_NAME like CONCAT('%', #{keyword}, '%')
- 		</if>
- 		<if test="searchType=='tc'.toString()">
- 			and (SG.GROUP_NAME like CONCAT('%', #{keyword}, '%') OR SG.GROUP_DETAIL like CONCAT('%', #{keyword},'%'))
- 		</if>
- 		<if test="searchType=='cw'.toString()">
- 			and (SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%') OR U.USER_NAME like CONCAT('%',#{keyword}, '%'))
- 		</if>
- 		<if test="searchType=='tcw'.toString()">
- 			and (SG.GROUP_NAME like CONCAT('%', #{keyword}, '%')
- 			OR SG.GROUP_DETAIL like CONCAT('%', #{keyword}, '%')
- 			OR U.USER_NAME like CONCAT('%', #{keyword}, '%'))
- 		</if>
- 	</if>
- 	<if test="category != null" >
- 		and(
-		<foreach item="categoryList" collection="category" separator="or ">
-		 GROUP_CATEGORY =
-		 <if test="categoryList == 'ce'">
-		  '자격증'
-		 </if>
-		 <if test="categoryList == 'co'">
-		  '건설/설계'
-		 </if>
-		 <if test="categoryList == 'me'">
-		  '미디어/디자인'
-		 </if>
-		 <if test="categoryList == 'ma'">
-		  '마케팅/기획/영업'
-		 </if>
-		 <if test="categoryList == 'ci'">
-		  '유통/무역'
-		 </if>
-		 <if test="categoryList == 'it'">
-		  'IT/연구개발'
-		 </if>
-		 <if test="categoryList == 'pr'">
-		  '생산/제조/기계'
-		 </if>
-		 <if test="categoryList == 'op'">
-		  '경영/인사/사무'
-		 </if>
-		 <if test="categoryList == 'of'">
-		  '공무원'
-		 </if>
-		 <if test="categoryList == 'la'">
-		  '어학'
-		 </if>
-		 <if test="categoryList == 'ot'">
-		  '기타'
-		 </if>
-	    </foreach>
-	    )
-	</if>
-	<if test="area != null" >
- 		and(
-		<foreach item="areaList" collection="area" separator="or ">
-		 GROUP_AREA =
-		 <if test="areaList == 'sez'">
-		  '서울'
-		 </if>
-		 <if test="areaList == 'gyz'">
-		  '경기'
-		 </if>
-		 <if test="areaList == 'inz'">
-		  '인천'
-		 </if>
-		 <if test="areaList == 'gaz'">
-		  '강원'
-		 </if>
-		 <if test="areaList == 'daz'">
-		  '대전/충청'
-		 </if>
-		 <if test="areaList == 'dgz'">
-		  '대구'
-		 </if>
-		 <if test="areaList == 'buz'">
-		  '부산/울산'
-		 </if>
-		 <if test="areaList == 'gsz'">
-		  '경상'
-		 </if>
-		 <if test="areaList == 'gwz'">
-		  '광주/전라/제주'
-		 </if>
-	    </foreach>
-	    )
-	</if>
-	
-	<if test="startAge != null" >
-		<if test="startAge != 0" >
-			<![CDATA[
-	 			AND(GROUP_START_AGE) >= ${startAge }
-	 		]]>
-	 	</if>	
-	</if>
-	
-	<if test="endAge != null" >
-		<if test="endAge != 0" >
-			<![CDATA[
-	 			AND(GROUP_END_AGE) <= ${endAge }
-	 		]]>
- 		</if>
-	</if>
-	
+ 	<include refid="search"></include>
  	<![CDATA[
  	ORDER BY SG.GROUP_ID DESC, SG.REG_DATE DESC
  	LIMIT #{pageStart},#{perPageNum}
@@ -232,6 +110,7 @@
  		, SG.GROUP_CATEGORY 
  		, SG.GROUP_NAME
  		, SG.GROUP_DETAIL
+ 		, SG.GROUP_MEMBER_CNT
  		, SG.GROUP_MEMBER_LIMIT
  		, SG.GROUP_PERIOD
  		, SG.GROUP_AREA

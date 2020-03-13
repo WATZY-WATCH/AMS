@@ -16,6 +16,10 @@ function acceptApplication(groupId, userId) {
 		};
 	let confirmed = confirm("해당 회원을 스터디 멤버로 영입합니다.");
 	if(confirmed) {
+		if(groupMemberLimit<=groupMemberCnt){
+			alert("현재멤버가 가득 찼습니다.")
+			return;
+		}
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", "./master", true);
 		xhr.setRequestHeader(header, token);
@@ -24,11 +28,11 @@ function acceptApplication(groupId, userId) {
 		xhr.onload = function () {
 			if(xhr.status == 200 || xhr.status == 201) {
 				console.log(xhr.responseText);
-				if(xhr.responseText != 0) {
+				if(Number(xhr.responseText) >= 1) {
 					alert("해당 회원을 스터디 멤버로 수락하였습니다! ");
 					document.location.href="/groupManage/master?groupId="+groupId;
 				} else {
-					alert("에러가 발생했습니다. 잠시 후 다시 시도해주세요. ");
+					alert("에러가 발생하였습니다. 잠시후 다시 시도해주세요.");
 				}
 			}
 		}
