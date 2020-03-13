@@ -80,7 +80,12 @@
 }
 .page-num:last-child {border-right: 0.0625rem solid rgba(20,20,94,0.1);}
 .page-num a {color: #666;}
-.page-num a:hover {color: #EF978F;}
+.page-num a:hover:not(.active a) {color: #EF978F;}
+.active {background-color: #EF978F;}
+.active a {
+    color: #fff;
+    font-weight: 600;
+}
 @media (max-width: 768px) {
     #container {
         border: 0;

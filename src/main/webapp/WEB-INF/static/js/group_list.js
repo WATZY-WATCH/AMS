@@ -54,10 +54,11 @@ cardList.forEach(el=> {
 var paging = document.querySelectorAll(".page-num");
 paging.forEach(el=> {
 	var pageLink = el.querySelector("a");
+	const active = el.classList.contains("active");
 	el.onclick = function() {
 		location.href = pageLink.href;
 	}
-	if(!mobile) {
+	if(!mobile && !active) {
 		el.onmouseover = function() {
 			pageLink.style.color = "#EF978F";
 		}

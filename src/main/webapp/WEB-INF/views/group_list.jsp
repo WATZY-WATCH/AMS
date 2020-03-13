@@ -246,8 +246,7 @@
 		</c:if>
 		<c:forEach begin="${pageMaker.startPage }"
 			end="${pageMaker.endPage }" var="idx">
-			<li class="page-num"
-				<c:out value="${pageMaker.cri.page == idx}"/>>
+			<li class="page-num<c:if test='${pageMaker.cri.page == idx}'> active</c:if>">
 				<a href="./listCri${pageMaker.makeSearch(idx)}">${idx}</a>
 			</li>
 		</c:forEach>
