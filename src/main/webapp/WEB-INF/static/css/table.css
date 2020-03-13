@@ -65,6 +65,8 @@
     justify-content: center;
     align-items: center;
     flex-basis: auto;
+    overflow-x: scroll;
+    flex-wrap: wrap;
 }
 .page-num {
     box-sizing: border-box;
@@ -108,6 +110,10 @@
     .section-title {
         width: 100%;
         border-bottom: 0.0625rem solid rgba(20,20,94,0.1);
+    }
+    .pagination {
+        width: 100%;
+        overflow-x: scroll;
     }
 }
 @media (max-width: 320px) {
