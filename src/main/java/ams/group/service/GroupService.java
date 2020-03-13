@@ -27,4 +27,5 @@ public interface GroupService {
 	public GroupScheduleVO getSchedule(GroupScheduleVO vo) throws Exception;
 	public void requestAttend(GroupAttendanceVO vo, GroupMemberVO member, boolean isTimeout) throws Exception;
 	public String chkAttendanceStatus(GroupAttendanceVO vo) throws Exception;
+
 }

@@ -59,7 +59,9 @@ public class GroupManageViewController {
 	public String masterRead(@RequestParam int applicationId, @RequestParam int groupId, @ModelAttribute("cri") GroupCriteria cri, Model model) throws Exception {
 		System.out.println("get masterRead..............");
 		GroupApplicationVO gavo = service.masterApplicationRead(applicationId);
+		GroupVO gvo = service.selectGroupVO(groupId);
 		model.addAttribute("gavo",gavo);
+		model.addAttribute("gvo",gvo);
 		model.addAttribute("cri",cri);
 		return "group_manage_master_read";
 	}

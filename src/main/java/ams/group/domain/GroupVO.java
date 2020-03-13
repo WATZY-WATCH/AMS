@@ -11,6 +11,7 @@ public class GroupVO {
 	private String groupMasterId;
 	private String groupName;
 	private String groupDetail;
+	private int groupMemberCnt;
 	private int groupMemberLimit;
 	private String groupPeriod;
 	private String groupArea;
@@ -126,5 +127,12 @@ public class GroupVO {
 	public void setGroupMemberVO(GroupMemberVO groupMemberVO) {
 		this.groupMemberVO = groupMemberVO;
 	}
+	public int getGroupMemberCnt() {
+		return groupMemberCnt;
+	}
+	public void setGroupMemberCnt(int groupMemberCnt) {
+		this.groupMemberCnt = groupMemberCnt;
+	}
+	
 	
 }
