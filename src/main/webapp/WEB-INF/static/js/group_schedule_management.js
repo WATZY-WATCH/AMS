@@ -55,7 +55,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     const data = {x: latlng.Ga, y: latlng.Ha};
 	const xhr = new XMLHttpRequest();
 	
-	xhr.open("POST", "./locInfo");
+	xhr.open("POST", "/schedule/locInfo");
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -146,7 +146,7 @@ function submitModify(groupId, scheduleId) {
 	data.beginTime = new Date(scheduleBegin).format("yyyy-MM-dd HH:mm");
 	data.endTime = new Date(scheduleEnd).format("yyyy-MM-dd HH:mm");
 	
-	xhr.open("PUT", "./schedule");
+	xhr.open("PUT", "/schedule");
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));
@@ -174,7 +174,7 @@ function deleteSchedule(groupId, scheduleId) {
 		const xhr = new XMLHttpRequest();
 		
 		const data = {groupId: groupId, scheduleId : scheduleId};
-		xhr.open("DELETE", "./schedule");
+		xhr.open("DELETE", "/schedule");
 		xhr.setRequestHeader(header, token);
 		xhr.setRequestHeader("Content-Type", "application/json");
 		xhr.send(JSON.stringify(data));

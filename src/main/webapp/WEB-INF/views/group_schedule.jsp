@@ -15,7 +15,7 @@
 <body>
 	
 	<sec:csrfInput />
-	<a href="./mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
+	<a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
 
 	<section id="calendar">
 		<div>
