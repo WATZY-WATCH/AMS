@@ -205,7 +205,7 @@
 	</div>
 	<div class="board clearfix">
 	<c:forEach items="${list}" var="GroupVO">
-		<div class="group-card col-4">
+		<div class="card group-card col-4">
 			<div class="clearfix">
 				<span class="group-id">${GroupVO.groupId}</span>
 				<span class="group-category">${GroupVO.groupCategory}</span>
@@ -219,7 +219,9 @@
 			</a></p>
 			<p class="group-master">${GroupVO.userVO.userName}</p>
 			<p class="group-member-limit">인원제한 ${GroupVO.groupMemberLimit}명</p>
-			<p class="group-period">${GroupVO.groupPeriod}</p>
+			<c:set var = "period" value = "${fn:split(GroupVO.groupPeriod, '_')}" />
+      <c:set var = "periodStr" value = "${fn:join(period, ' ')}" />
+			<p class="group-period">${periodStr}회</p>
 			<p class="group-area">${GroupVO.groupArea}</p>
 			<p class="group-age">${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
 			<p class="group-view-cnt">조회 ${GroupVO.groupViewCnt}</p>

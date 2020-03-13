@@ -34,3 +34,10 @@ function newGroup() {
 	document.location.href="/group/listCri";
 }
 
+var cardList = document.querySelectorAll(".card");
+cardList.forEach(el=> {
+	var groupLink = el.querySelector(".group-name > a").href;
+	el.onclick = function() {
+		location.href = groupLink;
+	}
+})
