@@ -26,7 +26,7 @@ function searchGroup(page, perPageNum) {
 	}
 	const searchType = document.getElementById("searchType").value;
 	const keyword = document.getElementById("keywordInput").value;
-	document.location.href="/group/listCri?page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword
+	document.location.href="/group/listCri?page=1&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword
 	+ "&startAge="+startAge + "&endAge=" +endAge
 	+ (categoryString.length ? "&category=" + categoryString : "") +(areaString.length ? "&area=" + areaString : "");
 }

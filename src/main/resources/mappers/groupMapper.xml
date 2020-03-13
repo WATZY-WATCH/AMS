@@ -297,6 +297,96 @@
    			OR U.USER_NAME like CONCAT ('%',#{keyword}, '%'))
    		</if>
    	</if>
+   	<if test="category != null" >
+ 		and(
+		<foreach item="categoryList" collection="category" separator="or ">
+		 GROUP_CATEGORY =
+		 <if test="categoryList == 'ce'">
+		  '자격증'
+		 </if>
+		 <if test="categoryList == 'co'">
+		  '건설/설계'
+		 </if>
+		 <if test="categoryList == 'me'">
+		  '미디어/디자인'
+		 </if>
+		 <if test="categoryList == 'ma'">
+		  '마케팅/기획/영업'
+		 </if>
+		 <if test="categoryList == 'ci'">
+		  '유통/무역'
+		 </if>
+		 <if test="categoryList == 'it'">
+		  'IT/연구개발'
+		 </if>
+		 <if test="categoryList == 'pr'">
+		  '생산/제조/기계'
+		 </if>
+		 <if test="categoryList == 'op'">
+		  '경영/인사/사무'
+		 </if>
+		 <if test="categoryList == 'of'">
+		  '공무원'
+		 </if>
+		 <if test="categoryList == 'la'">
+		  '어학'
+		 </if>
+		 <if test="categoryList == 'ot'">
+		  '기타'
+		 </if>
+	    </foreach>
+	    )
+	</if>
+	<if test="area != null" >
+ 		and(
+		<foreach item="areaList" collection="area" separator="or ">
+		 GROUP_AREA =
+		 <if test="areaList == 'sez'">
+		  '서울'
+		 </if>
+		 <if test="areaList == 'gyz'">
+		  '경기'
+		 </if>
+		 <if test="areaList == 'inz'">
+		  '인천'
+		 </if>
+		 <if test="areaList == 'gaz'">
+		  '강원'
+		 </if>
+		 <if test="areaList == 'daz'">
+		  '대전/충청'
+		 </if>
+		 <if test="areaList == 'dgz'">
+		  '대구'
+		 </if>
+		 <if test="areaList == 'buz'">
+		  '부산/울산'
+		 </if>
+		 <if test="areaList == 'gsz'">
+		  '경상'
+		 </if>
+		 <if test="areaList == 'gwz'">
+		  '광주/전라/제주'
+		 </if>
+	    </foreach>
+	    )
+	</if>
+	
+	<if test="startAge != null" >
+		<if test="startAge != 0" >
+			<![CDATA[
+	 			AND(GROUP_START_AGE) >= ${startAge }
+	 		]]>
+	 	</if>	
+	</if>
+	
+	<if test="endAge != null" >
+		<if test="endAge != 0" >
+			<![CDATA[
+	 			AND(GROUP_END_AGE) <= ${endAge }
+	 		]]>
+ 		</if>
+	</if>
    </sql>
    
    <update id="updateCommentCnt">
