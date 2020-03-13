@@ -56,6 +56,31 @@
     margin: 0.5rem;
     padding: 0.5rem 0;
 }
+.pagination-wrapper {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+.pagination {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-basis: auto;
+}
+.page-num {
+    box-sizing: border-box;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    border-right: none;
+    padding: 0.25rem;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 2rem;
+    cursor: pointer;
+}
+.page-num:last-child {border-right: 0.0625rem solid rgba(20,20,94,0.1);}
+.page-num a {color: #666;}
+.page-num a:hover {color: #EF978F;}
 @media (max-width: 768px) {
     #container {
         border: 0;

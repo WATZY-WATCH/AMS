@@ -212,44 +212,53 @@
 			</div>
 			<c:set value="모집중" var="status" />
 			<p class="group-status <c:if test='${GroupVO.groupStatus eq status }'>prerunning</c:if><c:if test='${GroupVO.groupStatus ne status }'>running</c:if>">${GroupVO.groupStatus}</p>
-			<p class="group-name"><a href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
+			<p class="group-name"><a class="ellip" href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
 				<c:if test="${GroupVO.groupCommentCnt > 0}">
 					<span>(${GroupVO.groupCommentCnt})</span>
 				</c:if>
 			</a></p>
-			<p class="group-master">${GroupVO.userVO.userName}</p>
-			<p class="group-member-limit">인원제한 ${GroupVO.groupMemberLimit}명</p>
+			<div class="span-wrapper">
+				<span class="group-master">${GroupVO.userVO.userName}</span>
+				<span class="span-divider">⋅</span>
+				<span class="group-view-cnt">조회 ${GroupVO.groupViewCnt}</span>
+			</div>
+			<p class="group-area">${GroupVO.groupArea}</p>
 			<c:set var = "period" value = "${fn:split(GroupVO.groupPeriod, '_')}" />
       <c:set var = "periodStr" value = "${fn:join(period, ' ')}" />
 			<p class="group-period">${periodStr}회</p>
-			<p class="group-area">${GroupVO.groupArea}</p>
+			<p class="group-member-limit">최대 ${GroupVO.groupMemberLimit}명</p>
 			<p class="group-age">${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
-			<p class="group-view-cnt">조회 ${GroupVO.groupViewCnt}</p>
-			<p class="group-reg-date">
-				<fmt:timeZone value="Asia/Seoul">
-					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
-				</fmt:timeZone>
-			</p>
+			<div class="clearfix">
+				<span class="group-reg-date">
+					<fmt:timeZone value="Asia/Seoul">
+						<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
+					</fmt:timeZone>
+				</span>
+			</div>
 		</div>
 	</c:forEach>
 	</div>
-	<ul>
+	<div class="pagination-wrapper">
+		<ul class="pagination">
 		<c:if test="${pageMaker.prev}">
-			<li><a
+			<li class="page-num"><a
 				href="./listCri${pageMaker.makeSearch(pageMaker.startPage-1) }">&laquo;</a></li>
 		</c:if>
 		<c:forEach begin="${pageMaker.startPage }"
 			end="${pageMaker.endPage }" var="idx">
-			<li
+			<li class="page-num"
 				<c:out value="${pageMaker.cri.page == idx}"/>>
 				<a href="./listCri${pageMaker.makeSearch(idx)}">${idx}</a>
 			</li>
 		</c:forEach>
 		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			<li><a
-				href="./listCri${pageMaker.makeSearch(pageMaker.endPage+1)}">&raquo;</a></li>
+			<li class="page-num"><a
+				href="./listCri${pageMaker.makeSearch(pageMaker.endPage+1)}">&raquo;</a></li class="page-num">
 		</c:if>
 	</ul>
+	</div>
+	
+	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/group_list.js"></script>
 </section>
 </body>
