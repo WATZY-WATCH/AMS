@@ -32,13 +32,13 @@ import ams.group.service.GroupService;
 import ams.server.service.CustomAuthorizationHandler;
 
 @Controller
-@RequestMapping("/group/**")
+@RequestMapping("/schedule")
 public class GroupScheduleController {
 
 	@Inject GroupService service;
 	@Inject CustomAuthorizationHandler customAuthorizationHandler;
 	
-	@RequestMapping(value="/schedule", method=RequestMethod.GET)
+	@RequestMapping(value="", method=RequestMethod.GET)
 	public String groupSchedule(@RequestParam("groupId") int groupId, Model model, Principal principal) throws Exception {
 		System.out.println("get group schedule");
 		LocalDate today = LocalDate.now();
@@ -71,7 +71,7 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/schedule", method=RequestMethod.POST)
+	@RequestMapping(value="", method=RequestMethod.POST)
 	public int createSchedule(@RequestBody JsonNode info) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		
@@ -89,7 +89,7 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/schedule", method=RequestMethod.PUT)
+	@RequestMapping(value="", method=RequestMethod.PUT)
 	public int modifySchedule(@RequestBody JsonNode info) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
 		
@@ -108,7 +108,7 @@ public class GroupScheduleController {
 	
 	@PreAuthorize("@customAuthorizationHandler.isAdmin(#info.get('groupId').asInt(), principal.username)")
 	@ResponseBody
-	@RequestMapping(value="/schedule", method=RequestMethod.DELETE)
+	@RequestMapping(value="", method=RequestMethod.DELETE)
 	public int deleteSchedule(@RequestBody JsonNode info) throws Exception {
 		return service.deleteSchedule(info.get("scheduleId").asInt());
 	}
@@ -116,6 +116,8 @@ public class GroupScheduleController {
 	@ResponseBody
 	@RequestMapping(value="/calendar/{groupId}",  produces = "application/json; charset=utf8", method=RequestMethod.POST)
 	public String getCalendar(@PathVariable("groupId") int groupId, @RequestBody JsonNode info) throws Exception {
+		System.out.println("get group schedules");
+		
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> retObj = new HashMap<String, Object>();
 		

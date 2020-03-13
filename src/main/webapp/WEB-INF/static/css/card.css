@@ -1,9 +1,9 @@
 .card {cursor: pointer;}
-.board {margin-top: 2rem;}
+.board {margin-top: 1.25rem;}
 .board .group-card {
     width: calc((100% - 3rem) / 3);
     display: inline-block;
-    color: #333;
+    color: #666;
     font-size: 0.9rem;
     font-weight: 300;
     box-sizing: border-box;
@@ -31,14 +31,29 @@
     font-size: 1.75rem;
     font-weight: 600;
 }
-.group-name a {color: #333;}
+.group-name a {
+    color: #333;
+    transition: 0.2s all ease-in;
+}
 .group-name span {
     text-decoration: underline;
     text-underline-position: under;
 }
-.group-status {
-    display: inline-block;
-    color: #3e3e3e;
+.group-status {display: inline-block;}
+.group-reg-date {
+    float: right;
+    font-size: 0.8rem;
+}
+.span-wrapper {
+    vertical-align: middle;
+    padding-bottom: 0.25rem;
+    border-bottom: 0.0325rem solid rgba(20,20,94,0.1);
+    margin-bottom: 0.25rem;
+}
+.span-divider {
+    color: #dedede;
+    line-height: 1.25rem;
+    font-weight: 600;
 }
 [class*="running"] {
     color: #333;
@@ -47,12 +62,12 @@
     font-size: 0.8rem;
     margin-top: 0.25rem;
 }
-.prerunning { background-color: #C4E538;}
-.running {
-    background-color: #ffe499;
-    color: #333;
+.prerunning {background-color: #C4E538;}
+.running {background-color: #ffe499;}
+.group-area {
+    color: #555;
+    font-weight: 400;
 }
-.group-master {color: #999;}
 @media (max-width: 768px) {
     .board .group-card {
         width: calc(100% - 1rem);

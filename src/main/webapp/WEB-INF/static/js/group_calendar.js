@@ -11,7 +11,7 @@ function getSchedule(term) {
 	
 	const data = {year:year, month: month, term: term}
 	const xhr = new XMLHttpRequest();
-	xhr.open("POST", "./calendar/"+groupId);
+	xhr.open("POST", "/schedule/calendar/"+groupId);
 	xhr.setRequestHeader(header, token);
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(JSON.stringify(data));

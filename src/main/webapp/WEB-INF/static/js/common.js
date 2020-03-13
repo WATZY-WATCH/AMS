@@ -29,3 +29,7 @@ var elementToken = document.querySelector('meta[name="_csrf"]');
 var token = elementToken && elementToken.getAttribute("content");
 var elementHeader = document.querySelector('meta[name="_csrf_header"]');
 var header = elementHeader && elementHeader.getAttribute("content");
+
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}

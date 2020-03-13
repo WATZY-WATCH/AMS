@@ -19,7 +19,7 @@ button {cursor: pointer;}
 }
 
 .ellip {
-	width: 100px;    
+	width: 100%;  
  	text-overflow: ellipsis;  
  	white-space: nowrap;   
  	overflow: hidden;    

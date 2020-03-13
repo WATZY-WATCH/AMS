@@ -45,7 +45,7 @@
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
 				</fmt:timeZone>
 			</td>
-			<td><a href="/group/schedule?groupId=${GroupVO.groupId }">일정관리</a></td>
+			<td><a href="/schedule?groupId=${GroupVO.groupId }">일정관리</a></td>
 		</tr>
 	</c:forEach>
 	</table>
@@ -81,7 +81,7 @@
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.groupMemberVO.regDate}" />
 				</fmt:timeZone>
 			</td>
-			<td><a href="./schedule?groupId=${GroupVO.groupId }">일정보기</a></td>
+			<td><a href="/schedule?groupId=${GroupVO.groupId }">일정보기</a></td>
 		</tr>
 	</c:forEach>
 	</table>
