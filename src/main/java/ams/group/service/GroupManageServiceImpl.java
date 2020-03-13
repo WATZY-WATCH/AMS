@@ -45,6 +45,7 @@ public class GroupManageServiceImpl implements GroupManageService{
 	}
 	@Override
 	public int masterAccept(GroupApplicationVO vo)throws Exception{
+		dao.updateMemberCnt(vo.getGroupId(), 1);
 		return dao.masterAccept(vo);
 	}
 	@Override
@@ -61,6 +62,7 @@ public class GroupManageServiceImpl implements GroupManageService{
 	}
 	@Override
 	public int deleteMember(GroupMemberVO vo)throws Exception{
+		dao.updateMemberCnt(vo.getGroupId(), -1);
 		return dao.deleteMember(vo);
 	}
 	@Override
@@ -78,11 +80,15 @@ public class GroupManageServiceImpl implements GroupManageService{
 		if(ret>0) {
 			dao.updateMaster(vo.getGroupId());
 			dao.deleteMember(vo);
+			dao.updateMemberCnt(vo.getGroupId(), -1);
 			return dao.updateGroup(vo.getGroupId());
 		}else {
 			dao.deleteMember(vo);
 			return dao.deleteGroup(vo.getGroupId());
 		}
 	}
-
+	@Override
+	public GroupVO selectGroupVO(int groupId)throws Exception{
+		return dao.selectGroupVO(groupId);
+	}
 }
