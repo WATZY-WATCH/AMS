@@ -88,7 +88,7 @@ public class GroupManageServiceImpl implements GroupManageService{
 		}
 	}
 	@Override
-	public GroupVO selectGroupVO(int groupId)throws Exception{
-		return dao.selectGroupVO(groupId);
+	public int groupMemberCntChk(int groupId)throws Exception{
+		return dao.groupMemberCntChk(groupId);
 	}
 }
