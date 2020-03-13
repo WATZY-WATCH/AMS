@@ -111,13 +111,21 @@
         width: 100%;
         border-bottom: 0.0625rem solid rgba(20,20,94,0.1);
     }
-    .pagination {
-        width: 100%;
-        overflow-x: scroll;
-    }
+    .pagination {width: 100%;}
 }
 @media (max-width: 320px) {
     body {width: 320px;}
+    .page-num {
+	    width: 2rem;
+	    height: 2rem;
+	    border: 0.0625rem solid rgba(20,20,94,0.1);
+	    border-right: none;
+	    padding: 0.125rem;
+	    font-size: 0.6rem;
+	    text-align: center;
+	    line-height: 1.6rem;
+	    cursor: pointer;
+		}
     
 }
 @media (min-width: 1000px) {
