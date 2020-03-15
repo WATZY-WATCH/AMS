@@ -14,23 +14,21 @@ function commentTemplate (userId, commentList) {
 			curPage = comment.curPage;
 
 		let userNameNode = createNode("p", userName),
-			regDateNode = createNode("span", " (" + regDateStr + ")"),
+			regDateNode = createNode("span", regDateStr),
 			content = createNode("p", comment.commentMsg);
 		
 		content.classList.add("comment-content");
+		userNameNode.classList.add("user-name");
+		regDateNode.classList.add("reg-date");
 		
 		userNameNode.appendChild(regDateNode);
 		div.appendChild(userNameNode);
-		div.appendChild(content);
-		
-		if(regDate < modDate) {
-			let modDateNode = createNode("span", "(수정날짜 " + modDateStr + ")");
-			div.appendChild(modDateNode);
-		}
 		
 		if(userId === comment.userId) {
-			let modBtn = createNode("button", "수정"),
-				delBtn = createNode("button", "삭제");
+			let modBtn = document.createElement("button"),
+				delBtn = document.createElement("button");
+			modBtn.innerHTML = "<i class='material-icons'>edit</i>";
+			delBtn.innerHTML = "<i class='material-icons'>delete</i>";
 			modBtn.onclick = function (e) {
 				updateComment(e, commentId, curPage);
 			}
@@ -41,6 +39,14 @@ function commentTemplate (userId, commentList) {
 			delBtn.classList.add("del-btn");
 			div.appendChild(modBtn);
 			div.appendChild(delBtn);
+		}
+		
+		div.appendChild(content);
+		
+		if(regDate < modDate) {
+			let modDateNode = createNode("span", "수정됨 " + modDateStr);
+			modDateNode.classList.add("mod-date");
+			div.appendChild(modDateNode);
 		}
 		
 		div.commentId = commentId;
@@ -70,14 +76,14 @@ function listComment(curPage){
 			const listComment = document.getElementById("listComment");
 			listComment.innerHTML = "";
 			listComment.appendChild(commentTemplate(userId, ret.commentList));
-			listComment.appendChild(pagination(ret.commentPageMaker));
+			listComment.appendChild(pagination(curPage, ret.commentPageMaker));
 		}
 	}
 }
 
 function updateComment(e, commentId, curPage){
 	console.log("updatecomment");
-	const target = e.target;
+	const target = e.target.parentNode;
 	let comment = target.parentNode,
 		commentChild = comment.childNodes,
 		content;
@@ -96,11 +102,12 @@ function updateComment(e, commentId, curPage){
 			break;
 		}
 	}
-	comment.innerHTML="<textarea id='updateCommentMsg' cols="+"'80'"+" rows="+"'2'"+" placeholder='내용을 입력해주세요'></textarea>"
+	comment.innerHTML="<textarea id='updateCommentMsg' placeholder='내용을 입력해주세요'></textarea>"
 						+"<br>";
 	let updateBtn = createNode("button", "확인"),
 		cancelBtn = createNode("button", "취소");
-	
+	updateBtn.classList.add("update-btn");
+	cancelBtn.classList.add("cancel-btn");
 	updateBtn.onclick = function (e) {
 		updateCommentConfirm(e, commentId, curPage);
 	}
@@ -165,30 +172,49 @@ function deleteComment(commentId, curPage){
 	};
 }
 
-function pagination(pageMaker) {
-	let ul = document.createElement("ul"),
+function pagination(curPage, pageMaker) {
+	let div = document.createElement("div"),
+		ul = document.createElement("ul"),
 		startPage = pageMaker.startPage,
 		endPage = pageMaker.endPage;
+	
+	div.classList.add("pagination-wrapper");
+	ul.classList.add("pagination");
+	
 	if(pageMaker.prev) {
 		let li = createNode("li", "<<");
+		li.classList.add("page-num");
 		li.onclick = function () {
+			let active = document.querySelector(".pagination .active");
+			active.classList.remove("active");
+			li.classList.add("active");
 			listComment(startPage-1);
 		}
 		ul.appendChild(li);
 	}
 	for(let i=startPage; i<=endPage; i++) {
 		let li = createNode("li", i);
+		li.classList.add("page-num");
+		if(i === curPage) li.classList.add("active");
 		li.onclick = function () {
+			let active = document.querySelector(".pagination .active");
+			active.classList.remove("active");
+			li.classList.add("active");
 			listComment(i);
 		}
 		ul.appendChild(li);
 	}
 	if(pageMaker.next) {
 		let li = createNode("li", ">>");
+		li.classList.add("page-num");
 		li.onclick = function () {
+			let active = document.querySelector(".pagination .active");
+			active.classList.remove("active");
+			li.classList.add("active");
 			listComment(endPage+1);
 		}
 		ul.appendChild(li);
 	}
-	return ul;
+	div.appendChild(ul);
+	return div;
 }
