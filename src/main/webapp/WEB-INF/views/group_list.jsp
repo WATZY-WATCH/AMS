@@ -210,17 +210,12 @@
 				<span class="group-id">${GroupVO.groupId}</span>
 				<span class="group-category">${GroupVO.groupCategory}</span>
 			</div>
-			<c:set value="모집중" var="status" />
-			<p class="group-status <c:if test='${GroupVO.groupStatus eq status }'>prerunning</c:if><c:if test='${GroupVO.groupStatus ne status }'>running</c:if>">${GroupVO.groupStatus}</p>
+			<p class="group-status <c:if test='${GroupVO.groupStatus eq "모집중" }'>prerunning</c:if><c:if test='${GroupVO.groupStatus eq "진행중" }'>running</c:if>">${GroupVO.groupStatus}</p>
 			<p class="group-name"><a class="ellip" href="./listRead${pageMaker.makeSearch(pageMaker.cri.page)}&groupId=${GroupVO.groupId}">${GroupVO.groupName} 
-				<c:if test="${GroupVO.groupCommentCnt > 0}">
-					<span>(${GroupVO.groupCommentCnt})</span>
-				</c:if>
 			</a></p>
 			<div class="span-wrapper">
 				<span class="group-master">${GroupVO.userVO.userName}</span>
-				<span class="span-divider">⋅</span>
-				<span class="group-view-cnt">조회 ${GroupVO.groupViewCnt}</span>
+				<span class="group-view-cnt"><i class="material-icons">visibility</i> ${GroupVO.groupViewCnt}</span>
 			</div>
 			<p class="group-area">${GroupVO.groupArea}</p>
 			<c:set var = "period" value = "${fn:split(GroupVO.groupPeriod, '_')}" />
@@ -228,7 +223,11 @@
 			<p class="group-period">${periodStr}회</p>
 			<p class="group-member-limit">${GroupVO.groupMemberCnt } / ${GroupVO.groupMemberLimit}명</p>
 			<p class="group-age">${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
-			<div class="clearfix">
+			<div class="sub-info">
+				<i class="material-icons">
+					chat_bubble_outline
+					<span>${GroupVO.groupCommentCnt}</span>
+				</i>
 				<span class="group-reg-date">
 					<fmt:timeZone value="Asia/Seoul">
 						<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />

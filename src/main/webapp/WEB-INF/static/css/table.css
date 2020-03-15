@@ -3,7 +3,7 @@
     border-radius: 0.75rem;
     margin-top: 1.75rem;
 }
-[class*="-section"] {
+div[class*="-section"] {
     box-sizing: border-box;
     padding: 8px;
     margin: 0 auto;
@@ -88,6 +88,14 @@
     color: #fff;
     font-weight: 600;
 }
+
+div .material-icons {
+    font-size: 1rem;
+    vertical-align: middle;
+    margin-right: 0.25rem;
+}
+.material-icons span {vertical-align: bottom;}
+
 @media (max-width: 768px) {
     #container {
         border: 0;

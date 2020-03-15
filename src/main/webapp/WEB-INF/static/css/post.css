@@ -1,0 +1,182 @@
+#container {padding: 1rem;}
+#listBtn {
+    border: none;
+    font-size: 0.9rem;
+}
+#listBtn:hover {color: #EF978F;}
+#listBtn i {
+    font-size: 0.9rem;
+    vertical-align: text-top;
+}
+.span-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+.group-id {font-weight: 600;}
+.group-category {
+    font-size: 0.75rem;
+    border-radius: 1rem;
+    background-color: rgba(129, 129, 129, 0.12);
+    padding: 0.125rem 0.5rem;
+}
+.group-name {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+.group-status {display: inline-block;}
+.group-info {
+    margin-bottom: 1rem;
+}
+.group-detail {
+    width: 100%;
+    margin: 0.5rem 0;
+    box-sizing: border-box;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    border-radius: 0.25rem;
+    letter-spacing: 0.025rem;
+    line-height: 1.8;
+    background-color: #fcfcfc;
+}
+.group-detail span {
+    display: inline-block;
+    overflow-y: scroll;
+    max-height: 50vh;
+    margin: 0.5rem;
+    margin-bottom: 0;
+}
+.sub-info {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #999;
+    padding-bottom: 1rem;
+    border-bottom: 0.0625rem solid rgba(20,20,94,0.1);
+    margin-bottom: 1rem;
+}
+.sub-info span {vertical-align: middle;}
+.material-icons.info-label {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+.group-reg-date {
+    float: right;
+    font-size: 0.8rem;
+}
+[class*="running"] {
+    color: #333;
+    padding: 0.125rem 0.25rem;
+    line-height: 1.25rem;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}
+.prerunning {background-color: #C4E538;}
+.running {background-color: #ffe499;}
+.page-num {color: #666;}
+.page-num:hover:not(.active) {color: #EF978F;}
+.active {
+    background-color: #EF978F;
+    color: #fff;
+    font-weight: 600;
+}
+.section-title {
+    width: 100%;
+    text-align: left;
+}
+#applyBtn, #commentBtn {
+    width: 4rem;
+    height: 4rem;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border-radius: 0;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    background-color: #fff;
+    vertical-align: middle;
+}
+#applyBtn {height: 5.5rem;}
+#applyBtn:hover, #commentBtn:hover {
+    background-color: #EF978F;
+    color: #fff;
+}
+[id*="Msg"] {
+    resize: vertical;
+    box-sizing: border-box;
+    min-height: 4rem;
+    max-height: 8rem;
+    overflow-y: scroll;
+    padding: 0.5rem;
+}
+.comment textarea {
+    width: 100%;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+}		
+section[class*="-wrapper"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.apply-section {
+    padding: 1rem 0;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    border-left: 0;
+    border-right: 0;
+    margin: 1rem 0;
+}
+[class*="-wrapper"] > textarea {
+    flex: 1;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+}
+[id*="Msg"]:focus, [id*="Msg"]:hover {
+    border: 0.125rem solid #EF978F;
+    outline: none;
+}
+.comment {
+    border-bottom: 0.0625rem dashed rgba(20,20,94,0.1);
+    padding: 0.5rem;
+    padding-top: 0;
+    margin: 0.5rem 0;
+    font-size: 0.8rem;
+    color: #999;
+    font-weight: 300;
+}
+.comment:last-of-type {border: 0;}
+.comment-content, .user-name {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 400;
+}
+.user-name{
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+.comment-content {
+    letter-spacing: 0.025rem;
+    max-height: 10.5rem;
+    overflow-y: scroll;
+    padding: 0.25rem;
+    margin: 0.5rem 0;
+}
+.reg-date {
+	margin-left: 0.5rem;
+	font-size: 0.8rem;
+	color: #999;
+	font-weight: 300;
+}
+.mod-date {margin-right: 0.25rem;}
+.mod-btn, .del-btn {border: 0;}
+.mod-btn span, .del-btn span {font-size: 0.8rem;}
+[class*="-btn"] .material-icons {vertical-align: bottom;}
+.update-btn, .cancel-btn {
+    padding: 0.25rem;
+    margin: 0.25rem;
+    margin-left: 0;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+}
+.update-btn:hover, .cancel-btn:hover {
+    background-color :#EF978F;
+    color: #fff;
+}

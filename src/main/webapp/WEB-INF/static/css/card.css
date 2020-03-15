@@ -40,20 +40,18 @@
     text-underline-position: under;
 }
 .group-status {display: inline-block;}
-.group-reg-date {
-    float: right;
+.sub-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 0.8rem;
+    margin-top: 0.5rem;
 }
 .span-wrapper {
     vertical-align: middle;
     padding-bottom: 0.25rem;
     border-bottom: 0.0325rem solid rgba(20,20,94,0.1);
     margin-bottom: 0.25rem;
-}
-.span-divider {
-    color: #dedede;
-    line-height: 1.25rem;
-    font-weight: 600;
 }
 [class*="running"] {
     color: #333;
@@ -67,6 +65,11 @@
 .group-area {
     color: #555;
     font-weight: 400;
+}
+.card .material-icons {
+	font-size: 0.9rem;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 @media (max-width: 768px) {
     .board .group-card {
