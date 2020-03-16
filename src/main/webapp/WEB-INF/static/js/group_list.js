@@ -34,7 +34,6 @@ function newGroup() {
 	document.location.href="/group/listCri";
 }
 
-const mobile = isMobile();
 var cardList = document.querySelectorAll(".card");
 cardList.forEach(el=> {
 	var groupLink = el.querySelector(".group-name > a");
@@ -47,23 +46,6 @@ cardList.forEach(el=> {
 		}
 		el.onmouseout = function() {
 			groupLink.style.color = "#333";
-		}
-	}
-})
-
-var paging = document.querySelectorAll(".page-num");
-paging.forEach(el=> {
-	var pageLink = el.querySelector("a");
-	const active = el.classList.contains("active");
-	el.onclick = function() {
-		location.href = pageLink.href;
-	}
-	if(!mobile && !active) {
-		el.onmouseover = function() {
-			pageLink.style.color = "#EF978F";
-		}
-		el.onmouseout = function() {
-			pageLink.style.color = "#666";
 		}
 	}
 })

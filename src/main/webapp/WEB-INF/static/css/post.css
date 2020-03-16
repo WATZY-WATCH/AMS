@@ -2,6 +2,7 @@
 #listBtn {
     border: none;
     font-size: 0.9rem;
+    outline: none;
 }
 #listBtn:hover {color: #EF978F;}
 #listBtn i {

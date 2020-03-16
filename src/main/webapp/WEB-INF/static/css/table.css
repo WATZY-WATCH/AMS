@@ -20,6 +20,7 @@ div[class*="-section"] {
     border-radius: 1.25rem;
     color: #fff;
     letter-spacing: 0.125rem;
+    cursor: default;
 }
 .category-section {
     width: 40%;
