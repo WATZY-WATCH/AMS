@@ -1,8 +1,3 @@
-const elementToken = document.querySelector('meta[name="_csrf"]');
-const token = elementToken && elementToken.getAttribute("content");
-const elementHeader = document.querySelector('meta[name="_csrf_header"]');
-const header = elementHeader && elementHeader.getAttribute("content");
-
 function leaveGroup(groupId, userId) {
 	const data = {
 			groupId : groupId,
@@ -31,3 +26,19 @@ function leaveGroup(groupId, userId) {
 function listHome() {
 	document.location.href="/groupManage/home";
 }
+
+var cardList = document.querySelectorAll(".card");
+cardList.forEach(el=> {
+	var groupLink = el.querySelector(".application-content > a");
+	el.onclick = function() {
+		location.href = groupLink.href;
+	}
+	if(!mobile) {
+		el.onmouseover = function() {
+			groupLink.style.color = "#EF978F";
+		}
+		el.onmouseout = function() {
+			groupLink.style.color = "#333";
+		}
+	}
+})

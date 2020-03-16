@@ -2,6 +2,7 @@
 #listBtn {
     border: none;
     font-size: 0.9rem;
+    outline: none;
 }
 #listBtn:hover {color: #EF978F;}
 #listBtn i {
@@ -43,6 +44,7 @@
 .group-detail span {
     display: inline-block;
     overflow-y: scroll;
+    overscroll-behavior: contain;
     max-height: 50vh;
     margin: 0.5rem;
     margin-bottom: 0;
@@ -107,6 +109,7 @@
     min-height: 4rem;
     max-height: 8rem;
     overflow-y: scroll;
+    overscroll-behavior: contain;
     padding: 0.5rem;
 }
 .comment textarea {
@@ -157,6 +160,7 @@ section[class*="-wrapper"] {
     letter-spacing: 0.025rem;
     max-height: 10.5rem;
     overflow-y: scroll;
+    overscroll-behavior: contain;
     padding: 0.25rem;
     margin: 0.5rem 0;
 }

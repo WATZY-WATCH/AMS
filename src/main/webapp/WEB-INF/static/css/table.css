@@ -20,6 +20,7 @@ div[class*="-section"] {
     border-radius: 1.25rem;
     color: #fff;
     letter-spacing: 0.125rem;
+    cursor: default;
 }
 .category-section {
     width: 40%;
@@ -132,8 +133,8 @@ div .material-icons {
 	    font-size: 0.6rem;
 	    text-align: center;
 	    line-height: 1.6rem;
-	    cursor: pointer;
-		}
+        cursor: pointer;
+    }
     
 }
 @media (min-width: 1000px) {

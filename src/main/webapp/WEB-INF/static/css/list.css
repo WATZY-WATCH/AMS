@@ -1,0 +1,112 @@
+.study-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 1rem 0.5rem;
+}
+[class*="-study"] {
+    position: relative;
+    padding-bottom: 1rem;
+    border: 0.0625rem solid rgba(20,20,94,0.1);
+    border-right: none;
+    height: 80vh;
+    overflow-y: scroll;
+}
+[class*="-study"]:not(.list-title) {overscroll-behavior: contain;}
+[class*="-study"]:first-child {
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+[class*="-study"]:last-child {
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+    border-right: 0.0625rem solid rgba(20,20,94,0.1);
+}
+[class*="-study"] .study:last-child {border-bottom: 0;}
+.list-title {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0;
+    background-color: #f5f5f5;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.study {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0.5rem 0.25rem;
+    padding: 1rem;
+    padding-bottom: 0.25rem;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid rgba(20,20,94,0.1);
+    cursor: default;
+}
+.sub-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+.group-id {font-weight: 600;}
+.group-category {
+    border-radius: 1rem;
+    background-color: rgba(129, 129, 129, 0.12);
+    padding: 0.125rem 0.5rem;
+    font-weight: 300;
+}
+.group-status {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding: 0.125rem;
+    margin: 0.25rem 0 0.125rem;
+}
+.prerunning {background-color: #C4E538;}
+.running {background-color: #ffe499;}
+.group-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    line-height: 1.6;
+}
+.group-name a {color: #333;}
+.group-name a:hover {color: #EF978F;}
+.group-reg-date {
+	text-align: right;
+	font-size: 0.8rem;
+	font-weight: 300;
+}
+.group-schedule {
+    font-size: 0.9rem;
+    font-weight: 300;
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+    border-radius: 0.25rem;
+}
+.group-schedule a {color: #333;}
+.group-schedule:hover {
+    cursor: pointer;
+    background-color: #fc5c65;
+}
+.group-schedule:hover a {color: #fff;}
+@media(min-width: 1000px) {
+    .study-section {
+        width: 1000px;
+        margin: 1rem auto;
+    }
+}
+@media(max-width: 576px) {
+    .study-section {
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0.5rem 1rem;
+    }
+    [class*="-study"] {
+        margin: 0.5rem 0;
+        height: 70vh;
+        border-radius: 0.75rem;
+        border-right: 0.0625rem solid rgba(20,20,94,0.1);
+    }
+}

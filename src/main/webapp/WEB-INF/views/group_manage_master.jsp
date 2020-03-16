@@ -11,51 +11,48 @@
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
 <title>스터디 그룹 운영 </title>
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/card.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<a href="/groupManage/home">[관리 홈으로] </a>
-	<h2> 스터디를 신청한 인원 목록입니다.</h2>
-	<table border="1">
-		<tr>
-			<th>닉네임</th>
-			<th>신청서 내용</th>
-			<th>신청 날짜</th>
-		</tr>
+	<div class="btn-wrapper">
+		<button type="button" id="listBtn" onclick="listHome()"><i class="material-icons">keyboard_backspace</i>목록으로</button>
+		<button type="button" id="leaveGroupBtn" onclick="leaveGroup(${groupId },'${userId }')">그룹 나가기<i class="material-icons">exit_to_app</i></button>
+	</div>
+	<h2 class="menu-title">APPLICATION LIST</h2>
+	<section class="application-list">
 	<c:forEach items="${gavoList}" var="GroupApplicationVO">
-		<tr>
-			<td>${GroupApplicationVO.userVO.userName}</td>
-			<td><a class="ellip" href="/groupManage/masterRead${pageMaker.makeQuery(pageMaker.cri.page)}&groupId=${GroupApplicationVO.groupId }&applicationId=${GroupApplicationVO.applicationId}">${GroupApplicationVO.msg}</a></td>
-			<td>
+		<div class="card application-card">
+			<p class="user-name ellip">${GroupApplicationVO.userVO.userName}</p>
+			<p class="application-content"><a class="ellip" href="/groupManage/masterRead${pageMaker.makeQuery(pageMaker.cri.page)}&groupId=${GroupApplicationVO.groupId }&applicationId=${GroupApplicationVO.applicationId}">${GroupApplicationVO.msg}</a></p>
+			<p class="reg-date">
 				<fmt:timeZone value="Asia/Seoul">
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupApplicationVO.regDate}" />
 				</fmt:timeZone>
-			</td>
-		</tr>
+			</p>
+		</div>
 	</c:forEach>
-	</table>
-	<ul>
-		<c:if test="${pageMaker.prev}">
-			<li><a
-				href="/groupManage/master${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
-		</c:if>
-		<c:forEach begin="${pageMaker.startPage }"
-			end="${pageMaker.endPage }" var="idx">
-			<li
-				<c:out value="${pageMaker.cri.page == idx}"/>>
-				<a href="/groupManage/master${pageMaker.makeQuery(idx)}&groupId=${groupId}">${idx}</a>
-			</li>
-		</c:forEach>
-		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			<li><a
-				href="/groupManage/master${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
-		</c:if>
-	</ul>
-	<br>
-	<br>
-	<button type="button" id="leaveGroupBtn" onclick="leaveGroup(${groupId },'${userId }')">그룹 나가기</button> &nbsp;
-	<button type="button" id="listHome" onclick="listHome()">목록으로</button> &nbsp;
+	</section>
+	<div class="pagination-wrapper">
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev}">
+				<li class="page-num"><a
+					href="/groupManage/master${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }" var="idx">
+				<li class="page-num<c:if test='${pageMaker.cri.page == idx}'> active</c:if>">
+					<a href="/groupManage/master${pageMaker.makeQuery(idx)}&groupId=${groupId}">${idx}</a>
+				</li>
+			</c:forEach>
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li class="page-num"><a
+					href="/groupManage/master${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
+			</c:if>
+		</ul>
+	</div>
+	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/group_manage_master.js"></script>
-	
 </body>
 </html>

@@ -33,3 +33,21 @@ var header = elementHeader && elementHeader.getAttribute("content");
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
+
+const mobile = isMobile();
+var paging = document.querySelectorAll(".page-num");
+paging.forEach(el=> {
+	var pageLink = el.querySelector("a");
+	const active = el.classList.contains("active");
+	el.onclick = function() {
+		location.href = pageLink.href;
+	}
+	if(!mobile && !active) {
+		el.onmouseover = function() {
+			pageLink.style.color = "#EF978F";
+		}
+		el.onmouseout = function() {
+			pageLink.style.color = "#666";
+		}
+	}
+})

@@ -1,0 +1,97 @@
+[id*="Btn"] {
+    border: 0;
+    outline: none;
+}
+.application {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    min-height: 300px;
+    height: 70vh;
+    box-sizing: border-box;
+    border-radius: 0.75rem;
+    margin: 0 auto;
+    margin-top: 1.75rem;
+    background-color: #f5f5f5;
+    flex-wrap: wrap;
+}
+.user-info {
+    width: 100%;
+    padding: 1rem;
+}
+.user-name {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.reg-date {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+}
+#listBtn {
+    border: none;
+    font-size: 0.9rem;
+    outline: none;
+    margin-left: 0.5rem;
+}
+#listBtn:hover {color: #EF978F;}
+#listBtn i {
+    font-size: 0.9rem;
+    vertical-align: text-top;
+}
+.user-msg {
+    width: 100%;
+    padding: 0.25rem;
+    box-sizing: border-box;
+    margin: 0.5rem 0;
+    background-color: #fff;
+}
+.user-msg span {
+    display: inline-block;
+    min-height: 6.5rem;
+    height: 50vh;
+    letter-spacing: 0.025rem;
+    line-height: 1.6;
+    padding: 0.25rem;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: default;
+}
+.btn-wrapper {
+    width: 100%;
+    display: flex;
+    align-self: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 0.0625rem solid rgba(20,20,94,0.1);
+}
+#acceptBtn, #rejectBtn {
+    flex: 1;
+    background: transparent;
+    padding: 1rem 0.25rem;
+    font-size: 0.8rem;
+}
+#acceptBtn:hover, #rejectBtn:hover {
+    background-color: #fc5c65;
+    color: #fff;
+}
+#acceptBtn {
+    border-bottom-left-radius: 0.75rem;
+    border-right: 0.0625rem solid rgba(20,20,94,0.1);
+}
+#rejectBtn {
+    border-bottom-right-radius: 0.75rem;
+}
+@media (max-width: 576px) {
+    .application {
+        width: calc(100% - 1rem);
+        margin: 0 0.5rem;
+    }
+    .menu-title {
+        margin: 1rem auto;
+    }
+    .application {height: 60vh;}
+    .user-msg span {height: 36vh;}
+}
