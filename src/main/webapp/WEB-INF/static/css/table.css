@@ -133,8 +133,8 @@ div .material-icons {
 	    font-size: 0.6rem;
 	    text-align: center;
 	    line-height: 1.6rem;
-	    cursor: pointer;
-		}
+        cursor: pointer;
+    }
     
 }
 @media (min-width: 1000px) {

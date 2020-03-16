@@ -140,6 +140,10 @@
         border-radius: 0.5rem;
         margin-top: 0.5rem;
     }
+    .application-card {
+        height: 10vh;
+        min-height: 80px;
+    }
     .application-card:nth-child(4n+1) {margin-left: 0.5rem;}
     .application-card:nth-child(4n+4) {margin-right: 0.5rem;}
 }
