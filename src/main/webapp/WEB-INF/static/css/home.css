@@ -22,7 +22,10 @@
     background-color: #FDDFAC;
     margin-right: 0;
 }
-#userName a {color: #EF978F;}
+#userName a {
+    color: #EF978F;
+    text-decoration: underline;
+}
 nav {
 	color: #333;
 	font-weight: 400;

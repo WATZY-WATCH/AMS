@@ -7,11 +7,12 @@
 <meta charset="UTF-8">
 <sec:csrfMetaTags />
 <title>회원탈퇴 </title>
+<link rel="stylesheet" href="/css/form.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<h2>기존 비밀번호를 다시 입력해주세요.</h2>
-<section id="container">
+<h3 class="info-msg-wrapper"><b class="info-msg">기존 비밀번호를 다시 입력해주세요</b></h3>
+<section id="wrapper">
 			<form>
 			<sec:csrfInput />
 				<div>
@@ -21,7 +22,6 @@
 				<div>
 					<label for="userPw">비밀번호</label>
 					<input type="password" id="userPw" name="userPw" />
-					<br>
 					<button type="button" id="pwChkBtn" onclick="pwChk()">회원탈퇴 </button>
 					<p id="pwMsg" style="display:none">비밀번호가 틀렸습니다. </p>
 				</div>
