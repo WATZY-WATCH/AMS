@@ -89,6 +89,34 @@ button:disabled {
     font-size: 0.9rem;
     margin: 0.5rem 0;
 }
+.user-modify-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.user-modify-form div {width: 100%;}
+.user-modify-form a {margin-bottom: 0.5rem;}
+.user-name, .user-email {
+    flex-wrap: nowrap;
+    margin-top: 0.25rem;
+}
+.user-modify-form i {
+    font-size: 1rem;
+    vertical-align: text-top;
+}
+.user-modify-form #userName, .user-modify-form #userEmail {
+    width: 78%;
+    flex: 1;
+    display: inline-block;
+}
+#nameChkBtn, #emailChkBtn {
+    width: 20%;
+    font-size: 0.8rem;
+    flex: 1;
+    margin-bottom: 0.25rem;
+}
+#nameMsg, #emailMsg {margin-bottom: 0.25rem;}
 @media(max-width: 768px) {
     #groupCreateForm {width: calc(100% - 1rem);}
 }

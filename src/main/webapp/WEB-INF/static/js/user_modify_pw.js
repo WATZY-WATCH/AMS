@@ -47,7 +47,7 @@ function pwChk() {
 				msg.innerHTML = "비밀번호가 틀렸습니다.";
 				msg.style.display = "inline";
 				msg.style.fontSize = "14px";
-				msg.style.color = "red";
+				msg.style.color = "#EF978F";
 			}
 		}
 	}

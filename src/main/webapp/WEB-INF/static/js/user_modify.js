@@ -33,7 +33,7 @@ function nameChk() {
 				msg.innerHTML = "중복된 닉네임이 존재합니다.";
 				msg.style.display = "inline";
 				msg.style.fontSize = "14px";
-				msg.style.color = "red";
+				msg.style.color = "#EF978F";
 				nameChked = false;
 			}
 		}
