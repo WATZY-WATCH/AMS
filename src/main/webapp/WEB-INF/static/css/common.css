@@ -7,9 +7,16 @@
 	margin: 0;
 	font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
 }
-a {text-decoration: none;}
+a {
+	text-decoration: none;
+	color: #333;
+}
+a:hover {color: #EF978F;}
 li {list-style: none;}
-button {cursor: pointer;}
+button {
+	cursor: pointer;
+	outline: none;
+}
 
 /* 공통요소 */
 .clearfix::after {

@@ -157,14 +157,14 @@
 		<div class="age-section">
 			<p class="section-title">연령</p>
 			<div>
-				<select class="select-box" id="startAge" style="width: 40px;">
+				<select class="select-box" id="startAge">
 						<option value="0">---</option>
 					<c:forEach var="i" begin="10" end="70" step="10">
 						<option value="${i }"<c:out value="${cri.startAge == i ?'selected':''}"/>>${i }</option>
 					</c:forEach>
 				</select>
 					대&nbsp;~&nbsp;
-				<select class="select-box" id="endAge" style="width: 40px;">
+				<select class="select-box" id="endAge">
 						<option value="0">---</option>
 					<c:forEach var="i" begin="10" end="70" step="10">
 						<option value="${i }" <c:out value="${cri.endAge == i ?'selected':''}"/>>${i }</option>

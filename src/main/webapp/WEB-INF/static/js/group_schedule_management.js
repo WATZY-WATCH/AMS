@@ -33,6 +33,7 @@ var initMarker = new kakao.maps.Marker({
 // 지도에 마커를 표시합니다
 initMarker.setMap(map);
 
+const close = document.querySelector(".close");
 const groupName = document.querySelector(".groupName");
 const scheduleModalWrapper = document.querySelector(".schedule-modal-wrapper");
 const scheduleModalContent = document.querySelector(".schedule-modal-content");
@@ -42,6 +43,10 @@ var dateInput = document.getElementById("scheduleDate");
 var beginTime = document.getElementById("beginTime");
 var endTime = document.getElementById("endTime");
 
+close.onclick = function () {
+	scheduleModalWrapper.classList.add("fade-out");
+	scheduleModalWrapper.classList.remove("fade-in");
+}
 scheduleModalWrapper.onclick = function (e) {
 	if(e.target === scheduleModalWrapper && e.target != scheduleModalContent) {
 		scheduleModalWrapper.classList.add("fade-out");

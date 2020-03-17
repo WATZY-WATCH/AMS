@@ -1,14 +1,27 @@
+button {
+	border: none;
+	background: transparent;
+}
+button:hover {color: #EF978F;}
 .schedule-modal-wrapper {
-	position: absolute;
+	position: fixed;
 	opacity: 0;
 	width: 100%;
 	height: 100vh;
 	top: 0;
 	left: 0;
 	background-color: rgba(0, 0, 0, 0.7);
+	background-size: cover;
 	pointer-events: none;
+	cursor: default;
 }
-
+.close {
+	width: 100%;
+	text-align: right;
+	margin-bottom: 0.25rem;
+}
+.close i {cursor: pointer;}
+.close i:hover {color: #EF978F;}
 .schedule-modal-content {
 	width: 500px;
 	height: 80vh;
@@ -16,40 +29,158 @@
 	background-color: #fff;
 	margin: 5% auto;
 	border-radius: 3px;
+	box-sizing: border-box;
+	padding: 1rem;
+	padding-bottom: 0;
+	font-size: 0.85rem;
 }
-
+.map_wrap+.schedule-modal-wrapper .schedule-modal-content {
+	height: 60vh;
+}
+.groupName {
+	display: inline-block;
+	padding-right: 0.25rem;
+	word-break: break-all;
+	font-weight: 500;
+	font-size: 1.2rem;
+	color: #333;
+}
+input[type=date], input[type=time] {-webkit-appearance:none;}
+.time-wrapper {margin: 0 auto;}
+#beginTime, #endTime {
+	display: inline-block;
+	width: 47.5%;
+	box-sizing: border-box;
+}
+.map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 46%;}
+#beginTime+span {
+	line-height: 50px;
+	margin: 0 0.25rem;
+}
+#scheduleDate {
+	width: 100%;
+	box-sizing: border-box;
+}
+#scheduleDate:read-only:hover, #beginTime:read-only:hover, #endTime:read-only:hover {
+	background-color: #FBFBFD;
+	border: 1px solid #E9ECF3;
+}
+#scheduleDate:read-only ~ .submit-btn {display: none;}
+#scheduleDate:read-write ~ .submit-btn {
+	display: block;
+	width: 100%;
+	height: auto;
+	padding: 0.5rem 0;
+}
+#scheduleDate:read-write ~ .submit-btn:hover {
+	color: #fff;
+	background-color: #EF978F;
+}
+.submit-btn {background-color: #E9ECF3;}
 .fade-in {
   animation: fadeIn 0.7s ease-in;
   opacity: 1 !important;
   pointer-events: auto;
   z-index:1;
 }
-
 .fade-out {
   animation: fadeOut 0.7s ease;
   opacity: 0 !important;
   pointer-events: none;
   z-index: 0;
 }
-
-.weeks {
-	width: 100%;
+#calendar {
+	width: calc(100% - 1rem);
+	cursor: default;
+	margin: 0 auto;
 }
-
-[class*="day-"], .day-name {
-	width: 14.28%;
-	float: left;
+#calendar button, .schedule-modal-content button {
+	width: initial;
+	height: 1rem;
+	color: #333;
 }
-
-.day-label {
-	height: 16px;
-	padding: 4px;
+#calendar button:hover, .schedule-modal-content button:hover {
+	background: transparent;
+	color: #EF978F;
+	transition: 0.1s all ease-in;
+}
+#calendar .material-icons, .schedule-modal-content .material-icons {
+	font-size: 1.2rem;
+	vertical-align: text-bottom;
+}
+.calendar-month {
+	text-align: center;
+	font-size: 1.5rem;
 	font-weight: 600;
+	padding: 0.5rem;
+	margin: 1rem auto 0;
+	border-top-left-radius: 0.75rem;
+	border-top-right-radius: 0.75rem;
+	background-color: #E9ECF3;
 }
-
+.calendar-body {
+	border: 0.0625rem solid #f2f2f2;
+	border-top: 0;
+	border-bottom: 0;
+}
+.calendar-day, .weeks {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	overflow-x: scroll;
+	overscroll-behavior: contain;
+}
+.day-name {
+	text-align: center;
+	padding: 0.25rem;
+	border: 0.0625rem solid #f2f2f2;
+	border-top: 0;
+	border-right: 0;
+}
+.day-name:last-child {border-right: 0.0625rem solid #f2f2f2;}
+[class*="day-"] {
+	padding: 0.5rem;
+	border-bottom: 0.0625rem solid #f2f2f2;
+}
+.day, .day-name {
+	min-width: calc(100% / 7);
+}
+.day-label {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	padding: 4px;
+	font-weight: 500;
+	font-size: 0.8rem;
+	text-align: center;
+	vertical-align: middle;
+	border-width: 0.125rem;
+}
 .days {
 	box-sizing: border-box;
-	padding: 4px;
-	height: 96px;
+	height: 6rem;
 	overflow-y: scroll;
+}
+.daily-schedule {
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 0.25rem;
+	font-size: 0.9rem;
+	margin: 0.25rem 0;
+	border-left: 0.125rem solid #FFEB3B;
+	overflow-y: scroll;
+	overscroll-behavior: contain;
+	cursor: pointer;
+}
+@media(min-width: 1000px) {
+	#calendar {
+		width: 1000px;
+		margin: 0 auto;
+	}
+}
+@media(max-width: 576px) {
+	.schedule-modal-content {width: calc(100% - 1rem);}
+	.daily-schedule {font-size: 0.8rem;}
+	.days {height: 3.5rem;}
+	#beginTime, #endTime {width: 45.7%;}
+	.map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 43%;}
 }

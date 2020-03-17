@@ -17,24 +17,25 @@
 <body>
 	<sec:csrfInput />
 	<div class="map_wrap">
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-              <input type="text" placeholder="검색 키워드를 입력해주세요 " id="inputKeyword" size="30"> 
-              <button onclick="searchPlace()">검색하기</button> 
-            </div>
-        </div>
-        <div id="map" style="width:100%;height:90%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
-        <div id="clickLatlng"></div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
+		<div id="menu_wrap" class="bg_white">
+			<div class="option">
+				<div>
+				<input type="text" placeholder="검색 키워드를 입력해주세요 " id="inputKeyword" size="30"> 
+				<button onclick="searchPlace()">검색하기</button> 
+				</div>
+			</div>
+			<div id="map" style="width:100%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
+			<div id="clickLatlng"></div>
+			<hr>
+			<ul id="placesList"></ul>
+			<div id="pagination"></div>
+		</div>
 	</div>
 	<div class="schedule-modal-wrapper">
 		<div class="schedule-modal-content">
-			<h2>일정 생성하기 </h2>
-			<h3>${groupName }</h3>
+			<div class="close"><i class="material-icons">close</i></div>
+			<h2 class="info-msg-wrapper"><b class="info-msg">일정 생성하기</b></h2>
+			<h3 class="group-name">${groupName }</h3>
 			<label for="scheduleDate">일시 </label>
 			<input type="date" id="scheduleDate" name="scheduleDate"  />
 			<input type="time" id="beginTime" name="beginTime" value="00:00" /> &ensp; ~ &ensp;
@@ -43,7 +44,7 @@
 				<p class="building-name"></p>
 				<p class="address"></p>
 			</div>
-			<button onclick="submitSchedule(${groupId})">생성 </button>
+			<button class="submit-schedule" onclick="submitSchedule(${groupId})">생성 </button>
 		</div>
 	</div>
 	<script type="text/javascript" src="/js/common.js"></script>

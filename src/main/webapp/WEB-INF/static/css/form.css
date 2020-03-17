@@ -1,18 +1,19 @@
 /* mobile or default */
-input {
+input, textarea {
     display: block;
     box-sizing: border-box;
     height: 40px;
     margin: 8px auto;
-    padding: 4px 12px;
+    padding: 0.25rem 0.5rem;
     background-color: #FBFBFD;
     border-radius: 0.25rem;
     border: 1px solid #E9ECF3;
     font-size: 14px;
     line-height: 24px;
     outline: none;
+    box-shadow: none !important;
 }
-input:focus, input:hover {
+input:focus, input:hover, textarea:focus, textarea:hover {
     background-color: #fff;
     border: 0.125rem solid #EF978F;
     border-radius: 0.25rem;
@@ -82,3 +83,49 @@ button:disabled {
 }
 .sign-up-btn:hover {color: #EF978F;}
 .sign-up-btn:hover::after {padding-left: 0.75rem;}
+#groupCreateForm {width: 600px;}
+#groupCreateForm p {
+    color: #333;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+.user-modify-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.user-modify-form div {width: 100%;}
+.user-modify-form a {margin-bottom: 0.5rem;}
+.user-name, .user-email {
+    flex-wrap: nowrap;
+    margin-top: 0.25rem;
+}
+.user-modify-form i {
+    font-size: 1rem;
+    vertical-align: text-top;
+}
+.user-modify-form #userName, .user-modify-form #userEmail {
+    width: 78%;
+    flex: 1;
+    display: inline-block;
+}
+#nameChkBtn, #emailChkBtn {
+    width: 20%;
+    font-size: 0.8rem;
+    flex: 1;
+    margin-bottom: 0.25rem;
+}
+#nameMsg, #emailMsg {margin-bottom: 0.25rem;}
+.info-msg-wrapper {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.info-msg {
+    font-weight: 400;
+    color: #333;
+    box-shadow: inset 0 -0.5rem #FFEB3B;
+}
+@media(max-width: 768px) {
+    #groupCreateForm {width: calc(100% - 1rem);}
+}

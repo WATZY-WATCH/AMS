@@ -5,6 +5,12 @@ const addressName = document.querySelector(".location-name > .address");
 var dateInput = document.getElementById("scheduleDate");
 var beginTime = document.getElementById("beginTime");
 var endTime = document.getElementById("endTime");
+const close = document.querySelector(".close");
+
+close.onclick = function () {
+	scheduleModalWrapper.classList.add("fade-out");
+	scheduleModalWrapper.classList.remove("fade-in");
+}
 
 // 마커를 담을 배열입니다
 var markers = [];
@@ -232,8 +238,11 @@ function displayPlaces(places) {
     menuEl = document.getElementById('menu_wrap'),
     fragment = document.createDocumentFragment(), 
     bounds = new kakao.maps.LatLngBounds(), 
-    mapObj = document.getElementById('map');
-    mapObj.style.width = "calc(100% - 300px)";
+	mapObj = document.getElementById('map');
+
+	if(window.innerWidth < 576) {
+		mapObj.style.width = "100%";
+	} else mapObj.style.width = "calc(100% - 300px)";
     listEl.after(mapObj);
     
     // 검색 결과 목록에 추가된 항목들을 제거합니다
@@ -254,10 +263,13 @@ function displayPlaces(places) {
         	//검색 결과 항목을 클릭하면 해당 위치를 지도 중심이 되도록 이동 
         	itemEl.index = i;
         	itemEl.onclick = function () {
-        		
         		let idx = this.index;
         		let x = places[idx].x, y = places[idx].y;
-        		let currPlace = {Ga: x, Ha: y};
+				let currPlace = {Ga: x, Ha: y};
+				initMarker = marker;
+        		initMarker.position = {x: x, y: y};
+        		initMarker.building_name = places[idx].place_name;
+        		initMarker.address_name = places[idx].address_name;
         		panTo(currPlace);
         		displayInfowindow(markers[idx], places[idx].place_name);
         	}
@@ -399,11 +411,11 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>'
-    	+ '<button onclick="saveLocation()">일정 생성하기 </button>';
+    var content = '<div class="info-window"><div style="padding:5px;z-index:1;">' + title + '</div>'
+    	+ '<button class="schedule-btn" onclick="saveLocation()">일정 생성하기 </button></div>';
     
     infowindow.setContent(content);
-    infowindow.open(map, marker);
+	infowindow.open(map, marker);
 }
 
  // 검색결과 목록의 자식 Element를 제거하는 함수입니다

@@ -16,7 +16,7 @@
 <body>
 <nav>
 	<sec:authorize access="hasAuthority('USER')">
-		<p id="userName"> <span> ${userName }</span> 님 환영합니다! </p>
+		<p id="userName"> <a href="/user/modify"> ${userName }</a> 님 환영합니다! </p>
 		<form class="logout-btn" action="<c:url value='/logout' />" method="post">
 			<sec:csrfInput />
 			<button>로그아웃 </button>

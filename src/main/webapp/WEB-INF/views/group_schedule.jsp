@@ -9,24 +9,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <sec:csrfMetaTags />
+<link rel="stylesheet" href="/css/form.css">
 <link rel="stylesheet" href="/css/schedule.css" />
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	
 	<sec:csrfInput />
-	<a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기 </a>
-
 	<section id="calendar">
+		<a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기<i class="material-icons">event_available</i></a>
 		<div>
 			<div class="calendar-month">
-				<div>
-					<button onclick="getSchedule(-1)">&laquo;</button>
-					<span class="year-name">2020</span> - <span class="month-name">3</span>
-					<button onclick="getSchedule(1)">&raquo;</button>
-				</div>
+				<button onclick="getSchedule(-1)"><i class="material-icons">chevron_left</i></button>
+				<span class="year-name">2020</span> / <span class="month-name">3</span>
+				<button onclick="getSchedule(1)"><i class="material-icons">chevron_right</i></button>
 			</div>
-			<div class="calendar-day clearfix">
+			<div class="calendar-day">
 				<div class="day-name">일</div>
 				<div class="day-name">월</div>
 				<div class="day-name">화</div>
@@ -42,23 +39,27 @@
 
 	<div class="schedule-modal-wrapper">
 		<div class="schedule-modal-content">
+			<div class="close"><i class="material-icons">close</i></div>
 			<h2 class="groupName">일정 수정하기 </h2>
 			<c:if test="${isAdmin }">
-				<button class="modify-btn" >수정 </button>
-				<button class="delete-btn">삭제</button>
+				<button class="modify-btn" ><i class='material-icons'>edit</i></button>
+				<button class="delete-btn"><i class='material-icons'>delete</i></button>
 			</c:if>
-			<h3>${groupName }</h3>
-			<label for="scheduleDate">일시 </label>
+			<br>
+			<label for="scheduleDate">일시</label>
 			<input type="date" id="scheduleDate" name="scheduleDate"  />
-			<input type="time" id="beginTime" name="beginTime" value="00:00" /> &ensp; ~ &ensp;
-			<input type="time" id="endTime" name="endTime" value="23:59" />
+			<div class="time-wrapper">
+				<input type="time" id="beginTime" name="beginTime" value="00:00" />
+				<span> ~ </span>
+				<input type="time" id="endTime" name="endTime" value="23:59" />
+			</div>
 			<div class="location-name">
 				<p class="building-name"></p>
 				<p class="address"></p>
 			</div>
-			<div id="map" style="width:80%;height:50%;margin:24px auto;position:relative;overflow:hidden; box-sizing:border-box;"></div>
+			<div id="map" style="width:100%;height:40vh;margin:0.25rem auto;position:relative;overflow:hidden; box-sizing:border-box;"></div>
 			<c:if test="${isAdmin }">
-				<button class="submit-btn">저장 </button>
+				<button class="submit-btn">저장</button>
 			</c:if>
 		</div>
 	</div>
