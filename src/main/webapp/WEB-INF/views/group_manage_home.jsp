@@ -104,5 +104,6 @@
 		</article>
 	</section>
 	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/group_manage_home.js"></script>
 </body>
 </html>

@@ -1,8 +1,6 @@
 package ams.user.controller;
 
 import java.security.Principal;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ams.group.domain.GroupVO;
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
 
@@ -60,14 +57,5 @@ public class UserViewController {
 	public String getModifyPw() throws Exception {
 		logger.info("Success Modify Password......");
 		return "user_modify_pw_success";
-	}
-	
-	@RequestMapping(value="/myPage", method=RequestMethod.GET)
-	public String getJoinedGroup(Principal principal, Model model) throws Exception {
-		logger.info("get my page.....");
-		String userId = principal.getName();
-		List<GroupVO> myGroups = service.findJoinedGroup(userId);
-		model.addAttribute("gList", myGroups);
-		return "user_mypage";
 	}
 }

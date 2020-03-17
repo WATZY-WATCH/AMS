@@ -40,7 +40,8 @@ div[class*="-section"] {
     align-self: center;
     flex-grow: 1;
     text-align: center;
-    margin: 1rem;
+    margin: 0.5rem;
+    margin-right: 0;
 }
 .section-title {
     width: 40%;

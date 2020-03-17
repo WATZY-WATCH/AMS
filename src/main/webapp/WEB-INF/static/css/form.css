@@ -1,5 +1,5 @@
 /* mobile or default */
-input {
+input, textarea {
     display: block;
     box-sizing: border-box;
     height: 40px;
@@ -11,8 +11,9 @@ input {
     font-size: 14px;
     line-height: 24px;
     outline: none;
+    box-shadow: none !important;
 }
-input:focus, input:hover {
+input:focus, input:hover, textarea:focus, textarea:hover {
     background-color: #fff;
     border: 0.125rem solid #EF978F;
     border-radius: 0.25rem;
@@ -82,3 +83,12 @@ button:disabled {
 }
 .sign-up-btn:hover {color: #EF978F;}
 .sign-up-btn:hover::after {padding-left: 0.75rem;}
+#groupCreateForm {width: 600px;}
+#groupCreateForm p {
+    color: #333;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+@media(max-width: 768px) {
+    #groupCreateForm {width: calc(100% - 1rem);}
+}

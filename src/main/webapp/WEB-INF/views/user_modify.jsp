@@ -11,6 +11,8 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<section id="container">
+		<a href="/user/modifyPw">비밀번호 변경 </a>
+		<a href="/user/signout">회원탈퇴</a>
 		<form>
 		<sec:csrfInput />
 			<div>
