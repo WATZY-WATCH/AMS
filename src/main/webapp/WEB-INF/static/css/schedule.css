@@ -34,6 +34,9 @@ button:hover {color: #EF978F;}
 	padding-bottom: 0;
 	font-size: 0.85rem;
 }
+.map_wrap+.schedule-modal-wrapper .schedule-modal-content {
+	height: 60vh;
+}
 .groupName {
 	display: inline-block;
 	padding-right: 0.25rem;
@@ -49,6 +52,7 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	width: 47.5%;
 	box-sizing: border-box;
 }
+.map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 46%;}
 #beginTime+span {
 	line-height: 50px;
 	margin: 0 0.25rem;
@@ -178,4 +182,5 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	.daily-schedule {font-size: 0.8rem;}
 	.days {height: 3.5rem;}
 	#beginTime, #endTime {width: 45.7%;}
+	.map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 43%;}
 }
