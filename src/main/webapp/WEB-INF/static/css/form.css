@@ -4,7 +4,7 @@ input, textarea {
     box-sizing: border-box;
     height: 40px;
     margin: 8px auto;
-    padding: 4px 12px;
+    padding: 0.25rem 0.5rem;
     background-color: #FBFBFD;
     border-radius: 0.25rem;
     border: 1px solid #E9ECF3;

@@ -53,7 +53,8 @@ function getSchedule(term) {
 					let schedule = calendar[day][i],
 						p = document.createElement("p"),
 						content = "";
-					
+					p.classList.add("daily-schedule");
+					p.classList.add("ellip");
 					p.scheduleId = schedule.scheduleId;
 					p.date = day;
 					p.onclick = function (e) {
@@ -84,8 +85,6 @@ function getSchedule(term) {
 								submitModify(evt.groupId, evt.scheduleId);
 							};
 						}
-						
-						console.log(evt);
 						
 						let center = new kakao.maps.LatLng(evt.placeLatitude, evt.placeLongitude);
 						initMarker.setPosition(center);
@@ -131,10 +130,10 @@ function setCalendar(weeks) {
 	let daysStr = "";
 	return new Promise(function (resolve, reject) {
 		for(let i=0; i<weeks; i++) {
-			daysStr += "<div class='weeks week-" + (i+1) + " clearfix'>"
+			daysStr += "<div class='weeks week-" + (i+1) + "'>"
 			for(let j=0; j<7; j++) {
-				daysStr += "<div class='day-" + (j+1) + "'>" +
-						"<div class='day-label'></div>" +
+				daysStr += "<div class='day day-" + (j+1) + "'>" +
+						"<span class='day-label'></span>" +
 						"<div class='days'></div>" +
 						"</div>";
 			}
