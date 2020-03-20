@@ -32,7 +32,7 @@
 	
 	<select id="memberList" resultMap="listGroupVO">
    	<![CDATA[
-   	select
+   	SELECT
  		SG.GROUP_ID
  		,SG.GROUP_CATEGORY
  		,SG.GROUP_MASTER_ID
@@ -87,7 +87,7 @@
 	
 	<select id="masterList" resultMap="masterListGroupVO">
    	<![CDATA[
-   	select
+   	SELECT
  		SG.GROUP_ID
  		,SG.GROUP_CATEGORY
  		,SG.GROUP_MASTER_ID
@@ -130,7 +130,7 @@
 	</resultMap>
 	<select id="applicationList" resultMap="applicationListGroupVO">
    	<![CDATA[
-   	select
+   	SELECT
  		SG.GROUP_ID
  		,SG.GROUP_CATEGORY
  		,SG.GROUP_MASTER_ID
@@ -169,7 +169,7 @@
    </resultMap>
    <select id="masterApplicationList" resultMap="masterApplication">
    	<![CDATA[
-   	select
+   	SELECT
    		GA.APPLICATION_ID
  		, GA.GROUP_ID
  		, GA.USER_ID
@@ -189,11 +189,11 @@
    </select>
    
    <select id="masterApplicationCount" resultType="int">
-   	select count(*) from group_applications where group_id=#{groupId}
+   	SELECT COUNT(*) FROM GROUP_APPLICATIONS WHERE GROUP_ID=#{groupId}
    </select>
    
    <select id="masterApplicationRead" resultMap="masterApplication">
-   	select
+   	SELECT
    		GA.APPLICATION_ID
  		, GA.GROUP_ID
  		, GA.USER_ID
@@ -213,12 +213,12 @@
        					VALUES(#{groupId}, #{userId}, 'MEMBER')
    </insert>
    <delete id="applicationDelete">
-   	delete from group_applications where application_id=#{applicationId}
+   	DELETE FROM GROUP_APPLICATIONS WHERE APPLICATION_ID=#{applicationId}
    </delete>
    
    <select id="selectGroup" resultMap="masterListGroupVO">
    <![CDATA[
-   	select
+   	SELECT
  		SG.GROUP_ID
  		,SG.GROUP_CATEGORY
  		,SG.GROUP_MASTER_ID
@@ -245,64 +245,64 @@
  	]]>
    </select>
    <select id="selectMember" resultType="GroupMemberVO">
-   	select
+   	SELECT
    		*
  	FROM
  		GROUP_MEMBERS
  	WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
    </select>
    <delete id="deleteMember">
-    delete from group_members where group_id=#{groupId} and user_id=#{userId}
+    DELETE FROM GROUP_MEMBERS WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
    </delete>
    <delete id="deleteApplication">
-    delete from group_applications where group_id=#{groupId} and user_id=#{userId}
+    DELETE FROM GROUP_APPLICATIONS WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
    </delete>
    <select id="seleteApplication" resultType="GroupApplicationVO">
-    select 
+    SELECT 
     	GROUP_ID
     	,USER_ID
     	,MSG
-     from group_applications where group_id=#{groupId} and user_id=#{userId}
+     FROM GROUP_APPLICATIONS WHERE GROUP_ID=#{groupId} AND USER_ID=#{userId}
    </select>
    <update id="updateMaster">
-   	update group_members set group_authority = 'MASTER' 
-   	where group_id = #{groupId} and group_authority='MEMBER'
-   	order by reg_date ASC
-   	limit 1
+   	UPDATE GROUP_MEMBERS SET GROUP_AUTHORITY = 'MASTER' 
+   	WHERE GROUP_ID = #{groupId} AND GROUP_AUTHORITY='MEMBER'
+   	ORDER BY REG_DATE ASC
+   	LIMIT 1
    </update>
    <select id="nextMasterCheck" resultType="int">
-   	select
-   		count(*)
-   	from
-   		group_members
-   	where group_id=#{groupId} and group_authority='MEMBER'
-   	order by reg_date ASC
-   	limit 1
+   	SELECT
+   		COUNT(*)
+   	FROM
+   		GROUP_MEMBERS
+   	WHERE GROUP_ID=#{groupId} AND GROUP_AUTHORITY='MEMBER'
+   	ORDER BY REG_DATE ASC
+   	LIMIT 1
    </select>
    <update id="updateGroup">
-   	update study_groups set group_master_id = (
-   		select user_id 
-   		from group_members
-   		where group_id=#{groupId} and group_authority='MASTER'
+   	UPDATE STUDY_GROUPS SET GROUP_MASTER_ID = (
+   		SELECT USER_ID 
+   		FROM GROUP_MEMBERS
+   		WHERE GROUP_ID=#{groupId} AND GROUP_AUTHORITY='MASTER'
    	) 
-   	where group_id = #{groupId}
+   	WHERE GROUP_ID = #{groupId}
    </update>
    <delete id="deleteGroup">
-   	delete from study_groups where group_id=#{groupId}
+   	DELETE FROM STUDY_GROUPS WHERE GROUP_ID=#{groupId}
    </delete>
    
    <update id="updateMemberCnt">
    <![CDATA[
-  	update STUDY_GROUPS set GROUP_MEMBER_CNT = GROUP_MEMBER_CNT + #{amount} where GROUP_ID = #{groupId}
+  	UPDATE STUDY_GROUPS SET GROUP_MEMBER_CNT = GROUP_MEMBER_CNT + #{amount} WHERE GROUP_ID = #{groupId}
   	]]>
 	</update>
 	<select id="groupMemberCntChk" resultType="int">
 	<![CDATA[
-   	select
-   		count(*)
-   	from
-   		study_groups
-   	where group_id=#{groupId} and group_member_limit>group_member_cnt
+   	SELECT
+   		COUNT(*)
+   	FROM
+   		STUDY_GROUPS
+   	WHERE GROUP_ID=#{groupId} AND GROUP_MEMBER_LIMIT>GROUP_MEMBER_CNT
    	]]>
    </select>
 </mapper>

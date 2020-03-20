@@ -45,7 +45,6 @@ public class PageMaker {
 		urlBuilder.queryParam("perPageNum", cri.getPerPageNum());
 		urlBuilder.queryParam("searchType", ((SearchCriteria) cri).getSearchType());
 		urlBuilder.queryParam("keyword", encoding(((SearchCriteria) cri).getKeyword()));
-		urlBuilder.queryParam("page", page);
 		urlBuilder.queryParam("startAge", ((SearchCriteria) cri).getStartAge());
 		urlBuilder.queryParam("endAge", ((SearchCriteria) cri).getEndAge());
 		if(((SearchCriteria) cri).getCategory()!=null) urlBuilder.queryParam("category", String.join(",",((SearchCriteria) cri).getCategory()));

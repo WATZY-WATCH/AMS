@@ -57,7 +57,7 @@
 	</resultMap>
  	<select id="listSearch" resultMap="listGroupVO">
  	<![CDATA[
- 	select
+ 	SELECT
  		SG.GROUP_ID
  		, SG.GROUP_CATEGORY 
  		, SG.GROUP_NAME
@@ -91,21 +91,21 @@
  	
  	<select id="listSearchCount" resultType="int">
  	<![CDATA[
- 	select
- 		count(SG.GROUP_ID)
+ 	SELECT
+ 		COUNT(SG.GROUP_ID)
  	FROM
  		STUDY_GROUPS SG
  	LEFT JOIN
  		USERS U
  	ON
  		SG.GROUP_MASTER_ID = U.USER_ID
- 	where group_id>0 and (group_status='모집중' or group_status='진행중')
+ 	WHERE GROUP_ID>0 AND (GROUP_STATUS='모집중' OR GROUP_STATUS='진행중')
  	]]>
  		<include refid="search"></include>
  	</select>
  	<select id="listRead" parameterType="GroupVO" resultMap="listGroupVO">
  	<![CDATA[
- 	select
+ 	SELECT
  		SG.GROUP_ID
  		, SG.GROUP_CATEGORY 
  		, SG.GROUP_NAME
@@ -137,7 +137,7 @@
  	</select>
  	
  	<update id="updateViewCnt">
-  		update study_groups set GROUP_VIEW_CNT = GROUP_VIEW_CNT +1 where group_id = #{groupId}
+  		UPDATE STUDY_GROUPS SET GROUP_VIEW_CNT = GROUP_VIEW_CNT +1 WHERE GROUP_ID = #{groupId}
 	</update>
  	<select id="memberChk" resultType="int">
       SELECT COUNT(*) FROM GROUP_MEMBERS WHERE USER_ID=#{userId} AND GROUP_ID=#{groupId}
@@ -154,31 +154,31 @@
    <sql id="search">
    	<if test="searchType != null">
    		<if test="searchType=='t'.toString()">
-   			and SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
+   			AND SG.GROUP_NAME LIKE CONCAT ('%',#{keyword}, '%')
    		</if>
    		<if test="searchType=='c'.toString()">
-   			and SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
+   			AND SG.GROUP_DETAIL LIKE CONCAT ('%',#{keyword}, '%')
    		</if>
    		<if test="searchType=='w'.toString()">
-   			and U.USER_NAME like CONCAT ('%',#{keyword}, '%')
+   			AND U.USER_NAME LIKE CONCAT ('%',#{keyword}, '%')
    		</if>
    		<if test="searchType=='tc'.toString()">
-   			and (SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
-   			OR SG.GROUP_DETAIL like CONCAT('%',#{keyword}, '%'))
+   			AND (SG.GROUP_NAME LIKE CONCAT ('%',#{keyword}, '%')
+   			OR SG.GROUP_DETAIL LIKE CONCAT('%',#{keyword}, '%'))
    		</if>
    		<if test="searchType=='cw'.toString()">
-   			and (SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
-   			OR U.USER_NAME like CONCAT ('%',#{keyword}, '%'))
+   			AND (SG.GROUP_DETAIL LIKE CONCAT ('%',#{keyword}, '%')
+   			OR U.USER_NAME LIKE CONCAT ('%',#{keyword}, '%'))
    		</if>
    		<if test="searchType=='tcw'.toString()">
-   			and (SG.GROUP_NAME like CONCAT ('%',#{keyword}, '%')
-   			OR SG.GROUP_DETAIL like CONCAT ('%',#{keyword}, '%')
-   			OR U.USER_NAME like CONCAT ('%',#{keyword}, '%'))
+   			AND (SG.GROUP_NAME LIKE CONCAT ('%',#{keyword}, '%')
+   			OR SG.GROUP_DETAIL LIKE CONCAT ('%',#{keyword}, '%')
+   			OR U.USER_NAME LIKE CONCAT ('%',#{keyword}, '%'))
    		</if>
    	</if>
    	<if test="category != null" >
- 		and(
-		<foreach item="categoryList" collection="category" separator="or ">
+ 		AND(
+		<foreach item="categoryList" collection="category" separator="OR ">
 		 GROUP_CATEGORY =
 		 <if test="categoryList == 'ce'">
 		  '자격증'
@@ -217,8 +217,8 @@
 	    )
 	</if>
 	<if test="area != null" >
- 		and(
-		<foreach item="areaList" collection="area" separator="or ">
+ 		AND(
+		<foreach item="areaList" collection="area" separator="OR ">
 		 GROUP_AREA =
 		 <if test="areaList == 'sez'">
 		  '서울'
@@ -270,7 +270,7 @@
    
    <update id="updateCommentCnt">
    <![CDATA[
-  	update STUDY_GROUPS set GROUP_COMMENT_CNT = GROUP_COMMENT_CNT + #{amount} where GROUP_ID = #{groupId}
+  	UPDATE STUDY_GROUPS SET GROUP_COMMENT_CNT = GROUP_COMMENT_CNT + #{amount} WHERE GROUP_ID = #{groupId}
   	]]>
 	</update>
    
