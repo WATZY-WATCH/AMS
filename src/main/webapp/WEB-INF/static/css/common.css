@@ -78,11 +78,39 @@ button {
 ::-webkit-scrollbar {display: none;}
 
 /* ----------------------------------- */
-
+body {
+  display: grid;
+  grid-template-columns: 0.4fr repeat(2, 1fr);
+  grid-template-areas:
+    "aside header header"
+    "aside main main"
+    "aside main main"
+    "footer footer footer";
+}
+header {grid-area: header;}
+.content-wrapper {
+  grid-area: main;
+  padding: 1rem;
+  margin: 0.5rem;
+  height: 80vh;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+}
+.side-menu {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  grid-area: aside;
+  transition: 0.5s all ease-in;
+  background-color: #EF978F;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
 .logo {
 	text-align: center;
 	font-size: 2em;
-	padding: 0.75em 0 0.5em;
+  padding: 0.75em 0 0.5em;
 }
 .logo a {color: #000;}
 .logout-btn, #userName {display: inline;}
@@ -92,3 +120,18 @@ button {
 	text-decoration: underline;
 }
 .title {text-align: center;}
+@media (max-width: 1200px) {
+  .side-menu {display: none;}
+  .content-wrapper {
+    margin: 0.25rem;
+    padding: 0.25rem;
+  }
+  body {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+    "header"
+    "main"
+    "main"
+    "footer";
+  }
+}

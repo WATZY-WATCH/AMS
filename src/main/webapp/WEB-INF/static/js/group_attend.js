@@ -1,6 +1,8 @@
 var dist;
 const body = document.querySelector("body");
 const form = document.querySelector("form");
+const circleLoader = document.querySelector(".circle-loader");
+const checkmark = circleLoader.querySelector(".checkmark");
 
 async function init() {
 	await getCurrLocation();
@@ -12,6 +14,13 @@ let timer = setInterval(function() {
 	let status = document.querySelector(".attendanceStatus");
 	if(status !== null) {
 		clearInterval(timer);
+		if(status.innerText == '결석') {
+			circleLoader.classList.add("absent");
+		}
+		else if(status.innerText == '지각') circleLoader.classList.add("late");
+		circleLoader.classList.add("load");
+		circleLoader.classList.add("load-complete");
+		checkmark.style.display = "block";
 		return;
 	}
 	let now = new Date();
@@ -19,12 +28,17 @@ let timer = setInterval(function() {
 		limit = new Date(endTime);
 	if(limit < now) {
 		clearInterval(timer);
-		let attendBtn = document.querySelector(".attendBtn");
+		let attendBtn = document.querySelector(".attendBtn"),
+			halo = document.querySelectorAll(".effect-halo");
 		if(attendBtn) form.removeChild(attendBtn);
+		halo.forEach(el=> {
+			el.classList.remove("effect-halo-running");
+		})
 		let h2 = document.createElement("h2");
-		let text = document.createTextNode("출석시간이 아닙니다. ");
+		let text = document.createTextNode("출석시간이 아닙니다");
 		h2.appendChild(text);
-		body.appendChild(h2);
+		h2.style = "z-index: 1;";
+		circleLoader.appendChild(h2);
 	}
 }, 1000);
 
@@ -51,15 +65,22 @@ function attend(userId, base) {
 			let ret = xhr.responseText;
 			let retObj = JSON.parse(ret);
 			alert(retObj.chkTime+"\n"+userId + "님 " + retObj.status + "처리 되었습니다. ");
-			const body = document.querySelector("body");
+			const circle = document.querySelector(".attend-circle");
 			const form = document.querySelector("form");
+			const halo = document.querySelectorAll(".effect-halo");
 			const attendBtn = document.querySelector(".attendBtn");
 			form.removeChild(attendBtn);
+			halo.forEach(el=> {
+				el.parentNode.removeChild(el);
+			})
+			circleLoader.classList.add("load");
+			circleLoader.classList.add("load-complete");
+			checkmark.style.display = "block";
 			let h2 = document.createElement("h2");
 			h2.classList.add("attendanceStatus");
 			let text = document.createTextNode(retObj.status);
 			h2.appendChild(text);
-			body.appendChild(h2);
+			circle.appendChild(h2);
 		} else if(xhr.status == 400 || xhr.status == 403) {
 			alert("잘못된 요청입니다.");
 		} else {

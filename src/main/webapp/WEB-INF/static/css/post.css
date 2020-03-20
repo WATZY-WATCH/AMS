@@ -1,4 +1,7 @@
-#container {padding: 1rem;}
+#container {
+    padding: 1rem;
+    margin-bottom: 0.25rem;
+}
 #listBtn {
     border: none;
     font-size: 0.9rem;
@@ -30,6 +33,7 @@
 .group-status {display: inline-block;}
 .group-info {
     margin-bottom: 1rem;
+    width: 100%;
 }
 .group-detail {
     width: 100%;
@@ -89,7 +93,7 @@
     text-align: left;
 }
 #applyBtn, #commentBtn {
-    width: 4rem;
+    width: 5rem;
     height: 4rem;
     box-sizing: border-box;
     padding: 0.5rem;
@@ -112,6 +116,7 @@
     overscroll-behavior: contain;
     padding: 0.5rem;
 }
+.comment-wrapper, #listComment {width: 100%;}
 .comment textarea {
     width: 100%;
     border: 0.0625rem solid rgba(20,20,94,0.1);

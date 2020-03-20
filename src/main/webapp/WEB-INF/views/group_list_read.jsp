@@ -15,7 +15,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<section id="container">
+<section id="container" class="content-wrapper">
 	<button type="button" id="listBtn" onclick="listBoard(${cri.page},${cri.perPageNum},'${cri.searchType}','${cri.keyword}','${cri.startAge}','${cri.endAge}','${cri.category}','${cri.area}')"><i class="material-icons">
 keyboard_backspace
 </i> 목록으로</button>

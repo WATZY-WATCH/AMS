@@ -10,7 +10,8 @@
 </head>
 <body>
 	<header>
-		<h1 class="logo"><a href="/">AMS </a></h1>
+		<h1 class="logo"><a href="/">WATZY</a></h1>
 	</header>
+	<div class="side-menu"></div>
 </body>
 </html>

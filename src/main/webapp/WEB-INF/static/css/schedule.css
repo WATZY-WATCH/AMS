@@ -90,9 +90,9 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
   z-index: 0;
 }
 #calendar {
-	width: calc(100% - 1rem);
 	cursor: default;
 	margin: 0 auto;
+	overflow-y: scroll;
 }
 #calendar button, .schedule-modal-content button {
 	width: initial;
@@ -170,12 +170,6 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	overflow-y: scroll;
 	overscroll-behavior: contain;
 	cursor: pointer;
-}
-@media(min-width: 1000px) {
-	#calendar {
-		width: 1000px;
-		margin: 0 auto;
-	}
 }
 @media(max-width: 576px) {
 	.schedule-modal-content {width: calc(100% - 1rem);}

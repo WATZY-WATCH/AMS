@@ -32,7 +32,7 @@ nav {
 	font-weight: 400;
 	font-size: 14px;
 	position: absolute;
-	right: 16px;
+	right: 4rem;
 	top: 16px;
 	vertical-align: middle;
 }
@@ -51,11 +51,5 @@ nav span {color: #EF978F;}
     body {
         width: 320px;
         position: relative;
-    }
-}
-@media (min-width: 1200px) {
-    .menu-wrapper {
-        width: 1200px;
-        margin: 0 auto;
     }
 }

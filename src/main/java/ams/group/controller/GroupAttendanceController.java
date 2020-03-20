@@ -59,7 +59,7 @@ public class GroupAttendanceController {
 		ga.setScheduleId(scheduleId);
 		ga.setUserId(principal.getName());
 		
-		long isTimeOn = Math.abs((now.getTime() - start.getTime())) / 60000L;
+		long isTimeOn = (now.getTime() - start.getTime()) / 60000L;
 		boolean finished = (now.getTime() > end.getTime());
 		String attendanceStr = service.chkAttendanceStatus(ga);
 		

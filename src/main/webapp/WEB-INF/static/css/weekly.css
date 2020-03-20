@@ -21,31 +21,39 @@
     height: 300px;
     overflow-x: scroll;
     overflow-y: scroll;
-    font-size: 16px;
+    font-size: 1rem;
 }
-.schedule li {padding: 8px;}
-.schedule a {
-    display: inline-block;
+.schedule li {
     padding: 0.25rem;
+    padding-left: 0.5rem;
+}
+.schedule a {
+    display: inline-flex;
+    box-sizing: border-box;
+    border-left: 0.25rem solid #FFEB3B;
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    margin-left: 1rem;
+    width: calc(100% - 4.5rem);
 }
 .schedule a:hover {
 	text-shadow: 0 0 1px rgba(0,0,0,0.5);
 }
 .schedule-time {
     text-align: center;
-	color: #696969;
-	font-weight: 600;
-    width: 20%;
+    color: #696969;
+    width: 2rem;
     margin-right: 8px;
 }
 .group-name {
 	color: #333;
 }
-.schedule-time, .group-name {display: inline-block;}
-.group-name:before {
-	content: "📚";
-	padding: 0 8px;
+.group-name.ellip {
+    display: inline-block;
+    width: initial;
+    max-width: 100%;
 }
+.schedule-time {display: inline-block;}
 @media screen and (min-width: 768px) {
 		.week-day {
 			display: flex;
@@ -56,8 +64,12 @@
     	width: calc(100% / 7);
     	display:inline-block;
    	}
+   	.schedule a {
+   		padding: 0.25rem;
+   		margin-left: 0.5rem;
+   		width: calc(100% - 3.5rem);
+   	}
 }
 @media screen and (min-width: 1200px) {
-    .weekly {width: 1200px;}
     .group-name:before {padding: 0 4px;}
 }

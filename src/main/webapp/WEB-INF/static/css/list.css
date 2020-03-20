@@ -92,12 +92,6 @@
     background-color: #fc5c65;
 }
 .group-schedule:hover a {color: #fff;}
-@media(min-width: 1000px) {
-    .study-section {
-        width: 1000px;
-        margin: 1rem auto;
-    }
-}
 @media(max-width: 576px) {
     .study-section {
         grid-template-columns: repeat(1, 1fr);

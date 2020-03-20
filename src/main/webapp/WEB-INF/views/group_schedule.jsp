@@ -15,7 +15,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<sec:csrfInput />
-	<section id="calendar">
+	<section id="calendar" class="content-wrapper">
 		<a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기<i class="material-icons">event_available</i></a>
 		<div>
 			<div class="calendar-month">

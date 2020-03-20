@@ -15,7 +15,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<section class="study-section">
+	<section class="study-section content-wrapper">
 		<article class="admin-study">
 			<h2 class="list-title">운영 스터디 목록</h2>
 			<c:forEach items="${masterList}" var="GroupVO">
