@@ -6,7 +6,7 @@
 div[class*="-section"] {
     box-sizing: border-box;
     padding: 8px;
-    margin: 0 auto;
+    margin: 4px auto;
     float: left;
 }
 [class*="-title"] {
@@ -146,8 +146,5 @@ div .material-icons {
     }
 }
 @media (min-width: 1200px) {
-    body {
-        width: 1200px;
-        margin: 0 auto;
-    }
+    .filter-table {height: 200px;}
 }
