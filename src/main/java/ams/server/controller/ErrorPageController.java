@@ -37,6 +37,7 @@ public class ErrorPageController {
             }
         } catch(Exception e) {
             msg = "기타 오류가 발생하였습니다.";
+            e.printStackTrace();
         } finally {
             map.put("MESSAGE", msg);
         }

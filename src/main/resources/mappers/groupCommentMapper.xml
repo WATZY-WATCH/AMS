@@ -18,7 +18,7 @@
 	</resultMap>
    <select id="commentList" resultMap="listCommentVO">
    	<![CDATA[
-   	select
+   	SELECT
  		GC.GROUP_ID
  		, GC.COMMENT_ID
  		, GC.USER_ID
@@ -41,26 +41,25 @@
    </select>
    
    <select id="commentCount" resultType="int">
-   	select count(comment_id) from group_comment where group_id=#{groupId}
+   	SELECT COUNT(COMMENT_ID) FROM GROUP_COMMENT WHERE GROUP_ID=#{groupId}
    </select>
    
    <select id="currentCommentCount" resultType="int">
    	<![CDATA[
-   		select count(comment_id) from group_comment where group_id=#{groupId} and comment_id<=#{commentId}
+   		SELECT COUNT(COMMENT_ID) FROM GROUP_COMMENT WHERE GROUP_ID=#{groupId} AND comment_id<=#{commentId}
    	]]>
    </select>
    
    <insert id="commentCreate">
-   	insert into group_comment (group_id, user_id, comment_msg)
-   	values (#{groupId}, #{userId}, #{commentMsg})
+   	INSERT INTO GROUP_COMMENT (GROUP_ID, USER_ID, COMMENT_MSG) VALUES (#{groupId}, #{userId}, #{commentMsg})
    </insert>
    
    <update id="commentUpdate">
-   	update group_comment set comment_msg = #{commentMsg} where comment_id = #{commentId}
+   	UPDATE GROUP_COMMENT SET COMMENT_MSG = #{commentMsg} WHERE COMMENT_ID = #{commentId}
    </update>
    
    <delete id="commentDelete">
-   	delete from group_comment where comment_id=#{commentId}
+   	DELETE FROM GROUP_COMMENT WHERE COMMENT_ID=#{commentId}
    </delete>
    
 </mapper>

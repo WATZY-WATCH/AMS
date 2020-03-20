@@ -38,23 +38,31 @@ public class GroupViewController {
 	@RequestMapping(value = "/listRead", method = RequestMethod.GET)
 	  public String listRead(@RequestParam("groupId") int groupId, @ModelAttribute("cri") SearchCriteria cri, Model model,Principal principal) throws Exception {
 		System.out.println("get listRead..............");
-		GroupVO gvo=service.listRead(groupId);
-		model.addAttribute("GroupVO",gvo);
-		model.addAttribute("UserVO",userService.getUserInfo(gvo.getGroupMasterId()));
-		String userId=principal.getName();
-		model.addAttribute("userId",userId);
-		GroupMemberVO gmvo=new GroupMemberVO();
-		gmvo.setUserId(userId);
-		gmvo.setGroupId(groupId);
-		int ret=service.memberChk(gmvo);
-		if(ret>=1) model.addAttribute("memberChk",1);
-		else model.addAttribute("memberChk",0);
-		model.addAttribute("UserVO", userService.getUserInfo(userId));
-		GroupApplicationVO gavo= new GroupApplicationVO();
-		gavo.setGroupId(groupId);
-		gavo.setUserId(userId);
-		model.addAttribute("listApplyChk", service.listApplyChk(gavo));
-	    return "group_list_read";
+		try {
+			GroupVO gvo=service.listRead(groupId);
+			model.addAttribute("GroupVO",gvo);
+			model.addAttribute("UserVO",userService.getUserInfo(gvo.getGroupMasterId()));
+			String userId=principal.getName();
+			model.addAttribute("userId",userId);
+			GroupMemberVO gmvo=new GroupMemberVO();
+			gmvo.setUserId(userId);
+			gmvo.setGroupId(groupId);
+			int ret=service.memberChk(gmvo);
+			if(ret>=1) model.addAttribute("memberChk",1);
+			else model.addAttribute("memberChk",0);
+			model.addAttribute("UserVO", userService.getUserInfo(userId));
+			GroupApplicationVO gavo= new GroupApplicationVO();
+			gavo.setGroupId(groupId);
+			gavo.setUserId(userId);
+			model.addAttribute("listApplyChk", service.listApplyChk(gavo));
+		    return "group_list_read";
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("e: "+e);
+			System.out.println("e.getma: "+e.getMessage());
+			System.out.println("e.toString: "+e.toString());
+			return "group_list_read"; 
+		}
 	}
 	
 	@RequestMapping(value="/listCri", method=RequestMethod.GET)
