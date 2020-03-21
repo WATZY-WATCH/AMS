@@ -35,7 +35,7 @@
     margin-bottom: 1rem;
     width: 100%;
 }
-.group-detail {
+.group-detail, #applicationMsg {
     width: 100%;
     margin: 0.5rem 0;
     box-sizing: border-box;
@@ -45,7 +45,7 @@
     line-height: 1.8;
     background-color: #fcfcfc;
 }
-.group-detail span {
+.group-detail span, #applicationMsg span {
     display: inline-block;
     overflow-y: scroll;
     overscroll-behavior: contain;
@@ -116,7 +116,7 @@
     overscroll-behavior: contain;
     padding: 0.5rem;
 }
-.comment-wrapper, #listComment {width: 100%;}
+.apply-wrapper, .comment-wrapper, #listComment {width: 100%;}
 .comment textarea {
     width: 100%;
     border: 0.0625rem solid rgba(20,20,94,0.1);
@@ -179,13 +179,44 @@ section[class*="-wrapper"] {
 .mod-btn, .del-btn {border: 0;}
 .mod-btn span, .del-btn span {font-size: 0.8rem;}
 [class*="-btn"] .material-icons {vertical-align: bottom;}
-.update-btn, .cancel-btn {
+.update-btn, .cancel-btn, #applicationDeleteBtn {
     padding: 0.25rem;
     margin: 0.25rem;
     margin-left: 0;
     border: 0.0625rem solid rgba(20,20,94,0.1);
 }
-.update-btn:hover, .cancel-btn:hover {
+.update-btn:hover, .cancel-btn:hover, #applicationDeleteBtn:hover {
     background-color :#EF978F;
     color: #fff;
+}
+.info-msg-wrapper {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+.info-msg {
+    font-weight: 400;
+    color: #333;
+    box-shadow: inset 0 -0.5rem #FFEB3B;
+}
+.user-info-wrapper {
+    display: block;
+    width: 100%;
+    font-size: 0.9rem;
+    color: #333;
+    border-left: 0.25rem solid #FFEB3B;
+    margin: 1rem 0;
+}
+.user-info {
+    cursor: default;
+    width: fit-content;
+    padding: 0.5rem;
+    box-shadow: 0 0.0625rem 1.25rem rgba(20,20,94,0.12)
+}
+.info-label {
+    display: inline-block;
+    width: 70px;
+    margin-right: 0.25rem;
 }

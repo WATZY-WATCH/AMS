@@ -16,21 +16,23 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<sec:csrfInput />
-	<div class="map_wrap">
-		<div id="menu_wrap" class="bg_white">
-			<div class="option">
-				<div>
-				<input type="text" placeholder="검색 키워드를 입력해주세요 " id="inputKeyword" size="30"> 
-				<button onclick="searchPlace()">검색하기</button> 
+	<section class="content-wrapper">
+		<div class="map_wrap">
+			<div id="menu_wrap" class="bg_white">
+				<div class="option">
+					<div>
+					<input type="text" placeholder="검색 키워드를 입력해주세요 " id="inputKeyword" size="30"> 
+					<button onclick="searchPlace()">검색하기</button> 
+					</div>
 				</div>
+				<div id="map" style="width:100%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
+				<div id="clickLatlng"></div>
+				<hr>
+				<ul id="placesList"></ul>
+				<div id="pagination"></div>
 			</div>
-			<div id="map" style="width:100%;position:relative;overflow:hidden; box-sizing:border-box;"></div>
-			<div id="clickLatlng"></div>
-			<hr>
-			<ul id="placesList"></ul>
-			<div id="pagination"></div>
 		</div>
-	</div>
+	</section>
 	<div class="schedule-modal-wrapper">
 		<div class="schedule-modal-content">
 			<div class="close"><i class="material-icons">close</i></div>

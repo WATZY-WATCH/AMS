@@ -70,7 +70,7 @@
 							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${GroupVO.regDate}" />
 						</fmt:timeZone>
 					</p>
-					<p class="group-schedule"><a href="/schedule?groupId=${GroupVO.groupId }">일정관리</a></p>
+					<p class="group-schedule"><a href="/schedule?groupId=${GroupVO.groupId }">일정보기</a></p>
 				</div>
 			</c:forEach>
 		</article>

@@ -19,6 +19,7 @@
 	<sec:http pattern="/js/**" security="none" />
 	<sec:http pattern="/css/**" security="none" />
 	<sec:http pattern="/img/**" security="none" />
+	<sec:http pattern="/webfonts/**" security="none" />
 	<sec:http>
 		<sec:form-login
 			login-page="/login"

@@ -26,6 +26,7 @@
 	<resources mapping="/css/**" location="/WEB-INF/static/css/" /> 
 	<resources mapping="/img/**" location="/WEB-INF/static/img/" /> 
 	<resources mapping="/js/**" location="/WEB-INF/static/js/" />
+	<resources mapping="/webfonts/**" location="/WEB-INF/static/webfonts/" />
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

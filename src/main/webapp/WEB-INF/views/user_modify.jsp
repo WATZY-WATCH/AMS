@@ -11,8 +11,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<section id="wrapper">
-		
+	<section id="wrapper" class="content-wrapper">
 		<form class="user-modify-form">
 		<sec:csrfInput />
 			<a href="/user/modifyPw">비밀번호 변경<i class="material-icons">call_made</i></a>

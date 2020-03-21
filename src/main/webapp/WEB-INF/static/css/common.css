@@ -80,7 +80,7 @@ button {
 /* ----------------------------------- */
 body {
   display: grid;
-  grid-template-columns: 0.4fr repeat(2, 1fr);
+  grid-template-columns: 14rem repeat(2, 1fr);
   grid-template-areas:
     "aside header header"
     "aside main main"
@@ -104,22 +104,26 @@ header {grid-area: header;}
   grid-area: aside;
   transition: 0.5s all ease-in;
   background-color: #EF978F;
-  box-sizing: border-box;
-  border: 1px solid red;
+  box-shadow: 0.15rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
+  overflow-y: scroll;
+  overscroll-behavior: contain;
 }
 .logo {
 	text-align: center;
 	font-size: 2em;
-  padding: 0.75em 0 0.5em;
+  padding: 0.75em 0 0.25em;
 }
 .logo a {color: #000;}
 .logout-btn, #userName {display: inline;}
 .logout-btn button {
 	border: none;
-	font-size: 14px;
-	text-decoration: underline;
+  font-size: 14px;
+  background: transparent;
 }
 .title {text-align: center;}
+.sidebar-toggled {
+  grid-template-columns: 6.5rem repeat(2, 1fr);
+}
 @media (max-width: 1200px) {
   .side-menu {display: none;}
   .content-wrapper {
