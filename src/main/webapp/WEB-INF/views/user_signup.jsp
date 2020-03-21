@@ -12,7 +12,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-<section id="wrapper">
+<section id="wrapper" class="content-wrapper">
 	<form action="/user/" method="post" style="position:relative;">
 	<sec:csrfInput />
 			<label for="userId">아이디</label>

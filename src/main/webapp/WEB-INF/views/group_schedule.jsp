@@ -16,7 +16,7 @@
 <body>
 	<sec:csrfInput />
 	<section id="calendar" class="content-wrapper">
-		<a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기<i class="material-icons">event_available</i></a>
+		<c:if test="${isAdmin}"><a href="/group/mapAPI?groupId=${groupId }">새로운 일정 생성하기<i class="material-icons">event_available</i></a></c:if>
 		<div>
 			<div class="calendar-month">
 				<button onclick="getSchedule(-1)"><i class="material-icons">chevron_left</i></button>

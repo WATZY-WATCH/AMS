@@ -12,7 +12,7 @@
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<div id="wrapper">
+	<div id="wrapper" class="content-wrapper">
 	<sec:authorize access="isAnonymous()">
 		<h3 class="title">로그인</h3>
 			<c:if test="${param.containsKey('error') }">

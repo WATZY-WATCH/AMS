@@ -12,7 +12,7 @@
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
 	<sec:csrfInput />
-	<section id="wrapper">
+	<section id="wrapper" class="content-wrapper">
 		<div>
 			<label for="userId">아이디</label>
 			<input type="text" id="userId" name="userId" value=${userId} readonly />

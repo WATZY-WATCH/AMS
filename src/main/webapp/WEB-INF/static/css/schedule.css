@@ -92,12 +92,12 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 #calendar {
 	cursor: default;
 	margin: 0 auto;
-	overflow-y: scroll;
 }
 #calendar button, .schedule-modal-content button {
 	width: initial;
 	height: 1rem;
 	color: #333;
+	margin-bottom: 0.5rem;
 }
 #calendar button:hover, .schedule-modal-content button:hover {
 	background: transparent;
@@ -112,8 +112,8 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	text-align: center;
 	font-size: 1.5rem;
 	font-weight: 600;
-	padding: 0.5rem;
-	margin: 1rem auto 0;
+	padding: 0.25rem;
+	margin: 0.5rem auto 0;
 	border-top-left-radius: 0.75rem;
 	border-top-right-radius: 0.75rem;
 	background-color: #E9ECF3;
@@ -122,8 +122,10 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	border: 0.0625rem solid #f2f2f2;
 	border-top: 0;
 	border-bottom: 0;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
 }
-.calendar-day, .weeks {
+.calendar-day {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	overflow-x: scroll;
@@ -157,7 +159,7 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 }
 .days {
 	box-sizing: border-box;
-	height: 6rem;
+	height: 4.5rem;
 	overflow-y: scroll;
 }
 .daily-schedule {
@@ -177,4 +179,7 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 	.days {height: 3.5rem;}
 	#beginTime, #endTime {width: 45.7%;}
 	.map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 43%;}
+}
+@media(min-width: 1000px) {
+	#calendar {min-width: 1000px;}
 }
