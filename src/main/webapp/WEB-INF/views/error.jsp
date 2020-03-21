@@ -6,19 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>ERROR ${error.STATUS_CODE }</title>
+<link rel="stylesheet" href="/css/error.css">
 </head>
 <%@ include file="/WEB-INF/views/header.jsp" %>
 <body>
-	<div class="row">
-    <div class="col-md-12">
+	<div class="content-wrapper">
         <div class="number font-red"> <c:out value="${error.STATUS_CODE }"> </c:out></div>
         <div class="details">
-            <h3>${error.MESSAGE }</h3>
+            <h3 class="info-msg">${error.MESSAGE }</h3>
             <p>
-                <a href="<c:url value='/'/>"> [HOME] </a>을 클릭하시면, 홈으로 돌아갑니다.   
+                <a href="<c:url value='/'/>"> <strong>[HOME]</strong></a>을 클릭하시면, 홈으로 돌아갑니다.   
             </p>
         </div>
     </div>
-</div>
 </body>
 </html>
