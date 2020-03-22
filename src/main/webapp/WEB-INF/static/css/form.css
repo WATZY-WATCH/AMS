@@ -34,7 +34,7 @@ form {
     margin: 0 auto;
     text-align: left;
 }
-button {
+button:not(.logout-btn button) {
     width: 100%;
     height: 40px;
     color: #fff;

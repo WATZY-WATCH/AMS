@@ -65,4 +65,9 @@ public class HomeController {
 		return "user_home";
 	}
 	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String about() throws Exception {
+		return "about";
+	}
+	
 }
