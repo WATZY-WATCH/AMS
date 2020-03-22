@@ -125,7 +125,7 @@ header {grid-area: header;}
   grid-template-columns: 6.5rem repeat(2, 1fr);
 }
 @media (max-width: 1200px) {
-  .side-menu {display: none;}
+  .side-menu.navbar-nav {display: none;}
   .content-wrapper {
     margin: 0.25rem;
     padding: 0.25rem;
