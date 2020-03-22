@@ -23,7 +23,7 @@
 	<ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item active" style="margin-bottom: 1rem;">
-			<a class="nav-link" href="/">
+			<a class="nav-link" href="/about">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>ABOUT WATZY</span></a>
 		</li>

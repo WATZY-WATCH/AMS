@@ -49,7 +49,7 @@ input[type=date], input[type=time] {-webkit-appearance:none;}
 .time-wrapper {margin: 0 auto;}
 #beginTime, #endTime {
 	display: inline-block;
-	width: 47.5%;
+	width: 46%;
 	box-sizing: border-box;
 }
 .map_wrap+.schedule-modal-wrapper #beginTime, .map_wrap+.schedule-modal-wrapper #endTime {width: 46%;}
