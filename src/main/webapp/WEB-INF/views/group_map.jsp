@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>다음 지도 API</title>
+	<title>일정 생성</title>
 	<sec:csrfMetaTags />
 	<link rel="stylesheet" href="/css/animation.css" />
 	<link rel="stylesheet" href="/css/map.css" />

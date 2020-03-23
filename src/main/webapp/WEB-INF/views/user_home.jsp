@@ -7,7 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>WATZY Home</title>
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/weekly.css">
 	<sec:csrfMetaTags />

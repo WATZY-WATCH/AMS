@@ -68,8 +68,8 @@
               <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">스터디 모집</h4>
-            <p class="text-muted">분야, 지역, 연령대에 맞는 스터디를 찾을 수 있어요.<br>
-                스터디는 스터디장의 승인 후 가입 가능합니다.<br>
+            <p class="text-muted">분야, 지역, 연령대에 맞는 스터디를 찾을 수 있어요<br>
+                스터디는 스터디장의 승인 후 가입 가능합니다<br>
                 원하는 스터디가 없다면 직접 만들어보세요!</p>
           </div>
           <div class="col-md-4">
@@ -78,7 +78,7 @@
               <i class="fas fa-calendar-check fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">일정 관리</h4>
-            <p class="text-muted">운영중인 스터디의 일정을 생성할 수 있어요.<br>
+            <p class="text-muted">운영중인 스터디의 일정을 생성할 수 있어요<br>
                 번거로운 일정 관리는 그만<br>
                 왔지에서 바로 관리하세요!<br>
                 <sup class="sub-msg">소속된 스터디의 일정은 조회만 가능합니다</sup>
@@ -112,6 +112,9 @@
           <div class="col-lg-12">
             <div class="mock-up mock-up-1"></div>
             <div class="mock-up mock-up-2"></div>
+            <div class="mock-up mock-up-3"></div>
+            <div class="mock-up mock-up-4"></div>
+            <div class="mock-up mock-up-5"></div>
           </div>
         </div>
       </div>

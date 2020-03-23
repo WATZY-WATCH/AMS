@@ -245,6 +245,7 @@ header.masthead .intro-text .intro-heading {
 .mock-up {
   height: 100vh;
   background-repeat: no-repeat;
+  transition: 1.5s all ease-in;
 }
 .mock-up-1 {
   width: 100vw;
@@ -264,6 +265,47 @@ header.masthead .intro-text .intro-heading {
   background-image: url("../img/webpage_mockup.png");
   background-size: cover;
   background-position: 20% 100%;
+}
+
+.mock-up-3 {
+  width: 100vw;
+  height: calc(100vh - 54px);
+  position: relative;
+  background-image: url("../img/group_create.png");
+  background-size: cover;
+  left: calc( (100% - 100vw) / 2);
+}
+
+.mock-up-4 {
+  width: 100vw;
+  height: calc(100vh - 54px);
+  position: relative;
+  background-image: url("../img/group_list.png");
+  background-size: cover;
+  left: calc( (100% - 100vw) / 2);
+}
+
+.mock-up-5 {
+  width: 100vw;
+  height: calc(100vh - 54px);
+  position: relative;
+  background-image: url("../img/location.png");
+  background-size: cover;
+  left: calc( (100% - 100vw) / 2);
+}
+
+@media(max-width: 576px) {
+  .mock-up-3 {
+    background-image: url("../img/group_create_mb.png");
+    background-position-y: center;
+  }
+  .mock-up-4 {
+    background-image: url("../img/group_list_mb.png");
+  }
+  .mock-up-5 {
+    background-image: url("../img/location_mb.png");
+    background-position-y: 40%;
+  }
 }
 
 .timeline {
