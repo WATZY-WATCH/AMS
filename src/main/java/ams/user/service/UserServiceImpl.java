@@ -19,9 +19,18 @@ public class UserServiceImpl implements UserService {
 	@Inject UserDAO dao;
 	@Inject GroupManageDAO gmdao;
 	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public void signup(UserVO vo) throws Exception {
 		dao.signup(vo);
+		dao.setAuthority(vo);
+	}
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED)
+	@Override
+	public void signupOAuth(UserVO vo) throws Exception {
+		dao.signupOAuth(vo);
+		dao.setAuthority(vo);
 	}
 	
 	@Override
@@ -46,6 +55,7 @@ public class UserServiceImpl implements UserService {
 	public int pwChk(UserVO vo) throws Exception {
 		return dao.pwChk(vo);
 	}
+	
 	@Transactional(isolation=Isolation.READ_COMMITTED)
 	@Override
 	public int signout(String userId) throws Exception {
@@ -66,6 +76,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int modifyUserPw(UserVO vo) throws Exception {
 		return dao.modifyUserPw(vo);
+	}
+	
+	@Override
+	public int updateOAuthToken(UserVO vo) throws Exception {
+		return dao.updateOAuthToken(vo);
 	}
 	
 	@Override

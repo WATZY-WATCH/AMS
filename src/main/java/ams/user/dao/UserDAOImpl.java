@@ -20,6 +20,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void signup(UserVO vo) throws Exception {
 		sql.insert(ns+".signup", vo);
+	}
+	
+	@Override
+	public void signupOAuth(UserVO vo) throws Exception {
+		sql.insert(ns+".signupOAuth", vo);
+	}
+	
+	@Override
+	public void setAuthority(UserVO vo) throws Exception {
 		sql.insert(ns+".setAuthority", vo);
 	}
 	
@@ -60,6 +69,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int modifyUserPw(UserVO vo) throws Exception {
 		return sql.update(ns+".modifyUserPw", vo);
+	}
+	
+	@Override
+	public int updateOAuthToken(UserVO vo) throws Exception {
+		return sql.update(ns+".updateOAuthToken", vo);
 	}
 	
 	@Override
