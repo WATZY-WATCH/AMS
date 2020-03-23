@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<sec:csrfMetaTags />
-	<title>Insert title here</title>
+	<title>스터디 출석</title>
 	<link rel="stylesheet" href="/css/attend.css">
 	<!-- services 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae043202100ac9f674291ee85c05ebc2&libraries=services"></script>

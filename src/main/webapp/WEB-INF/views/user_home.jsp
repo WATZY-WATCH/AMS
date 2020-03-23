@@ -7,7 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>WATZY Home</title>
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/weekly.css">
 	<sec:csrfMetaTags />
@@ -17,10 +17,6 @@
 <nav>
 	<sec:authorize access="hasAuthority('USER')">
 		<p id="userName"> <a href="/user/modify"> ${userName }</a> 님 환영합니다! </p>
-		<form class="logout-btn" action="<c:url value='/logout' />" method="post">
-			<sec:csrfInput />
-			<button>로그아웃 </button>
-		</form>
 	</sec:authorize>
 </nav>
 <section class="content-wrapper">

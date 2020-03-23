@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>그룹 일정</title>
 <sec:csrfMetaTags />
 <link rel="stylesheet" href="/css/form.css">
 <link rel="stylesheet" href="/css/schedule.css" />

@@ -19,6 +19,9 @@
 	<header>
 		<h1 class="logo"><a href="/">WATZY</a></h1>
 	</header>
+	<section class="about-page">
+		<button class="about-btn" onclick="location.href='/about'">ABOUT WATZY</button>
+	</section>
 	<!-- Sidebar -->
 	<ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 		<!-- Nav Item - Dashboard -->
@@ -71,9 +74,9 @@
 					<a class="collapse-item" href="/user/signup">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<form class="logout-btn collapse-item" action="<c:url value='/logout' />" method="post">
+					<form class="logout-btn" action="<c:url value='/logout' />" method="post">
 						<sec:csrfInput />
-						<button>로그아웃 </button>
+						<button class="collapse-item">로그아웃 </button>
 					</form>
 				</sec:authorize>
 				<div class="collapse-divider"></div>

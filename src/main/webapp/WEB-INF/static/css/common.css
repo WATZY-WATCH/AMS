@@ -114,7 +114,7 @@ header {grid-area: header;}
   padding: 0.75em 0 0.25em;
 }
 .logo a {color: #000;}
-.logout-btn, #userName {display: inline;}
+.logout-btn, #userName {display: block;}
 .logout-btn button {
 	border: none;
   font-size: 14px;
@@ -123,6 +123,16 @@ header {grid-area: header;}
 .title {text-align: center;}
 .sidebar-toggled {
   grid-template-columns: 6.5rem repeat(2, 1fr);
+}
+.about-page {display: none;}
+.about-btn {
+    outline: none;
+    border: none;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: #EF978F;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
 }
 @media (max-width: 1200px) {
   .side-menu.navbar-nav {display: none;}
@@ -138,5 +148,12 @@ header {grid-area: header;}
     "main"
     "main"
     "footer";
+  }
+  header {position: relative;}
+  .about-page {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
   }
 }
