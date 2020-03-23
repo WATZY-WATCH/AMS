@@ -3,19 +3,11 @@ package ams.user.controller;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import ams.user.domain.OAuthUserVO;
+import ams.user.domain.UserVO;
 import ams.user.service.Kakaoapi;
-import ams.user.service.OAuthUserService;
+import ams.user.service.UserService;
 
 @Controller
 public class AuthenticationController {
 	
 	@Inject Kakaoapi KakaoAPI;
-	@Inject OAuthUserService service;
+	@Inject UserService service;
 	private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 	
 	@RequestMapping(path="/login", method=RequestMethod.GET)
@@ -66,7 +58,7 @@ public class AuthenticationController {
 		System.out.println(code);
 		JsonNode at = KakaoAPI.getAccessToken(code, state);
 		String access_token = at.get("access_token").asText();
-		String refresh_token = at.get("refresh_token").asText();
+//		String refresh_token = at.get("refresh_token").asText();
 		
 		System.out.println(at);
 		
@@ -80,40 +72,24 @@ public class AuthenticationController {
 		String userNickname = properties.get("nickname").asText();
 		String userEmail = kakao_account.get("email").asText();
 		
-		int isSigned = service.OAuthIdChk(userId);
+		int isSigned = service.idChk(userId);
 		if(isSigned == 0) {
-			OAuthUserVO vo = new OAuthUserVO();
+			UserVO vo = new UserVO();
+			vo.setUserType("KAKAO");
 			vo.setUserId(userId);
+			vo.setUserPw("kakao");
 			vo.setUserName(userNickname);
 			vo.setUserEmail(userEmail);
-			vo.setAccessToken(access_token);
-			if(refresh_token != null) vo.setRefreshToken(refresh_token);
+			vo.setUserToken(access_token);
 			service.signupOAuth(vo);
 		} else {
-			OAuthUserVO vo = service.getOAuthUserInfo(userId);
-			vo.setAccessToken(access_token);
-			if(refresh_token != null) vo.setRefreshToken(refresh_token);
+			UserVO vo = service.getUserInfo(userId);
+			vo.setUserToken(access_token);
 			service.updateOAuthToken(vo);
 		}
 		
 		System.out.println("controller access_token : " + access_token);
 		System.out.println("login Controller : " + userInfo);
-		if (userEmail != null) {
-			session.setAttribute("userId", userId);
-			session.setAttribute("userName", userNickname);
-			session.setAttribute("userEmail", userEmail);
-			session.setAttribute("access_Token", access_token);
-			
-			OAuthUserVO user = service.getOAuthUserInfo(userId);
-			List<GrantedAuthority> roles = new ArrayList<>(1);
-			String role = service.getOAuthUserAuthority(userId);
-			roles.add(new SimpleGrantedAuthority(role));
-			Authentication auth = new UsernamePasswordAuthenticationToken(userId, null, roles);
-			SecurityContextHolder.getContext().setAuthentication(auth);
-		} else {
-			
-		}
-
         return "redirect:/";
     }
 }
