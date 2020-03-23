@@ -7,6 +7,8 @@ public class UserVO {
 	private String userPw;
 	private String userName;
 	private String userEmail;
+	private String userType;
+	private String userToken;
 	private Date regDate;
 	private Date modDate;
 	private boolean enabled;
@@ -68,8 +70,22 @@ public class UserVO {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public String getUserToken() {
+		return userToken;
+	}
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
 	@Override
 	public String toString() {
-		return "UserVO [userId=" + userId + ", userPw=" + userPw + "]";
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
+				+ ", userType=" + userType + ", userToken=" + userToken + ", regDate=" + regDate + ", modDate="
+				+ modDate + ", enabled=" + enabled + ", weekStart=" + weekStart + ", weekEnd=" + weekEnd + "]";
 	}
 }
