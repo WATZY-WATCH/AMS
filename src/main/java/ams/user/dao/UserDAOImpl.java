@@ -33,6 +33,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public String getAuthority(String userId) throws Exception {
+		return sql.selectOne(ns+".getAuthority", userId);
+	}
+	
+	@Override
 	public int idChk(String userId) throws Exception {
 		int res = sql.selectOne(ns+".idChk", userId);
 		return res;

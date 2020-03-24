@@ -10,14 +10,18 @@
    </insert>
    
    <insert id="signupOAuth">
-    INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, USER_TOKEN, USER_TYPE)
-       					VALUES(#{userId}, #{userPw}, #{userName}, #{userToken}, #{userType})
+    INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_TOKEN, USER_TYPE)
+       					VALUES(#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userToken}, #{userType})
    </insert>
    
    <insert id="setAuthority">
    	INSERT INTO AUTHORITIES(USER_ID)
    							VALUES(#{userId})
    </insert>
+   
+   <select id="getAuthority" resultType="String">
+   	SELECT AUTHORITY FROM AUTHORITIES WHERE USER_ID = #{userId}
+   </select>
    
    <select id="idChk" resultType="int">
    	SELECT COUNT(*) FROM USERS WHERE USER_ID = #{userId}
@@ -105,7 +109,7 @@
    </update>
    
    <update id="updateOAuthToken" parameterType="ams.user.domain.UserVO">
-   		UPDATE USERS SET ACCESS_TOKEN = #{accessToken} WHERE USER_ID = #{userId}
+   		UPDATE USERS SET USER_TOKEN = #{userToken} WHERE USER_ID = #{userId}
    </update>
    
    <update id="signoutComment">

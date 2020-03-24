@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ams.user.domain.UserVO;
 import ams.user.service.UserService;
@@ -24,7 +25,7 @@ public class OAuthUserViewController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String getSignUp() throws Exception {
 		logger.info("get register");
-		return "user_signup";
+		return "oauth_signup";
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
