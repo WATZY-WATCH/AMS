@@ -10,6 +10,7 @@ public interface UserDAO {
 	public void signup(UserVO vo) throws Exception;
 	public void signupOAuth(UserVO vo) throws Exception;
 	public void setAuthority(UserVO vo) throws Exception;
+	public String getAuthority(String userId) throws Exception;
 	public int idChk(String userId) throws Exception;
 	public int nameChk(String userName) throws Exception;
 	public int emailChk(String userEmail) throws Exception;

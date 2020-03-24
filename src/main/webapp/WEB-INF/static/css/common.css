@@ -134,6 +134,7 @@ header {grid-area: header;}
     padding: 0.5rem;
     border-radius: 0.25rem;
 }
+input:read-only {cursor: default;}
 @media (max-width: 1200px) {
   .side-menu.navbar-nav {display: none;}
   .content-wrapper {

@@ -67,14 +67,6 @@
 		</c:forEach>
 	</div>
 </section>
-<script>
-	function signoutChk() {
-		let ret = confirm('카카오 계정과 서비스 연동이 해제됩니다.\n연동 해제 이후 데이터 복구가 불가능합니다.');
-		if(ret) {
-			document.location.href = "/oauth/user/signout";
-		}
-	}
-</script>
 <script type="text/javascript" src="/js/user_home.js"></script>
 <script type="text/javascript" src="/js/user_schedule.js"></script>
 </body>

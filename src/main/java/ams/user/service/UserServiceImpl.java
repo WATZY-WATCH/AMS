@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public String getAuthority(String userId) throws Exception {
+		return dao.getAuthority(userId);
+	}
+	
+	@Override
 	public int idChk(String userId) throws Exception {
 		int res = dao.idChk(userId);
 		return res;
