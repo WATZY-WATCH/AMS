@@ -61,14 +61,6 @@ public class OAuthUserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/", method=RequestMethod.PUT)
-	public int postUser_modify(@RequestBody UserVO vo, RedirectAttributes rttr) throws Exception {
-		logger.info("post user_modify");
-		logger.info(vo.getUserName());
-		return service.modifyUser(vo);
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/", method=RequestMethod.DELETE)
 	public ResponseEntity<String> postSignout(Principal principal, HttpSession session) {
 		logger.info("post kakao oauth singout......");

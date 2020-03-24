@@ -14,8 +14,10 @@
 	<section id="wrapper" class="content-wrapper">
 		<form class="user-modify-form">
 		<sec:csrfInput />
-			<a href="/user/modifyPw">비밀번호 변경<i class="material-icons">call_made</i></a>
-			<a href="/user/signout">회원탈퇴<i class="material-icons">exit_to_app</i></a>
+			<sec:authorize access="!hasAuthority('KAKAO')">
+				<a href="/user/modifyPw">비밀번호 변경<i class="material-icons">call_made</i></a>
+				<a href="/user/signout">회원탈퇴<i class="material-icons">exit_to_app</i></a>
+			</sec:authorize>
 			<div>
 				<label for="userId">아이디</label>
 				<input type="text" id="userId" name="userId" value=${userId} readonly />

@@ -76,13 +76,13 @@
 				<sec:authorize access='!hasAuthority("KAKAO")'>
 					<form class="logout-btn" action="<c:url value='/logout' />" method="post">
 						<sec:csrfInput />
-						<button class="collapse-item">로그아웃 </button>
+						<button class="collapse-item" style="width:auto;">로그아웃 </button>
 					</form>
 				</sec:authorize>
 				<sec:authorize access='hasAuthority("KAKAO")'>
 					<form class="logout-btn" action="<c:url value='/klogout' />" method="post">
 						<sec:csrfInput />
-						<button class="collapse-item">로그아웃 </button>
+						<button class="collapse-item" style="width:auto;">로그아웃 </button>
 					</form>
 				</sec:authorize>
 				<div class="collapse-divider"></div>
