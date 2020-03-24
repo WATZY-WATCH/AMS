@@ -73,7 +73,7 @@
 					<a class="collapse-item" href="/login">로그인</a>
 					<a class="collapse-item" href="/user/signup">회원가입</a>
 				</sec:authorize>
-				<sec:authorize access='!hasAuthority("KAKAO")'>
+				<sec:authorize access='!hasAuthority("KAKAO") and isAuthenticated()'>
 					<form class="logout-btn" action="<c:url value='/logout' />" method="post">
 						<sec:csrfInput />
 						<button class="collapse-item" style="width:auto;">로그아웃 </button>

@@ -7,6 +7,11 @@ var oAuthNameChked = false;
 var saveOAuthName=document.getElementById("userName").value;
 const initOAuthName = document.getElementById("userName").value;
 
+var idChked = false, nameChked = false, emailChked = false;
+var saveId = document.getElementById("userId").value;
+var saveName=document.getElementById("userName").value;
+var saveEmail=document.getElementById("userEmail").value;
+
 function idCheck() {
 	const userId = document.getElementById("userId").value;
 	
@@ -31,12 +36,10 @@ function idCheck() {
 				msg.style.display = "block";
 				msg.style.fontSize = "14px";
 				msg.style.color = "green";
-				submitBtn.removeAttribute("disabled");
 			} else {
 				msg.innerHTML = "중복된 아이디가 존재합니다.";
 				msg.style.display = "block";
 				msg.style.fontSize = "14px";
-				submitBtn.setAttribute("disabled", "true");
 			}
 		}
 	}
@@ -93,7 +96,7 @@ function oAuthNameChk() {
 				msg.style.display = "inline";
 				msg.style.fontSize = "14px";
 				msg.style.color = "green";
-				nameChked = true;
+				oAuthNameChked = true;
 				saveOAuthName= document.getElementById("userName").value;
 				submitBtn.removeAttribute("disabled");
 			} else {

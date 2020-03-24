@@ -26,9 +26,13 @@
 
 			<label for="userName">성명</label>
 			<input type="text" id="userName" name="userName" />
-
+			<button type="button" id="nameChkBtn" onclick="nameChk()">중복확인 </button>
+			<p id="nameMsg" style="display:none">중복된 닉네임이 존재합니다. </p>
+			
 			<label for="userEmail">이메일 </label>
 			<input type="email" id="userEmail" name="userEmail" />
+			<button type="button" id="emailChkBtn" onclick="emailChk()">중복확인 </button>
+			<p id="emailMsg" style="display:none">중복된 이메일이 존재합니다. </p>
 
 			<button type="button" id="submitBtn" onclick="formChk()" disabled>회원가입</button>
 	</form>
