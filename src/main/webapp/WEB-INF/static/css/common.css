@@ -18,7 +18,7 @@ button {
 	outline: none;
 }
 
-/* ê³µí†µìš”ì†Œ */
+/* °øÅëºÎºÐ */
 .clearfix::after {
 	display: block;
 	content: "";
@@ -34,7 +34,7 @@ button {
 }
 /* ------------------------------------ */
 
-/* ê·¸ë¦¬ë“œ ì‹œìŠ¤í…œ */
+/* ±×¸®µå ½Ã½ºÅÛ */
 /* For mobile phones: */
 [class*="col-"] {
   width: 100%;
@@ -114,9 +114,10 @@ header {grid-area: header;}
   padding: 0.75em 0 0.25em;
 }
 .logo a {color: #000;}
-.logout-btn, #userName {display: block;}
+.logout-btn, #userName {display: inline;}
 .logout-btn button {
 	border: none;
+	color: #EF978F;
   font-size: 14px;
   background: transparent;
 }
