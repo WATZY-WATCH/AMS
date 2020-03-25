@@ -115,12 +115,12 @@ public class GroupAttendanceController {
 		ga.setGroupId(groupId);
 		ga.setUserId(userId);
 		ga.setScheduleId(scheduleId);
-		ga.setAttendaceStatus(isTimeout ? "ì¶œì„" : "ì§€ê°");
+		ga.setAttendaceStatus(isTimeout ? "Ãâ¼®" : "Áö°¢");
 		
 		service.requestAttend(ga, member, isTimeout);	
 		
 		retObj.put("chkTime", format.format(new Date()));
-		retObj.put("status", (isTimeout ? "ì¶œì„" : "ì§€ê°"));
+		retObj.put("status", (isTimeout ? "Ãâ¼®" : "Áö°¢"));
 		
 		entity = new ResponseEntity<Map<String,Object>>(retObj, HttpStatus.OK);
 		

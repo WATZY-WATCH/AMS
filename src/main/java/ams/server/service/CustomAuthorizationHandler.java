@@ -26,7 +26,7 @@ public class CustomAuthorizationHandler {
 		
 		String authority = service.authorityChk(vo);
 
-		//authority.equals("MASTER")ì˜ ê²½ìš° authorityê°€ Nullì´ë©´ NullPointerException ë°œìƒ 
+		//authority.equals("MASTER")ÀÇ °æ¿ì authority°¡ NullÀÌ¸é NullPointerException ¹ß»ı 
 		return "MASTER".equals(authority);
 	}
 }
