@@ -21,3 +21,10 @@
 	color: #EF978F;
 	border-bottom: 0.5px solid #EF978F;
 }
+
+label {display: inline-block;}
+
+#userName, #userEmail {
+	display: inline-block;
+	width: 78%;
+}

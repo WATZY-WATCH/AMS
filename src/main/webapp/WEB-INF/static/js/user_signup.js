@@ -3,6 +3,8 @@ const token = elementToken && elementToken.getAttribute("content");
 const elementHeader = document.querySelector('meta[name="_csrf_header"]');
 const header = elementHeader && elementHeader.getAttribute("content");
 
+const submitBtn = document.getElementById("submitBtn");
+
 var oAuthNameChked = false;
 var saveOAuthName=document.getElementById("userName").value;
 const initOAuthName = document.getElementById("userName").value;
@@ -11,6 +13,14 @@ var idChked = false, nameChked = false, emailChked = false;
 var saveId = document.getElementById("userId").value;
 var saveName=document.getElementById("userName").value;
 var saveEmail=document.getElementById("userEmail").value;
+
+function activateSubmit() {
+	if(idChked && nameChked && emailChked) {
+		submitBtn.removeAttribute("disabled");
+	} else {
+		submitBtn.setAttribute("disabled", "true");
+	}
+}
 
 function idCheck() {
 	const userId = document.getElementById("userId").value;
@@ -22,7 +32,6 @@ function idCheck() {
 	
 	const data = {userId : userId};
 	const msg = document.getElementById("idMsg");
-	const submitBtn = document.getElementById("submitBtn");
 	const xhr = new XMLHttpRequest();
 	
 	xhr.open("GET", "./id/"+userId, true);
@@ -36,11 +45,79 @@ function idCheck() {
 				msg.style.display = "block";
 				msg.style.fontSize = "14px";
 				msg.style.color = "green";
+				saveId = document.getElementById("userId").value;
+				idChked = true;
 			} else {
 				msg.innerHTML = "중복된 아이디가 존재합니다.";
 				msg.style.display = "block";
 				msg.style.fontSize = "14px";
+				idChked = false;
 			}
+			activateSubmit();
+		}
+	}
+}
+
+function nameChk() {
+	const userName = document.getElementById("userName").value;
+	const data = {userName : userName};
+	const msg = document.getElementById("nameMsg");
+	const xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", "./name", true);
+	xhr.setRequestHeader(header, token);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify(data));
+	
+	xhr.onload = function () {
+		if(xhr.status == 200 || xhr.status == 201) {
+			if(xhr.responseText == 0) {
+				msg.innerHTML = "사용 가능한 닉네임입니다.";
+				msg.style.display = "inline";
+				msg.style.fontSize = "14px";
+				msg.style.color = "green";
+				nameChked = true;
+				saveName= document.getElementById("userName").value;
+			} else {
+				msg.innerHTML = "중복된 닉네임이 존재합니다.";
+				msg.style.display = "inline";
+				msg.style.fontSize = "14px";
+				msg.style.color = "#EF978F";
+				nameChked = false;
+			}
+			activateSubmit();
+		}
+	}
+}
+
+function emailChk() {
+	const userEmail = document.getElementById("userEmail").value;
+	const data = {userEmail : userEmail};
+	const msg = document.getElementById("emailMsg");
+	const xhr = new XMLHttpRequest();
+	
+	xhr.open("POST", "./email", true);
+	xhr.setRequestHeader(header, token);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify(data));
+	
+	xhr.onload = function () {
+		if(xhr.status == 200 || xhr.status == 201) {
+			if(xhr.responseText == 0) {
+				msg.innerHTML = "사용 가능한 이메일입니다.";
+				msg.style.display = "inline";
+				msg.style.fontSize = "14px";
+				msg.style.color = "green";
+				emailChked = true;
+				saveEmail= document.getElementById("userEmail").value;
+			} else {
+				msg.innerHTML = "중복된 이메일이 존재합니다.";
+				msg.style.display = "inline";
+				msg.style.fontSize = "14px";
+				msg.style.color = "red";
+				emailChked = false;
+			}
+			activateSubmit();
 		}
 	}
 }
@@ -57,14 +134,20 @@ function formChk() {
 	
 	if(userId === "") {
 		alert("아이디를 입력해주세요. ");
+	} else if(saveId != userId) {
+		alert("아이디가 바뀌었습니다. 중복확인을 다시 해주세요.")
 	} else if(userPw === "") {
 		alert("비밀번호를 입력해주세요. ");
 	} else if(RegExp.test(userPw)) {
 		pwMsg.style.display = "block";
 	} else if(userName === "") {
 		alert("이름을 입력해주세요. ");
+	} else if(saveName != userName) {
+		alert("닉네임이 바뀌었습니다. 중복확인을 다시 해주세요.");
 	} else if(userEmail === "") {
 		alert("이메일을 입력해주세요. ");
+	} else if(saveEmail != userEmail) {
+		alert("이메일이 바뀌었습니다. 중복확인을 다시 해주세요.");
 	} else if(!EmailRegExp.test(userEmail)) {
 		alert("올바른 이메일 형식이 아닙니다.");
 	} else {
@@ -74,7 +157,6 @@ function formChk() {
 
 function oAuthNameChk() {
 	const userName = document.getElementById("userName").value;
-	const submitBtn = document.getElementById("submitBtn");
 	const data = {userName : userName};
 	const msg = document.getElementById("nameMsg");
 	const xhr = new XMLHttpRequest();
@@ -105,6 +187,7 @@ function oAuthNameChk() {
 				msg.style.fontSize = "14px";
 				msg.style.color = "#EF978F";
 				nameChked = false;
+				submitBtn.setAttribute("disabled", "true");
 			}
 		}
 	}
