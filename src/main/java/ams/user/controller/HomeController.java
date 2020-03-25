@@ -38,6 +38,10 @@ public class HomeController {
 	public String home(Principal principal, Model model) throws Exception {
 		logger.info("Welcome home!");
 		
+		if(principal == null) {
+			System.out.println("anonymous user access");
+			return "redirect:/about";
+		}
 		
 		LocalDateTime today = LocalDateTime.now();
 		int day = today.getDayOfWeek().getValue() % 7;

@@ -34,7 +34,7 @@
               <a class="nav-link js-scroll-trigger" href="#team">Developers</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/">LogIn</a>
+              <a class="nav-link" href="/login">LogIn</a>
             </li>
           </ul>
         </div>

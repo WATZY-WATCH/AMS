@@ -26,6 +26,7 @@
 			username-parameter="userId"
 			password-parameter="userPw"
 			authentication-success-handler-ref="loginSuccessHandler" />
+		<sec:intercept-url pattern="/" access="permitAll"/>
 		<sec:intercept-url pattern="/about" access="permitAll"/>
 		<sec:intercept-url pattern="/oauth/user/" access="permitAll" />
 		<sec:intercept-url pattern="/user/name" access="permitAll" />
