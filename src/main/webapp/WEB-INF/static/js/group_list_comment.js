@@ -13,9 +13,11 @@ function commentTemplate (userId, commentList) {
 			commentId = comment.commentId,
 			curPage = comment.curPage;
 
+		comment.commentMsg = comment.commentMsg.replace(/(\n|\r\n)/g, '<br>');
 		let userNameNode = createNode("p", userName),
 			regDateNode = createNode("span", regDateStr),
-			content = createNode("p", comment.commentMsg);
+			content = document.createElement("p");
+			content.innerHTML = comment.commentMsg;
 		
 		content.classList.add("comment-content");
 		userNameNode.classList.add("user-name");
@@ -117,7 +119,7 @@ function updateComment(e, commentId, curPage){
 	
 	comment.appendChild(updateBtn);
 	comment.appendChild(cancelBtn);
-	document.getElementById("updateCommentMsg").value= content.innerText;
+	document.getElementById("updateCommentMsg").value= content.innerHTML.replace(/(<br>)/g, '\n');
 }
 
 function cancelUpdate(target, content){
@@ -130,12 +132,13 @@ function cancelUpdate(target, content){
 function updateCommentConfirm(e, commentId, curPage){
 	let confirmed = confirm("댓글을 수정하시겠습니까?");
 	if(confirmed) {
-		const commentMsg=document.getElementById("updateCommentMsg").value;	
-		const data={ commentId : commentId , commentMsg : commentMsg };
+		const commentMsg=document.getElementById("updateCommentMsg").value;
+		const data={commentMsg : commentMsg };
 		const xhr = new XMLHttpRequest();
-		xhr.open("PUT", "/comment/"+commentId+"/"+commentMsg, true);
+		xhr.open("PUT", "/comment/"+commentId, true);
 		xhr.setRequestHeader(header, token);
-		xhr.send();
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.send(JSON.stringify(data));
 		xhr.onload = async function () {
 			if(xhr.status == 200 || xhr.status == 201) {
 				if(xhr.responseText == 'SUCCESS') {

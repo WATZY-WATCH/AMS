@@ -23,17 +23,17 @@
 				<span class="effect-halo effect-halo-running"></span>
 				<form action="./attend" method="post">
 					<sec:csrfInput />
-					<button class="attendBtn" type="button" onclick="attend('${userId }', '${start }')">출석하기 </button>
+					<button class="attendBtn" type="button" onclick="attend('${userId }', '${start }')">출석하기</button>
 				</form>
 			</c:when>
 			<c:when test="${attendanceStatus ne null }">
 				<h2 class="attendanceStatus">${attendanceStatus } </h2>
 			</c:when>
 			<c:when test="${finished eq true &&  attendanceStatus eq null}">
-				<h2 class="attendanceStatus">결석 </h2>
+				<h2 class="attendanceStatus">결석</h2>
 			</c:when>
 			<c:otherwise>
-				<h2 class="attendanceStatus">출석시간이 아닙니다 </h2>
+				<h2 class="attendanceStatus">출석시간이 아닙니다</h2>
 			</c:otherwise>
 		</c:choose>
 		</div>

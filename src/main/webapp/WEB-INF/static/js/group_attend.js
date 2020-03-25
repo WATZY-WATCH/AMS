@@ -18,9 +18,11 @@ let timer = setInterval(function() {
 			circleLoader.classList.add("absent");
 		}
 		else if(status.innerText == '지각') circleLoader.classList.add("late");
-		circleLoader.classList.add("load");
-		circleLoader.classList.add("load-complete");
-		checkmark.style.display = "block";
+		if(status.innerText != '출석시간이 아닙니다') {
+			circleLoader.classList.add("load");
+			circleLoader.classList.add("load-complete");
+			checkmark.style.display = "block";
+		}
 		return;
 	}
 	let now = new Date();

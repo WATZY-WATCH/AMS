@@ -21,7 +21,6 @@ function commentCount(groupId) {
 			xhr.onload = function () {
 				if(xhr.status == 200 || xhr.status == 201) {
 					ret=Number(xhr.responseText);
-					console.log("bbb"+ret);
 					resolve(ret);
 				}
 			}
@@ -40,7 +39,6 @@ function currentCommentCount(groupId, commentId) {
 			xhr.onload = function () {
 				if(xhr.status == 200 || xhr.status == 201) {
 					ret=Number(xhr.responseText);
-					console.log("ccc"+ret);
 					resolve(ret);
 				}
 			}

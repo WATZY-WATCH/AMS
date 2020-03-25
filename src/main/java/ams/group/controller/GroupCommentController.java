@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import ams.group.domain.GroupCommentVO;
 import ams.group.domain.GroupCriteria;
 import ams.group.domain.PageMaker;
@@ -112,11 +114,12 @@ public class GroupCommentController {
 		}
 		return entity;
 	}
-	@RequestMapping(value="/{commentId}/{commentMsg}", method = {RequestMethod.PUT, RequestMethod.PATCH})
-	public ResponseEntity<String> update(@PathVariable("commentId") int commentId, @PathVariable("commentMsg") String commentMsg) {
+	@RequestMapping(value="/{commentId}", produces = "application/json; charset=utf8", method = {RequestMethod.PUT, RequestMethod.PATCH})
+	public ResponseEntity<String> update(@PathVariable("commentId") int commentId, @RequestBody JsonNode req) {
 		System.out.println("put comment update.........");
 		ResponseEntity<String> entity = null;
 		try {
+			String commentMsg = req.get("commentMsg").asText();
 			GroupCommentVO vo= new GroupCommentVO();
 			vo.setCommentId(commentId);
 			vo.setCommentMsg(commentMsg);
