@@ -35,6 +35,10 @@
 			</div>
 		</section>
 	</section>
+	<script>
+		const applicationMsg = document.querySelector(".user-msg");
+		applicationMsg.innerHTML = applicationMsg.innerHTML.replace(/(\n|\r\n)/g, '<br>');
+	</script>
 	<script type="text/javascript" src="/js/group_manage_master_read.js"></script>
 </body>
 </html>

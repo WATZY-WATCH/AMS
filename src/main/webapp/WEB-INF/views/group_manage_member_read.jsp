@@ -58,8 +58,11 @@
 			<p class="group-age"><i class="material-icons info-label">grade</i>${GroupVO.groupStartAge}대 ~ ${GroupVO.groupEndAge}대</p>
 		</div>
 		<p class="group-detail"><span>${GroupVO.groupDetail}</span></p>
-		</section>
 	</section>
+	<script>
+		const groupDetail = document.querySelector(".group-detail");
+		groupDetail.innerHTML = groupDetail.innerHTML.replace(/(\n|\r\n)/g, '<br>');
+	</script>
 	<script type="text/javascript" src="/js/group_manage_member_read.js"></script>
 </body>
 

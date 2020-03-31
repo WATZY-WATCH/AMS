@@ -66,6 +66,8 @@ keyboard_backspace
 		
 		var divCommentId;
 		var tempComment;
+		const groupDetail = document.querySelector(".group-detail");
+		groupDetail.innerHTML = groupDetail.innerHTML.replace(/(\n|\r\n)/g, '<br>');
 	</script>
 	<script type="text/javascript" src="/js/group_list_read.js"></script>
 	<script type="text/javascript" src="/js/group_list.js"></script>

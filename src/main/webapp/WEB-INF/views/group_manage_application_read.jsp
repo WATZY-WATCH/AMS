@@ -49,6 +49,12 @@
 		<p id="applicationMsg"><span>${GroupApplicationVO.msg }</span></p>
 		<button type="button" id="applicationDeleteBtn" onclick="applicationDelete('${GroupApplicationVO.groupId}','${GroupApplicationVO.userId}')">삭제하기</button>
 	</section>
+	<script>
+		const groupDetail = document.querySelector(".group-detail");
+		groupDetail.innerHTML = groupDetail.innerHTML.replace(/(\n|\r\n)/g, '<br>');
+		const applicationMsg = document.getElementById("applicationMsg");
+		applicationMsg.innerHTML = applicationMsg.innerHTML.replace(/(\n|\r\n)/g, '<br>');
+	</script>
 	<script type="text/javascript" src="/js/group_manage_application_read.js"></script>
 </body>
 
