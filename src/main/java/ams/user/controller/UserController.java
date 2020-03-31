@@ -33,7 +33,7 @@ public class UserController {
 			String pwd = pwdEncoder.encode(inputPwd);
 			vo.setUserPw(pwd);
 			service.signup(vo);
-			response.sendRedirect("/");
+			response.sendRedirect("/login");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

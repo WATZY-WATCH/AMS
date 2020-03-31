@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class Kakaoapi {
 	private final static String CLIENT_ID = "718b94115712bb9ba0bde752892fae07";
-	private final static String REDIRECT_URI = "http://localhost:8080/oauth";
+	private final static String REDIRECT_URI = "https://watzy.tk/oauth";
 	
 	public JsonNode getAccessToken(String authorize_code, String state) throws UnsupportedEncodingException {
         final String RequestUrl = "https://kauth.kakao.com/oauth/token";
