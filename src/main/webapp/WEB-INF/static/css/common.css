@@ -18,7 +18,7 @@ button {
 	outline: none;
 }
 
-/* °øÅëºÎºÐ */
+/* ï¿½ï¿½ï¿½ï¿½Îºï¿½ */
 .clearfix::after {
 	display: block;
 	content: "";
@@ -34,7 +34,7 @@ button {
 }
 /* ------------------------------------ */
 
-/* ±×¸®µå ½Ã½ºÅÛ */
+/* ï¿½×¸ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ */
 /* For mobile phones: */
 [class*="col-"] {
   width: 100%;
@@ -125,16 +125,6 @@ header {grid-area: header;}
 .sidebar-toggled {
   grid-template-columns: 6.5rem repeat(2, 1fr);
 }
-.about-page {display: none;}
-.about-btn {
-    outline: none;
-    border: none;
-    font-size: 0.8rem;
-    color: #fff;
-    background-color: #EF978F;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-}
 input:read-only {cursor: default;}
 @media (max-width: 1200px) {
   .side-menu.navbar-nav {display: none;}
@@ -152,10 +142,4 @@ input:read-only {cursor: default;}
     "footer";
   }
   header {position: relative;}
-  .about-page {
-    display: block;
-    position: absolute;
-    top: 1.5rem;
-    left: 1rem;
-  }
 }

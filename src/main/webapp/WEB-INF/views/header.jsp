@@ -20,9 +20,6 @@
 	<header>
 		<h1 class="logo"><a href="/">WATZY</a></h1>
 	</header>
-	<section class="about-page">
-		<button class="about-btn" onclick="location.href='/about'">ABOUT WATZY</button>
-	</section>
 	<!-- Sidebar -->
 	<ul class="side-menu navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 		<!-- Nav Item - Dashboard -->
